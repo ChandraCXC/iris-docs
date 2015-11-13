@@ -1,4 +1,4 @@
-# <a name="top"></a> Loading Data into Iris
+# Loading Data into Iris
 
 ------------------------------------------------------------------------
 

@@ -1,4 +1,4 @@
-# <a name="top"></a>Supported Input File Formats
+# Supported Input File Formats
 
 <a name="toc"></a>
 [ASCII](#ascii) | [CSV](#csv) | [FITS](#fits) | [VOTable](#vot) | [IPAC](#ipac) | [TST](#tst)

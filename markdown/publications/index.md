@@ -1,4 +1,4 @@
-# <a name="top"></a>Iris Publications
+# Iris Publications
 
 ------------------------------
 

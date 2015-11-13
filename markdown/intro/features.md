@@ -1,4 +1,4 @@
-# <a name="top"></a>Iris Features
+# Iris Features
 
 #### <a name="toc"></a>Table of contents
 

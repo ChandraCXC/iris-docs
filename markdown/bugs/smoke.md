@@ -1,4 +1,4 @@
-# <a name="top"></a>Installation Troubleshooting
+# Installation Troubleshooting
 
 The following is a list of known issues that may arise while installing or attempting to run Iris. If you encounter a problem that is not listed here, first check for it on the [Iris Bugs & Caveats page][bugs], and then contact the [CXC Helpdesk][helpdesk] for assistance, if necessary. It is recommended that you include in your bug report the results of the [Iris installation smoke test][smoke].
 

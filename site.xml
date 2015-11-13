@@ -23,6 +23,7 @@
                 prettyPrint();
                 });
             </script>
+            <p><a name="top"></a></p>
         </head>
         <links>
             <item name="Chandra CXC" href="http://cxc.cfa.harvard.edu"/>

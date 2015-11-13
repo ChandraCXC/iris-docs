@@ -1,4 +1,4 @@
-# <a name="top"></a> Building and Managing SEDs in Iris
+# Building and Managing SEDs in Iris
 
 ------------------------------------------------------------------------
 

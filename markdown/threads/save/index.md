@@ -1,4 +1,4 @@
-# <a name="top"></a> Saving SED Data in Iris
+# Saving SED Data in Iris
 
 ------------------------------------------------------------------------
 

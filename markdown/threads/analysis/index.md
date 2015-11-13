@@ -1,4 +1,4 @@
-# <a name="top"></a> Analyzing SED Data in Iris
+# Analyzing SED Data in Iris
 
 ------------------------------------------------------------------------
 

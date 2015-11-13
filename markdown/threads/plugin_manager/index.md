@@ -1,4 +1,4 @@
-# <a name="top"></a> How to Install Iris Plugins
+# How to Install Iris Plugins
 
 ------------------------------------------------------------------------
 

@@ -1,4 +1,4 @@
-# <a name="top"></a> Visualizing SED Data in Iris
+# Visualizing SED Data in Iris
 
 ------------------------------------------------------------------------
 

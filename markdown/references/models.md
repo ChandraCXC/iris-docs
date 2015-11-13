@@ -1,4 +1,4 @@
-# <a name="top"></a>Iris Models
+# Iris Models
 
 The following models are provided by Iris for fitting to SED data. Models can be combined together in complex mathematical expressions to better model features of a SED. Models are assumed to be suitable for modeling the continuum, unless it is specifically noted that the model is for modeling spectral lines.
 

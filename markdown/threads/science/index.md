@@ -1,4 +1,4 @@
-# <a name="top"></a> Shifting, Interpolating, Integrating SED Data in Iris
+# Shifting, Interpolating, Integrating SED Data in Iris
 
 ------------------------------------------------------------------------
 

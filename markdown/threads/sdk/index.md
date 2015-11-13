@@ -1,4 +1,4 @@
-# <a name="top"></a> Creating Iris Plugins: the Iris Software Development Kit
+# Creating Iris Plugins: the Iris Software Development Kit
 
 ------------------------------------------------------------------------
 

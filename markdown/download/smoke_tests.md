@@ -1,4 +1,4 @@
-# <a name="top"></a>Smoke Test
+# Smoke Test
 
 The 'smoketest' included in the Iris software package is available to help you verify that Iris has been installed correctly and is working properly on your computer platform.
 

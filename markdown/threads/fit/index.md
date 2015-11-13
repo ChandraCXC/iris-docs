@@ -1,4 +1,4 @@
-# <a name="top"></a> Modeling and Fitting SED Data in Iris
+# Modeling and Fitting SED Data in Iris
 
 ------------------------------------------------------------------------
 

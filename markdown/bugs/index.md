@@ -1,4 +1,4 @@
-# <a name="top"></a> Iris Bugs & Caveats
+# Iris Bugs & Caveats
 
 [Fitting](#fit) | [Multiple Users](#multiple_users) | [Science Tools](#sci_tools) | [Graphics](#graphics) | [SED Data Types](#sed_data) | [Visualization/Interaction](#visuals)
 

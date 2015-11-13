@@ -1,4 +1,4 @@
-# <a name="top"></a> Statistically Combining SEDs with Iris
+# Statistically Combining SEDs with Iris
 
 ------------------------------------------------------------------------
 
