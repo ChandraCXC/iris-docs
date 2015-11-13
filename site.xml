@@ -17,6 +17,14 @@
 
     <body>
         <head>
+            <!-- meta keywords for SI / HEA -->
+            <meta http-equiv="keywords" content="chandra, axaf, x-ray, astronomy, astrophysics, catalog, multi-wavelength, multiwavelength, vao, VAO, sed, SED, SEDs"/>
+            <meta http-equiv="description" content="Iris: VO SED Analysis Tool"/>
+            <meta name="creator" content="SAO-HEA"/>
+            <meta name="keywords" content="SI,Smithsonian,Smithsonian Institute"/>
+            <meta name="keywords" content="CfA,SAO,Harvard-Smithsonian,Center for Astrophysics"/>
+            <meta name="keywords" content="HEA,HEAD,High Energy Astrophysics Division"/>
+
             <script type="text/javascript">
                 $(document).ready(function () {
                 $("div.source pre").addClass("prettyprint");
