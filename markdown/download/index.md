@@ -244,8 +244,9 @@ From the command line, activate the Iris environment. Then, you can run Iris fro
 	     
 **IMPORTANT:** If you have set "`iris`" as an alias in your `$HOME/.bashrc` or `$HOME/.bash_profile` to run an older version of Iris, please rename the old alias to something else (for example, "`iris201`" for Iris v2.0.1).
 
-->![Iris GUI](./imgs/iris_desktop_small.jpg "The Iris Desktop")<-
-->The Iris Desktop<-
+![Iris GUI](./imgs/iris_desktop_small.jpg "The Iris Desktop")
+
+**Above:** The Iris Desktop
 
 When you close Iris, you can restore your original environment by entering the following into the command line:
 
