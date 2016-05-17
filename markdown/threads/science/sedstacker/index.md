@@ -194,7 +194,8 @@ Users can restore the SEDs back to their original values by clicking
 normalizations done to the Stack.
 
 Stacks can be removed from the session by clicking the "Delete" button
-in the bottom-right corner. Iris will ask for the user's confirmation
+in the bottom-right corner, or by right-clicking on the Stack under "Open
+Stacks" and selecting "Delete." Iris will ask for the user's confirmation
 before deleting a Stack.
 
 |   |
