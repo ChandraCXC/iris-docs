@@ -1,9 +1,16 @@
 # Downloading Iris
 
 #### <a name="toc"></a> Table of Contents
+--------
 
-[Quickstart](#quickstart) | [Download and Install Iris](#download) | 
-[Run Iris](#run) | [Run Smoke Test](#test) | [For C-Shell Users](#cshell)
+-   **[Quickstart](#quickstart)**
+-   **[Detailed Download Instructions](#details)**
+    -   [Download and Install Iris](#download)
+    -   [Run Iris](#run) 
+    -   [Run Smoke Test](#test)
+    -   [For C-Shell Users](#cshell)
+
+-----------------------------------------------------------------------
 
 <!-- TODO: highlight this area -->
 Iris 3.0b1: released August 2015 
@@ -12,7 +19,10 @@ This version of Iris is a beta release. Please see the latest Release Notes for 
 
 The Iris software package is available for download through Anaconda. Iris is supported on Linux and Macintosh OS X 10.6 - 10.11 computer platforms running Java version 1.6 or higher.
 
-*If you are running Mac OS X 10.5 with Java 1.5, please follow the special installation instructions available [here][macosx105].*
+*If you are running Mac OS X 10.5 with Java 1.5, please follow the special
+ installation instructions available [here][macosx105].*
+
+-----------------------------------------------------------------------
 
 ### <a name="sysreqs"></a> Iris system requirements
 
