@@ -6,11 +6,11 @@
 [Run Iris](#run) | [Run Smoke Test](#test) | [For C-Shell Users](#cshell)
 
 <!-- TODO: highlight this area -->
-Iris 2.1 Beta: released May 2015 
-This version of Iris is our beta release. Please see the latest Release Notes for details on the new features, bug fixes, and currently known bugs and limitations. If you find any bugs or have suggestions, please contact us at the [CXC HelpDesk](/helpdesk) with the tag "Iris."
+Iris 3.0b1: released August 2015 
+This version of Iris is a beta release. Please see the latest Release Notes for details on the new features, bug fixes, and currently known bugs and limitations. If you find any bugs or have suggestions, please contact us at the [CXC HelpDesk](/helpdesk) with the tag "Iris."
 <!-- end highlight section -->
 
-The Iris software package is available for download through Anaconda. Iris is supported on Linux and Macintosh OS X 10.6 - 10.9 computer platforms running Java version 1.6 or higher.
+The Iris software package is available for download through Anaconda. Iris is supported on Linux and Macintosh OS X 10.6 - 10.11 computer platforms running Java version 1.6 or higher.
 
 *If you are running Mac OS X 10.5 with Java 1.5, please follow the special installation instructions available [here][macosx105].*
 
@@ -21,23 +21,26 @@ Iris will not run on a system which does not have at least Java SE 6 (developer 
 To check your current Java version, type `java -version` into a terminal window:
 
 	unix% java -version
-	java version "1.6.0_26"
-	Java(TM) SE Runtime Environment (build 1.6.0_26-b03)
-	Java HotSpot(TM) Server VM (build 20.1-b02, mixed mode)
+	java version "1.8.0_40"
+	Java(TM) SE Runtime Environment (build 1.8.0_40-b27)
+	Java HotSpot(TM) 64-Bit Server VM (build 25.40-b25, mixed mode)
       
 Free disk space:
 
-  * OS X: ~215 MB
-  * Linux 64-bit: ~330 MB
-  * Linux 32-bit: ~315 MB
+  * OS X: ~220 MB
+  * Linux 64-bit: ~370 MB
+  * Linux 32-bit: ~330 MB
   
-The Specview and Sherpa applications which comprise Iris run simultaneously and communicate with each other via a SAMP hub.
+<!--
+The Specview and Sherpa applications which comprise Iris run simultaneously and
+communicate with each other via a SAMP hub.
+-->
 
 Known issues with installing and starting Iris are listed on the [Troubleshooting page][download_trouble].
 
 ## <a name="quickstart"></a> Download Iris QuickStart
 
-These instructions tell you how to download and install Iris quickly. For more details, tips-and-tricks and some troubleshooting, read the full direction starting in Detailed Download Directions.
+These instructions tell you how to download and install Iris quickly. For more details, tips-and-tricks and some troubleshooting, read the full direction starting in [Detailed Download Directions](#details).
 
 ### Download and Installation Instructions:
 
@@ -51,16 +54,19 @@ These directions assume you are running in a BASH shell. If you are running a C-
 	  * [Linux 64-bit][conda_l64]
 	  * [Linux 32-bit][conda_l32]
   
-  - Install Miniconda. Installing Miniconda in batch mode assumes the user agrees with the end user lcense agreement found here.
+  - Install Miniconda. Installing Miniconda in batch mode assumes the user agrees with the end user [license agreement][conda_license].
 
 		$ bash Miniconda-latest-Linux-x86_64.sh -b -p $HOME/miniconda
 		$ export PATH=$PATH:$HOME/miniconda/bin
       
-  - Add `$ export PATH=$PATH:$HOME/miniconda/bin` to your `$HOME/.bashrc` or `$HOME/.bash_profile` so that you can run Anaconda commands from your terminal at any time. Otherwise, you will need to run this line everytime you run Iris. For example:
+  - Add `$ export PATH=$PATH:$HOME/miniconda/bin` to your `$HOME/.bashrc` or `$HOME/.bash_profile` so that you can run Anaconda commands from your terminal at any time. For example:
 
 		$ emacs ~/.bashrc
 		
 		export PATH=$PATH:$HOME/miniconda/bin
+
+    Otherwise, you will need to run `$ export PATH=$PATH:$HOME/miniconda/bin`
+    each time before you run Iris.
       
   - Add the CXC and Sherpa conda repositories to your Anaconda configuration:
   
@@ -68,7 +74,14 @@ These directions assume you are running in a BASH shell. If you are running a C-
 		$ conda config --add channels https://conda.anaconda.org/sherpa
       
   - Install Iris. This will create a environment specific to Iris. Say yes (enter "y") when the download script asks you to install the packages.
-		$ conda create -n iris iris=2.1
+		$ conda create -n iris iris=3.0b1
+
+    If you have an environment named `iris` already, you can either rename your
+    old environment (with, for example, `mv $HOME/miniconda/envs/iris
+    $HOME/miniconda/envs/iris2.1`), give this new Iris installation a new
+    enviornment name (with `conda create -n iris30b1 iris=3.0b1`), or delete
+    your old Iris installation entirely (with `rm -rf
+    $HOME/miniconda/envs/iris`).
     
   - Start Iris. Activate the Iris environment first. Then, you can run Iris as you would for previous versions.
   
@@ -95,7 +108,7 @@ For C-shell users: If you wish to run Iris from a C-shell, see the extra steps n
 
 ### <a name="supported_platforms"></a> Determine if your platform is supported
 
-Iris is supported on Mac OS X 10.6-10.9 64-bit machines and Linux systems.
+Iris is supported on Mac OS X 10.6-10.11 64-bit machines and Linux systems.
 
 <!-- 
 To see if you Mac is supported, do the following:
@@ -115,8 +128,10 @@ These directions assume you are running in a BASH shell. If you are running a C-
 
     $ /bin/bash  # for C-shell users ONLY
     
-  - Iris is now distributed through Anaconda, a Python distribution and package manager. If you do not have Anaconda, download Miniconda (a minimal version of Anaconda) for your platform. Otherwise, skip to step 2. 
-     * [OS X (64-bit)][conda_osx]
+  - Iris is now distributed through Anaconda, a Python distribution and package
+    manager. If you do not have Anaconda, download Miniconda (a minimal version
+    of Anaconda) for your platform. Otherwise, skip to step 2. 
+         * [OS X 64-bit][conda_osx]
 	 * [Linux 64-bit][conda_l64]
 	 * [Linux 32-bit][conda_l32]
 
@@ -137,7 +152,7 @@ These directions assume you are running in a BASH shell. If you are running a C-
       
   - Install Iris. This will create a environment specific to Iris.
 
-		$ conda create -n iris iris=2.1
+		$ conda create -n iris iris=3.0b1
       
     You will see something like the following output below. Say yes (enter "y") when the download script asks you to install the packages.
 
@@ -151,76 +166,57 @@ These directions assume you are running in a BASH shell. If you are running a C-
 
 			package                    |            build
 			---------------------------|-----------------
-			iris-2.1                   |                3        24.4 MB
+			iris-3.0b1                 |                3        24.4 MB
 			numpy-1.8.2                |           py27_0         7.3 MB
 			pyfits-3.3.0               |       np18py27_1         1.9 MB
-			python-2.7.9               |                2        13.4 MB
+			python-2.7.12              |                2        13.4 MB
 			sampy-1.2.1                |           py27_1          57 KB
 			scipy-0.14.0               |       np18py27_0        29.6 MB
-			setuptools-15.2            |           py27_0         435 KB
+			setuptools-25.1.6          |           py27_0         435 KB
 			astlib-0.7.0               |       np18py27_2         1.1 MB
-			pip-6.1.1                  |           py27_0         1.4 MB
-			sherpa-4.7                 |       np18py27_1         6.2 MB
+			pip-8.1.2                  |           py27_0         1.4 MB
+			sherpa-4.8                 |       np18py27_1         6.2 MB
 			sedstacker-0.1.0_iris      |       np18py27_3         4.7 MB
-			sherpa-samp-2.1            |       np18py27_3          84 KB
+			sherpa-samp-3.0b1          |       np18py27_3          84 KB
 			------------------------------------------------------------
 												   Total:        90.5 MB
 
 		The following NEW packages will be INSTALLED:
 
 			astlib:      0.7.0-np18py27_2     
-			iris:        2.1-3                
-			numpy:       1.8.2-py27_0         
-			openssl:     1.0.1k-1             
-			pip:         6.1.1-py27_0         
+			iris:        3.0b1-1                
+			numpy:       1.8.2-py27_1         
+			openssl:     1.0.2h-1             
+			pip:         8.1.2-py27_0         
 			pyfits:      3.3.0-np18py27_1     
-			python:      2.7.9-2              
+			python:      2.7.12-1              
 			readline:    6.2-2                
 			sampy:       1.2.1-py27_1         
 			scipy:       0.14.0-np18py27_0    
 			sedstacker:  0.1.0_iris-np18py27_3
-			setuptools:  15.2-py27_0          
-			sherpa:      4.7-np18py27_1       
-			sherpa-samp: 2.1-np18py27_3       
-			sqlite:      3.8.4.1-1            
+			setuptools:  25.1.6-py27_0          
+			sherpa:      4.8.0-py27_2       
+			sherpa-samp: 3.0b1-np18py27_3       
+			sqlite:      3.13.0-0            
 			system:      5.8-2                
 			tk:          8.5.18-0             
-			zlib:        1.2.8-0
-
-		The following NEW packages will be INSTALLED:
-
-			astlib:      0.7.0-np18py27_1     
-			iris:        2.1-3                
-			numpy:       1.8.2-py27_0         
-			openssl:     1.0.1k-1             
-			pip:         6.1.1-py27_0         
-			pyfits:      3.3.0-np18py27_1     
-			python:      2.7.9-1              
-			readline:    6.2-2                
-			sampy:       1.2.1-py27_1         
-			scipy:       0.14.0-np18py27_0    
-			sedstacker:  0.1.0_iris-np18py27_3
-			setuptools:  15.2-py27_0          
-			sherpa:      4.7-np18py27_1       
-			sherpa-samp: 2.1-np18py27_3       
-			sqlite:      3.8.4.1-1            
-			tk:          8.5.18-0             
-			zlib:        1.2.8-0              
+			zlib:        1.2.8-3
+             
 
 		Proceed ([y]/n)? y
 		Fetching packages ...
-		iris-2.1-3.tar 100% |################################| Time: 0:00:03   6.62 MB/s
+		iris-3.0b1-1.t 100% |################################| Time: 0:00:03   6.62 MB/s
 		numpy-1.8.2-py 100% |################################| Time: 0:00:02   3.08 MB/s
 		pyfits-3.3.0-n 100% |################################| Time: 0:00:00   6.01 MB/s
-		python-2.7.9-2 100% |################################| Time: 0:00:35 390.66 kB/s
+		python-2.7.12- 100% |################################| Time: 0:00:35 390.66 kB/s
 		sampy-1.2.1-py 100% |################################| Time: 0:00:00   4.51 MB/s
 		scipy-0.14.0-n 100% |################################| Time: 0:00:30   1.03 MB/s
-		setuptools-15. 100% |################################| Time: 0:00:00   1.67 MB/s
+		setuptools-25. 100% |################################| Time: 0:00:00   1.67 MB/s
 		astlib-0.7.0-n 100% |################################| Time: 0:00:01 695.91 kB/s
-		pip-6.1.1-py27 100% |################################| Time: 0:00:01 826.33 kB/s
-		sherpa-4.7-np1 100% |################################| Time: 0:00:06 992.10 kB/s
+		pip-8.1.2-py27 100% |################################| Time: 0:00:01 826.33 kB/s
+		sherpa-4.8-np1 100% |################################| Time: 0:00:06 992.10 kB/s
 		sedstacker-0.1 100% |################################| Time: 0:00:05 869.50 kB/s
-		sherpa-samp-2. 100% |################################| Time: 0:00:00 833.10 kB/s
+		sherpa-samp-3. 100% |################################| Time: 0:00:00 833.10 kB/s
 		Extracting packages ...
 		[      COMPLETE     ]|#######################################################################################################| 100%
 		Linking packages ...
@@ -242,7 +238,7 @@ From the command line, activate the Iris environment. Then, you can run Iris fro
 	$ source activate iris
 	$ iris
 	     
-**IMPORTANT:** If you have set "`iris`" as an alias in your `$HOME/.bashrc` or `$HOME/.bash_profile` to run an older version of Iris, please rename the old alias to something else (for example, "`iris201`" for Iris v2.0.1).
+**IMPORTANT:** If you have set "`iris`" as an alias in your `$HOME/.bashrc` or `$HOME/.bash_profile` to run an older version of Iris, please rename the old alias to something else (for example, "`iris2.0.1`" for Iris v2.0.1).
 
 ![Iris GUI](./imgs/iris_desktop_small.jpg "The Iris Desktop")
 
@@ -308,6 +304,7 @@ you can skip the `/bin/bash` and replace source activate iris with `source_activ
 [conda_osx]:		http://repo.continuum.io/miniconda/Miniconda-3.8.3-MacOSX-x86_64.sh "OS X Miniconda"
 [conda_l64]:		http://repo.continuum.io/miniconda/Miniconda-3.8.3-Linux-x86_64.sh "Linux 64 Miniconda"
 [conda_l32]:		http://repo.continuum.io/miniconda/Miniconda-3.8.3-Linux-x86.sh "Linux 32 Miniconda"
+[conda_license]:	https://docs.continuum.io/anaconda/eula
 
 <!-- threads -->
 [sedstacker]: 		../threads/science/sedstacker/index.html "SED Stacker"

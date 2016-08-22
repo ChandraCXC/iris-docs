@@ -13,6 +13,53 @@
     <tbody>
 
       <tr>
+	<td valign="top">Aug. 19, 2016</td>
+        <td valign="top">
+	  <p>
+            <strong>Iris v3.0b1 Released</strong>
+	  </p>
+	  <p>
+	    Major overhaul of the Visualizer, Metadata Browser, and Fitting Tool.
+	  </p>
+	  
+	  <ul>
+	    <li>
+	      New Visualizer which allows click-and-drag panning, a
+	    fixed viewport, and displays high-resultion (~10<sup>5</sup>
+	    points) spectra.
+	    </li>
+	    <li>
+	      New Fitting Tool layout. Model functions, parameters, fit
+	    options, and fit statistics are now displayed in one window.
+	    </li>
+	    <li>
+	      Upgraded to Sherpa 4.8.
+	    </li>
+	    <li>
+	      New Metadata Browser. Users can now invert the selection of
+	    points. The SED data values (spectral, flux, and error) are
+	    displayed in the same units as the Visualizer.
+	    </li>
+	    <li>
+	      Updated SED Stacker layout.
+	    </li>
+	  </ul>
+
+	  <p>
+	    Note that this is a <em>beta</em> release. With the extensive
+	    rework of Iris's visualization tools, there are a handful of
+	    capabilities that are currently missing or dissabled as compared to
+	    Iris 2.1.
+	  </p>
+	  
+	  <p>
+	    Please read the <a href="./v3.0b1/releasenotes/index.html">Release Notes</a>
+	    for a full list of bug fixes, enhancements, and caveats.
+	  </p>
+	  
+        </td>
+      </tr>
+      <tr>
         <td valign="top">May 07, 2015</td>
         <td valign="top">
 	  <p>

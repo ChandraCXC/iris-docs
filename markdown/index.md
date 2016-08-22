@@ -15,16 +15,39 @@ spectral range.
 
   <div style="margin-left:25px;margin-right:20px">
 
-    <strong>New release: Iris v2.1</strong>
+    <strong>New release: Iris v3.0b1</strong>
     <br/>
-    The latest version of Iris includes new, powerful analysis features,
-    like integrating under fitted model components, a tool for statistically
-    combining groups of SEDs, and the ability to arbitrarily combine
-    template libraries and table models with other libraries, models, and
-    functions (see the <a href="./releasenotes/index.html">Release Notes</a> for details).
-    <strong><a href="./download/index.html">Download Iris v2.1</a></strong>.
+    Iris has undergone a round of plastic surgery, with a full overhaul on
+    the Visualizer, Metadata Browser, and Fitting Tool. The Visualizer and
+    Metadata Browser now use STILTS -- the same library that powers TOPCAT --
+    as their backend. High-resoultion spectra can now be plotted. The Fitting 
+    Tool encapsulates the models, parameter values, fitting options, and fit 
+    statistics in one window. 
+    For a full list of the changes introduced in Iris 3.0 beta 1, please see 
+    the <a href="./releasenotes/index.html">Release Notes</a>.
+    <strong><a href="./download/index.html">Download Iris v3.0b1</a></strong>.
+
+  </div>
 
 </div>
+
+<div style="margin-left:20px;margin-right:20px">
+
+  <div style="margin-left:25px;margin-right:20px">
+
+    <strong>Warning</strong>
+    <br/>
+    The documentation has not been fully updated. All but the Release Notes and
+    Download directions need small (e.g., Loading SED Data, Saving SED Data,
+    Statistically Combining SEDs, Shifting, Interpolating, and Integrating SED
+    Data) to large (Visualizing SED Data, Modeling and Fitting SED Data)
+    updates.
+
+    The changes to Iris 3.0b1 are mostly user-interface updates and bug
+    fixes. The algorithms behind building, editing, and fitting SEDs remains
+    essentially the same.
+
+  </div>
 
 </div>
 
@@ -52,11 +75,11 @@ restoring custom fitting sessions.
 
 *Iris* seamlessly combines key features of several existing astronomical
 software applications to streamline and enhance the SED analysis
-process; these are *Specview* for data visualization, *Sherpa* for
-spectral model fitting, and the NASA Extragalactic Database (NED) for
-data access. We strongly encourage you to provide feedback on your
-experience with the tool by sending your comments, suggestions, and
-questions to the [**CXC HelpDesk**](/helpdesk).
+process; *Sherpa* for spectral model fitting, and the NASA Extragalactic
+Database (NED) and Italian Space Agency Data Center (ASDC) for data access. We
+strongly encourage you to provide feedback on your experience with the tool by
+sending your comments, suggestions, and questions to the [**CXC
+HelpDesk**](/helpdesk). 
 
 ------------------------------------------------------------------------
 
