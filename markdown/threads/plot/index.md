@@ -6,22 +6,9 @@
 
 #### Synopsis:
 
-The Iris GUI is an adaptation of the [Specview
-(STScI)](http://www.stsci.edu/resources/software_hardware/specview/)
-spectral visualization and analysis GUI, and as a result is equipped
-with several of the data display preferences and editing capabilities
-offered by that application. This thread presents the various options
-available for interacting with and customizing the SED data display in
-the *Iris Visualizer*.
+The Iris GUI uses the [STILTS][stilts] API for its plotting backend. The tabular and plot displays of SED data are heavily based on [STIL][stil], the library both [TOPCAT][topcat] and STILTS use. This thread presents the various options available for interacting with and customizing the SED data display in the *Iris Visualizer*.
 
-*Note*: As most Specview features remain unchanged between the standard
-and the Sherpa-enabled Iris version, the documentation provided in the
-[Specview help
-documentation](http://specview.stsci.edu/javahelp/Main.html) serves as
-an exhaustive reference for most of the data visualization features in
-Iris.
-
-**Last Update:** 07 May 2015 - Updated for Iris 2.1 beta.
+**Last Update:** ______ - Updated for Iris 3.0.
 
 ------------------------------------------------------------------------
 
@@ -30,16 +17,17 @@ Iris.
 
 -   **[Introduction](index.html#intro)**
 -   **[Setting Display Preferences](index.html#set_prefs)**
-    -   [Adjusting the coordinates view port](index.html#wcsviewport)
+    -   [Adjusting the Coordinates View Port](index.html#wcsviewport)
     -   [Refreshing the Data Plot](index.html#redraw)
     -   [Units](index.html#units)
     -   [Axis Scale](index.html#axis_scale)
     -   [Grid](index.html#grid)
-    -   [Labeling the Data Plot](index.html#labels)
+    -   [Plot Legend](index.html#legend)
+    -   [Change SED Display Name](index.html#labels)
 -   **[Displaying Metadata and Data Values](index.html#metadata)**
+    -   [Data tab](index.html#data_metadata)
     -   [Point Metadata tab](index.html#point_metadata)
     -   [Segment Metadata tab](index.html#segment_metadata)
-    -   [Data tab](index.html#data_metadata)
 -   **[Selecting and Masking SED Data Points](index.html#mask)**
     -   [Select Points using Metadata Browser](index.html#mask_metadata)
     -   [Select Points from Data Plot](index.html#select_plot)
@@ -87,24 +75,49 @@ below.
 
 ### <a name="wcsviewport"></a> Adjusting the coordinates view port
 
-The set of widgets in the upper-left corner of the data display are
-available for adjusting the view and orientation of the SED segment(s)
-within the main display.
+The set of widgets in the Visualizer toolbar are available for adjusting the view and orientation of the SED segment(s) within the main display.
 
-  * ![\[Iris screenshot image\]](./imgs/auto_button.png)          **Auto/fixed coordinates** - automatically scale the coordinates view port to fully encompass the data each time the plot is refreshed; or, fix the coordinates view port so that all subsequent plot refreshes that result from a data change will take place on a fixed coordinates view port.
-  * ![\[Iris screenshot image\]](./imgs/reset_button.png)         **Reset** - set the coordinates view port to a full view of the data.
-  * ![\[Iris screenshot image\]](./imgs/reset_central.png)        **Reset to central data** - set the coordinates view port to a central view of the data, with edges discarded. The central third of the wavelength span of the data is used to normalize the view port.
-  * ![\[Iris screenshot image\]](./imgs/back_button.png)          **Back** - return to the previously used coordinates view port. Successive application of this function causes a walk back throughout the coordinates view port history.
-  * ![\[Iris screenshot image\]](./imgs/zoom_buttons.png)         **Zoom out/in** - zoom out/in by 20%. One can also zoom in and out using the cursor and scroll button on the mouse. Rolling the button forward zooms out from the location of the cursor on the graph; rolling backward zooms in.
-  * ![\[Iris screenshot image\]](./imgs/left_right_buttons.png)   **Move left/right** - move the coordinates view port to the left/right
-  * ![\[Iris screenshot image\]](./imgs/expand_button.png)        **Expand** - expand the coordinates view port in the X direction only.
+#### Zooming in and out
+
+There are a few methods of zooming and out of the view port:
+
+  * ![\[Iris screenshot image\]](./imgs/zoom_buttons.png)  Zoom out/in by 33% from the center of the viewport by clicking the "In" and "Out" buttons at the top of the Visualizer.
+  * Zoom in/out from the cursor's position by hovering over the view port scrolling up or down.
+  * Hold Shift and click-and-drag the box to zoom into a specific region on the view port.
+
+#### Expanding the view port
+
+  * Expand or contract either the X or Y axis by hovering over the outside of the graph and scrolling up (to expand) or down (to contract). The cursor's position is the reference position for expanding/contracting the axis.
+  * Right-click and drag the mouse over the plot to expand/contract the view port along both the X and Y axes.
+
+#### Panning
+
+There are two methods for panning around the view port:
+
+  * Left-click and drag the plot.
+  * ![\[Iris screenshot image\]](./imgs/left_right_buttons.png)   Use the four (4) arrow buttons at the top of the plot window to pan the view port up, down, left, and right.
+
+#### Change the plot scaling
+
+![Iris screenshot image](./imgs/plot_type_button.png)  The X and Y axes can be plotted in linear or logarithmic scales. The user controls the scaling by clicking "View --> Plot Type -->" on the menu bar,  then choosing the scaling:
+
+  * Log - plot both X and Y in a logarithmic scale.
+  * Linear - plot both X and Y in a linear scale.
+  * X Log - plot X in a logarithmic scale, and Y linearly.
+  * Y Log - plot Y in a logarithmic scale, and X linearly.
+
+#### Fix the plot coordinates
+
+![\[Iris screenshot image\]](./imgs/auto_button.png) The user may choose to automatically scale the coordinates view port to fully encompass the data each time the plot is refreshed; or, fix the coordinates view port so that all subsequent plot refreshes that result from a data change will take place on a fixed coordinates view port. To choose the behavior, toggle "View --> Fixed" preference.
+
+By default, if any SED changes occur (adding/removing a SED segment, switching SEDs, etc.), the plot ranges will automatically be reset to show every data point in the SED. By fixing the plot, any SED events that happen outside of the Visualizer will not affect the view port plot ranges. The user can still pan, zoom in/out, and reset the plot ranges manually; the plot view will remain unaffected only by SED changes.  
 
 ------------------------------------------------------------------------
 
-### <a name="redraw"></a> Refreshing the Data Plot
+### <a name="reset"></a> Resetting the Data Plot
 
 |-------------------------------------------------|-|
-| ![Iris screenshot image](./imgs/redraw.png)     | The "Redraw" button is available within the Iris main display for refreshing the data plot, e.g., to clear any visual garbling or crosshair cursor leftovers that arise under certain combinations of computer platform and CPU speed. 																 |
+| ![Iris screenshot image](./imgs/reset_button.png)     | The "Reset" button is available within the Iris main display for resetting the data plot so that all edges. |
 
 
 ------------------------------------------------------------------------
@@ -112,16 +125,14 @@ within the main display.
 ### <a name="units"></a> Units
 
 |--------------------------------------------------------|-|
-| ![Iris screenshot image](./imgs/set_units_buttons.png) | The preferred units for the data display, e.g., "ergs/cm2/s/angstrom" versus "angstrom", may be set using either the "Units" or "Flux density" buttons in the upper-right corner of the main display. |
+| ![Iris screenshot image](./imgs/set_units_buttons.png) | The preferred units for the data display, e.g., "ergs/cm2/s/angstrom" versus "angstrom", may be set using either the "Units" button in the upper-right corner of the main display. This also updates the units shown in the Metadata Browser's "Data" tab.|
 
-The "Flux density" selection box allows you to choose the type of
-spectral quantity to be displayed on the Y axis, either "Flux density"
-or "Flux", and also enables the selection of units for the spectral axis
-quantity. Once a selection is made, a dialog box populated with all
-available physical units appropriate for that quantity, will pop up
-(this pop-up box matches the "Units" selections). Selecting the desired
-units and clicking on the "Apply" button adjusts the data display to the
-desired preference.
+The "Units" button allows you to choose the spectral and flux/flux density
+units to display an SED in. A dialog box populated with all available physical
+units will pop up: the left column is for the spectral (X) axis, and the right
+column holds the flux/flux density axis. Selecting the desired units and
+clicking the "Update" button adjusts the data display to the desired
+preference.
 
 ![Iris screenshot image](./imgs/set_units.png)
 
@@ -130,7 +141,7 @@ desired preference.
 ### <a name="axis_scale"></a> Axis Scale
 
 |-------------------------------------------------------|-|
-| ![Iris screenshot image](./imgs/plot_type_button.png) | The scale of the data plot axes in the Iris main display can be changed using the "Plot Type" button, or by clicking the cursor near any one of the four corners of the display; this will open a small window in which the X and Y axes scale may be set to linear or logarithmic (regular or extended).|
+| ![Iris screenshot image](./imgs/plot_type_button.png) | The scale of the data plot axes can be changed through "View --> Plot Type" on the menu bar; the X and Y axes scale may be set to linear or logarithmic.|
 
 ------------------------------------------------------------------------
 
@@ -147,34 +158,20 @@ desired preference.
 
 ------------------------------------------------------------------------
 
-### <a name="labels"></a> Labeling the Data Plot
+### <a name="legend">Plot legend</a>
 
-#### Change SED Display Name
+Be default, a plot legend is shown in the top-right corner of the plot display. The legend can be hidden/shown by checking the preference "View --> "Show Legend" off and on.
+
+### <a name="labels">Change SED Display Name</a>
 
 By default, the SED Viewer window displays either "Sed" or "Iris
 Visualizer" for any file loaded into Iris. This name can be changed in
 the SED Builder window. Type the desired name in the bar next to "ID:"
 under "Selected SED" then click "Change." From now on, the SED Viewer
-window will display the new name on the top bar and on the graph itself.
-You can also change the name of the SED on the graph by clicking on it;
-a box pops-up in the upper-left corner of the Iris desktop, into which
-you can type the desired name. Note that this title will revert back to
-the name of the SED listed in the Builder window.
+window will display the new name on the top bar and on the plot.
 
   [![Iris screenshot](./imgs/change_sed_name_small.jpg)](./imgs/change_sed_name.png)   
   [![Iris screenshot](./imgs/change_sed_name2_small.jpg)](./imgs/change_sed_name2.png)
-
-#### Add Labels to Data Plot
-
-You can also add labels and move them wherever you want on the plot.
-Double-clicking on empty space in the plot window will open up a box in
-the upper-left corner of the Iris Desktop, into which you can type the
-desired label name. By default, the label will be laid-out horizontally.
-Clicking the "Flip" putton will rotate the text 90 degrees. You can move
-the label by clicking and dragging it to another position. Clicking once
-on the label will re-open the box in the upper-left corner of the
-Desktop and allow you to edit it. To delete, click on the label and
-select "Erase" in the dialogue box.
 
 |   |
 |--:|
@@ -187,6 +184,29 @@ select "Erase" in the dialogue box.
 Clicking the "Metadata" button in the upper-right corner of the Iris
 display opens a window with tabs containing different levels of data and
 metadata in the SED.
+
+The metadata tables may be sorted by clicking the header of the column by
+which you would like to sort - once for ascending order, twice for
+descending order, and three times to restore the default sorting - and
+rearranged by clicking and dragging columns left or right. <!--A nested sort
+may be achieved by first selecting the column that will set the master
+sort, clicking and holding the Control key, and then selecting the
+column by which to sort the groups of the master sort.-->
+
+### <a name="data_metadata"></a> Data tab
+
+![Iris screenshot](./imgs/data_new.png)
+
+The X and Y coordinate values of each SED data point in the Iris display
+are contained in the "Spectral Axis" and "Flux Axis" columns of the Data
+tab, and reflect the values that are currently plotted in the Iris display;
+when the plot units are changed, the Data tab updates accordingly.
+
+|   |
+|--:|
+|[[Back to top][top]]|
+
+------------------------------------------------------------------------
 
 ### <a name="point_metadata"></a> Point Metadata tab
 
@@ -202,14 +222,6 @@ published, data point significance values, among other properties. The
 full list of metadata information available for each data point will
 depend on the specific data sources.
 
-The metadata table may be sorted by clicking the header of the column by
-which you would like to sort - once for ascending order, twice for
-descending order, and three times to restore the default sorting - and
-rearranged by clicking and dragging columns left or right. A nested sort
-may be achieved by first selecting the column that will set the master
-sort, clicking and holding the Control key, and then selecting the
-column by which to sort the groups of the master sort.
-
 |   |
 |--:|
 |[[Back to top][top]]|
@@ -223,27 +235,6 @@ under this tab, in a similar table as the one that appears under the
 Point Metadata tab.
 
 <!-- should there be a picture here? -->
-
-|   |
-|--:|
-|[[Back to top][top]]|
-
-------------------------------------------------------------------------
-
-### <a name="data_metadata"></a> Data tab
-
-![Iris screenshot](./imgs/data_new.png)
-
-The X and Y coordinate values of each SED data point in the Iris display
-are contained in the "Spectral Axis" and "Flux Axis" columns of the Data
-tab in the Metadata window, and reflect the values as they were imported
-into Iris from NED or uploaded from a file on your hard disk - i.e.,
-*not* what is currently plotted in the Iris display (in the event that
-you changed the units of the data plot within the display). For example,
-if the data were uploaded in Jansky flux units versus frequency in
-Hertz, but then you change the display units to ergs/s/cm2/Angstrom
-versus Angstrom, the data point values returned will be in Jansky flux
-units and Hertz.
 
 |   |
 |--:|
@@ -616,6 +607,8 @@ screenshot](./imgs/topcat_examplesmall.jpg)](./imgs/topcat_example.png)
 
 <!-- external links -->
 [topcat]: http://www.star.bris.ac.uk/~mbt/topcat/#docs "TOPCAT"
+[stils]:  http://www.star.bris.ac.uk/~mbt/stilts/ "STILTS"
+[stil]:   http://www.star.bris.ac.uk/~mbt/stil/ "STIL"
 
 <!-- threads -->
 [sedstacker]: 		../../threads/science/sedstacker/index.html "SED Stacker"
