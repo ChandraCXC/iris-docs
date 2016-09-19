@@ -158,11 +158,11 @@ preference.
 
 ------------------------------------------------------------------------
 
-### <a name="legend">Plot legend</a>
+### <a name="legend"></a>Plot legend
 
 Be default, a plot legend is shown in the top-right corner of the plot display. The legend can be hidden/shown by checking the preference "View --> "Show Legend" off and on.
 
-### <a name="labels">Change SED Display Name</a>
+### <a name="labels"></a>Change SED Display Name
 
 By default, the SED Viewer window displays either "Sed" or "Iris
 Visualizer" for any file loaded into Iris. This name can be changed in
@@ -185,13 +185,19 @@ Clicking the "Metadata" button in the upper-right corner of the Iris
 display opens a window with tabs containing different levels of data and
 metadata in the SED.
 
+**PICTURE**
+
 The metadata tables may be sorted by clicking the header of the column by
 which you would like to sort - once for ascending order, twice for
-descending order, and three times to restore the default sorting - and
+descending order <!--, and three times to restore the default sorting--> - and
 rearranged by clicking and dragging columns left or right. <!--A nested sort
 may be achieved by first selecting the column that will set the master
 sort, clicking and holding the Control key, and then selecting the
 column by which to sort the groups of the master sort.-->
+
+Users can view the metadata of an arbitrary selection of SED Segments from the 
+left column. Hold down Shift and click on the Segments you wish to display in 
+the Metadata Browser tabs.
 
 ### <a name="data_metadata"></a> Data tab
 
@@ -244,31 +250,59 @@ Point Metadata tab.
 
 ## <a name="mask"></a> Selecting and Masking SED Data Points
 
-### <a name="mask_metadata"></a> Select Points using Metadata Browser
+Users can filter their SED data using various tools in the Metadata Browser. 
+Here is a quick reference list to the Metadata window's filtering tools:
 
-Data points can be masked, or 'grayed out' from the Iris plot display
-with a number of tools. The most basic works by simply selecting the
-rows corresponding to these points in any one of the Point Metadata,
-Segment Metadata, or Data tabs of the Metadata window, and then click
-"View un-selected" at the bottom of that window; you can select the
-points by clicking the desired rows while holding the Ctrl/Command key
-down. In the display, the points selected in the Metadata window will
-appear fainter than the unselected points.
+![Iris screenshot image](./imgs/img.png) - select all the points in the table
+![Iris screenshot image](./imgs/img.png) - invert the selection of points
+![Iris screenshot image](./imgs/img.png) - clear all point selections
+![Iris screenshot image](./imgs/img.png) - create a new SED out of the selected points
+![Iris screenshot image](./imgs/img.png) - mask the selected points. These points will be hidden from the plot and will not be included in any fits
+![Iris screenshot image](./imgs/img.png) - unmask the selected points.
+![Iris screenshot image](./imgs/img.png) - clear all masks
+![Iris screenshot image](./imgs/img.png) - select the rows for which the given [filter expression](#boolean) returns True.
+
+The subsections below describe in more detail how users may view, filter, and 
+extract new datasets from their SEDs.
+
+### <a name="mask_metadata"></a> Selecting Points using Metadata Browser
+
+Data points can be masked from the Iris plot display and fitting sessions
+with a number of methods. The most basic works by simply selecting the
+rows corresponding to these points in any one of the Point Metadata
+<!--, Segment Metadata, --> or Data tabs of the Metadata window, and then 
+clicking "Mask Points" at the bottom of that window. You can select the
+points by clicking the desired rows while pressing the Ctrl/Command key. In 
+the display, the selected points will be 
+removed. 
+
+**PICTURE**
+
+In the Metadata Browser, masked points are denoted by a checkmark in 
+the "Mask" column. The "Masked" column is only present when at least one point 
+is masked. Note that this checkbox column is not clickable; to mask/unmask
+points, select the rows you wish to edit, then click "Mask Points" or 
+"Unmask Points".
+
+The Metadata Browser provides a couple quick selection tools for table rows:
+"Select All" selects all the points shown in the current tab. Users can invert 
+the selection of points with the "Invert Selection" button. The 
+"Clear Selection" button removes the selection state from all rows in the
+table, without affecting the plot display. 
+
+To unmask a point, select it in the 
+table, then click "Unmask Points" at the bottom of the frame. The "Clear All" 
+button removes all selections and masks, restoring the plot and table displays to their original states. 
 
 [![Iris screenshot](./imgs/mask_points_random_small.jpg)](./imgs/mask_points_random.png)
-
-The "View selected" button performs the reverse operation, and the
-"Restore" button restores the plot display to its original state. The
-"Un-select" button removes the selection state from all rows in the
-table, without affecting the plot display.
 
 The Point Metadata table can be hierarchically sorted by clicking on
 specific column headers. Clicking once sorts the rows in ascending order
 of that column; next click sorts it in descending order, and the next
-click places the rows back on their original ordering. By holding the
+click places the rows back on their original ordering. <!--By holding the
 Ctrl key pressed when clicking on a column header, the sorting state of
 previously sorted columns is kept unchanged, thus enabling hierarchical
-sorting.
+sorting.-->
 
 Using that mechanism, rows can be re-ordered together according to
 relatively complex selection criteria against column content. This
@@ -281,11 +315,6 @@ uncertainty reported" block in the table (see figure below).
 
 [![Iris
 screenshot](./imgs/view_unselected_small.jpg)](./imgs/view_unselected.png)
-
-*Note that these data masking operations relate to the display only.
-Internally, masked data is kept intact and will be used in data analysis
-and modeling performed by Iris. To really get rid of unwanted data,
-please refer to section 'Extracting a Filtered SED' below.*
 
 *Note that columns can be re-positioned at will by dragging their headers
 horizontally.*
@@ -310,14 +339,14 @@ non-destructive, meaning that by successively clicking on points on the
 display, one can add the rows corresponding to each one, to the set of
 selected rows.
 
-Another way is by zooming over the region that contains the points one
+<!--Another way is by zooming over the region that contains the points one
 wants to select, and then clicking the "Select from plot" button on the
 Metadata window. The table rows corresponding to the data points that
 show up inside the plot viewport will be added to the selected set of
-rows already on the table.
+rows already on the table.-->
 
   [![Iris screenshot](./imgs/plot3_zoom_box_angs_small.png)](./imgs/plot3_zoom_box_angs.png)   
-  [![Iris screenshot](./imgs/zoomed_in_with_metadata_small.png)](./imgs/zoomed_in_with_metadata.png)
+  <!--[![Iris screenshot](./imgs/zoomed_in_with_metadata_small.png)](./imgs/zoomed_in_with_metadata.png)-->
 
 |   |
 |--:|
@@ -330,42 +359,78 @@ rows already on the table.
 In order to enable even more complex selection criteria though, table
 rows can be selected based on the result of an arbitrary Boolean
 expression computed on selected column contents. This expression is
-entered in the 'Type boolean expression:' text field, and by hitting
+entered in the 'Filter Expression' text field, and by hitting
 Return, or clicking on the 'Select points' button, the expression is
 computed for every row in the table, and the row is selected if the
-Boolean result is True. Data points selected by the Boolean filter on
+Boolean result is True. 
+
+**CHECK: IS THIS TRUE?? Data points selected by the Boolean filter on
 one table (metadata or data) are automatically propgated to the other
-table.
+table.**
 
-Iris uses a Python interpreter to parse and execute the expression, thus
-the syntax for this expression is plain Python. All Python built-in and
-string functions are supported. See the Python documentation here:
-<http://docs.python.org/2/library/functions.html>
-[http://docs.python.org/2/library/string.html\#string-function](http://docs.python.org/2/library/string.html#string-functions)
+In the expression, columns are referred by their ordering, where the first 
+column is 0. Columns are specified by a "`$`" followed by the column number. 
+For example, for the given table below, one may select the points which have an 
+associated uncertainty with
 
-In the expression, columns are referred by their name prefix. Notice
-that each column name starts with a lower-case letter followed by a
-colon (':'). This is the prefix one should use in the expression to
-refer to the column.
+**ADD IMAGE**
 
-An example of a valid expression that can be applied to the NED-supplied
-SED for 3C 066A could be:
+    $4 > 0
 
-    n: > 1.0 and c:.rstrip().endswith('reported')
+then they can mask the points without associated errors by clicking 
+"Invert Selection".
 
-In this SED, column `n:` contains the DataFluxPublishedValue metadata
-property, a floating-point value, and column `c:` contains the
-DataSignificance metadata property, a string. (See more examples of
-using the Boolean filter in [Co-plotting Separate
+Columns may be arbitrarily combined in an expression; what is required are 
+boolean comparisons with at least one column on the left- or right-hand side. 
+Comparisons may be combined with the logical operators `AND`, `OR`, and `NOT`. 
+Expressions are evaluated following the basic order of operations. Iris uses 
+[javaluator]() under the hood as to evaluate numeric expressions. All 
+mathematical operators `(*, /, +, -,^,log(),log10())`  allowed in javaluator 
+may be used in the filter expression.
+
+|                 Comparison Operators |
+|-----|-------------------------------:|
+| ==  |                       equal to |
+| !=  |                   not equal to |
+| >   |                   greater than |
+| >=  |       greater than or equal to |
+| <   |                      less than |
+| <=  |          less than or equal to |
+|-----|-------------------------------:|
+|                    Logical Operators |
+|-----|-------------------------------:|
+| AND |    "and"; intersection of sets |
+| OR  |            "or"; union of sets |
+| NOT | "and not"; subtraction of sets |
+[Filter expression field operators]
+
+Here is an example of a more complex filter expression:
+
+    $3 >= $1 * ($2 + 2.0 * $4) AND $4 > 0
+
+This means "select points where the values in column 3 are greater than or 
+equal to the values of (column 2 plus 2 times column 4), all times column 1. 
+Out of these selected points, only pick those whose values in column 4 are 
+greater than 0".
+
+**Caveat:** Only numeric columns may be filtered in Iris 3.0b1.
+
+**WARNING:** Currently columns may only be specified by their column order. 
+If a user applies a mask to come data points, the new column will push the 
+columns over by 1, so that one must add 1 to their column specifiers in the 
+filter expression. The same applies for a user re-ordering the columns; if the 
+
+For example, if the column expression is
+
+    $2 > 1.5 * $3
+   
+and the user moves the third column to the place of the second column, `$2` 
+refers to the *current* 2nd column, which was previously column `3`. 
+
+(See more examples of using the Boolean filter in [Co-plotting Separate
 SEDs](#coplot))
 
 [![Iris screenshot](./imgs/boolean_filter_example_small.jpg)](./imgs/boolean_filter_example.png)
-
-Of course, in this very simple example the same selection could be
-accomplished by just sorting the table by column `c:` first, and then
-holding the Ctrl key and sorting by column `n:`. The desired rows would
-be easy to spot as a single group or contiguous rows, and could be
-selected with a simple mouse gesture.
 
 |   |
 |--:|
