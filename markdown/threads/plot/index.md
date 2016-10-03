@@ -47,7 +47,7 @@ The Iris GUI uses the [STILTS][stilts] API for its plotting backend. The tabular
 
 When SED data is read into Iris, it displays in the Iris Visualizer,
 where you can interact with the data plot in various ways. You can open
-the Iris Visualizer from the desktop icon "SED Viewer." The terms *Iris
+the Iris Visualizer from the desktop icon "Iris Visualizer." The terms *Iris
 Visualizer* and *SED Viewer* are used interchangeably throughout the
 documentation. The options available for customizing the data display
 are described in this thread.
@@ -197,7 +197,8 @@ column by which to sort the groups of the master sort.-->
 
 Users can view the metadata of an arbitrary selection of SED Segments from the 
 left column. Hold down Shift and click on the Segments you wish to display in 
-the Metadata Browser tabs.
+the Metadata Browser tabs. The rows in the Data and Point Metadata tabs will 
+update to the highlighted SED segments.
 
 ### <a name="data_metadata"></a> Data tab
 
@@ -298,8 +299,8 @@ button removes all selections and masks, restoring the plot and table displays t
 
 The Point Metadata table can be hierarchically sorted by clicking on
 specific column headers. Clicking once sorts the rows in ascending order
-of that column; next click sorts it in descending order, and the next
-click places the rows back on their original ordering. <!--By holding the
+of that column; the next click sorts it in descending order <!--, and the next
+click places the rows back on their original ordering. By holding the
 Ctrl key pressed when clicking on a column header, the sorting state of
 previously sorted columns is kept unchanged, thus enabling hierarchical
 sorting.-->
@@ -364,9 +365,9 @@ Return, or clicking on the 'Select points' button, the expression is
 computed for every row in the table, and the row is selected if the
 Boolean result is True. 
 
-**CHECK: IS THIS TRUE?? Data points selected by the Boolean filter on
+<!--**NOT TRUE ANYMORE** Data points selected by the Boolean filter on
 one table (metadata or data) are automatically propgated to the other
-table.**
+table.-->
 
 In the expression, columns are referred by their ordering, where the first 
 column is 0. Columns are specified by a "`$`" followed by the column number. 
@@ -413,7 +414,10 @@ equal to the values of (column 2 plus 2 times column 4), all times column 1.
 Out of these selected points, only pick those whose values in column 4 are 
 greater than 0".
 
-**Caveat:** Only numeric columns may be filtered in Iris 3.0b1.
+**PICTURE??**
+
+**Caveat:** Only numeric columns may be filtered in Iris 3.0b1. <!--String-valued 
+columns will be selectable via Filter Expressions in Iris 3.0.-->
 
 **WARNING:** Currently columns may only be specified by their column order. 
 If a user applies a mask to come data points, the new column will push the 
@@ -473,53 +477,47 @@ co-plotting will pop up.
 
 To co-plot, hold-down the Control key (Command key on Mac systems) and
 click on the SED names you wish to view, and then click the "Co-plot"
-button on the menu (to select all SEDs, simply click on the first SED,
+button on the menu (to select all SEDs, click on the first SED,
 hold-down the Shift key, click on the last SED, and hit "Co-plot").
-Here, we've selected M82 and NGC7714. The Viewer window updates with all
+Here, we've selected M82 and NGC7714. The Visualizer updates with all
 SEDs selected for co-plotting. Each SED is plotted with a different
 color, and the color-coding and the names of the SEDs co-plotted are
-shown in the legend (which can be deleted with a mouse click). Note that
+shown in the legend <!--(which can be deleted with a mouse click)-->(which can 
+be hidden by unchecking "View --> Show Legend" in the menu bar). Note that
 the axis units may change after co-plotting; use the "Units" button in
 the upper-right corner of the SED Viewer if you wish to change the axes
-units in Co-plot mode.
+units in co-plot mode.
 
 [![Iris Screenshot](./imgs/coplot3_units_changed_small.jpg)](./imgs/coplot3_units_changed.png)
 
-In co-plot mode, we can still access the metadata of each photometric
-point by right-clicking on it, and the Metadata Browser (that can be
+In co-plot mode, you can still access the metadata of each photometric
+point by clicking on it, and the Metadata Browser (that can be
 accessed by clicking on the "Metadata" button in the SED Viewer window)
 can be used to explore the distribution of data and metadata for all
-photometric points. In this case, the metadata and data of both SEDs are
-listed in the same window since we are visualizing two different SEDs.
-Data belonging to different sources can be selected easily using a
-boolean filter based on one of the metadata, which is added to the
-original metadata of each photometric point when the Metadata Browser is
-opened in co-plot mode. The second column of the metadata in the "Point
-metadata" tab of the metadata browser, named "b:SED", contains the name
-of the SED for each point, and can be used to extract subsets of points
-belonging to one SED using a simple boolean filter.
+photometric points in the plotted SEDs. 
 
-For example, if our SEDs are named "m82" and "ngc7714", the photometric
-points belonging to m82 can be selected by entering the boolean filter:
-"b: == 'm82'" in the "Type boolean expression" field of the Metadata tab
-of the Metadata Browser, and clicking on "Select points". The selected
-points (belonging to the m82 SED) will be highlighted in the window.
+### <a name="coplot-example"></a>Metadata Browser Example with Co-plotted SEDs
+
+In this example, we use the same NED SEDs "M87" and "NGC7714" from above. 
+
+Data belonging to different sources can be displayed easily by clicking on the 
+SED ID in the left panel of the Metadata Browser. For example, if our SEDs are 
+named "m82" and "ngc7714", the photometric points belonging to m82 can be shown 
+by selecting the SED "m82" in the left panel. Only the rows belonging to m82  
+will be displayed in the table.
 
 [![Iris Screenshot](./imgs/coplot4.jpg)](./imgs/coplot4.png)
 
 We can also create new SEDs with information from the co-plotted SEDs
 using the Metadata Browser. Let's say we're interested in points with
-published uncertainties and with flux values larger than 1.0 Jy (this
-will be easy as these are the units we imported M82 and NGC7714 with).
-Click on the "Data" tab and type 'e: &gt; 1.0 and f: !="" ' in the
-Boolean filter, where e: is the FluxAxis column, in Jy, and f: is
-StatError. We display the selected points by clicking "View Selected."
-The masked data is faded in the SED Viewer.
+published uncertainties and with flux values larger than 1.0 Jy.
+Click on the "Data" tab and type `$2 &gt; 1.0 && $4 > 0` into the
+Filter Expression field, where `$2` is the Flux\_Value column, in Jy, and `$4` is
+Flux\_Error. We click "Select Points" to highlight the values. One can then "Extract" the selected points to a new SED.
 
 [![Iris Screenshot](./imgs/coplot5_small.jpg)](./imgs/coplot5.png)
 
-We can view the selected points-only by clicking "Extract" on the
-Metadata Browser; a new SED, called "FilterSed," is displayed in the
+A new SED, called "FilterSed," is displayed in the
 Viewer, and is available for saving, appending and analyzing in the SED
 Builder window. The final SED is displayed in the figure below.
 
@@ -531,6 +529,12 @@ Builder window. The final SED is displayed in the figure below.
 
 ------------------------------------------------------------------------
 
+
+<!-- 
+THIS SECTION CAN GO BACK WHEN THE COLOR-BY-POINTS FUNCTIONALITY IS ADDED.
+-->
+
+<!--
 ## <a name="coloring"></a> Coloring Data Points based on Metadata
 
 The drop selector at the right bottom of the Point Metadata and Data
@@ -551,19 +555,17 @@ color space.
 The color space is defined
 [here](http://www.cl.cam.ac.uk/teaching/1112/ECAD+Arch/lab2/extensions.html)
 
-|   |
-|--:|
-|[[Back to top][top]]|
-
-------------------------------------------------------------------------
+-->
 
 ## <a name="save_plot"></a> Saving Plot Image to File
 
 The SED data currently displayed in Iris may be printed to a hardcopy
 image in either JPG (.jpg), PNG (.png), GIF (.gif) or BITMAP (.bmp)
-format, by selecting *File-&gt;Save plot to image file*, and making the
+format, by selecting "File --> Export plot to image file", and making the
 desired image format selection. The image will scale to the size and
 shape of the plot in the Iris Visualizer.
+
+**PICTURE**
 
 |   |
 |--:|
@@ -571,6 +573,14 @@ shape of the plot in the Iris Visualizer.
 
 ------------------------------------------------------------------------
 
+
+<!-- 
+THIS SECTION CAN GO BACK WHEN THE APERTURE CORRECTION FUNCTIONALITY IS ADDED.
+
+OR, THIS COULD BE THE SECTION FOR SCALING SEDS / SEGMENTS BY SOME VALUE.
+-->
+
+<!--
 ## <a name="aperture"></a> Simple Aperture Correction
 
 By right-clicking (Ctrl-click on MacOS) on a specific data point on the
@@ -585,8 +595,8 @@ only.
 This window has an extra tab named 'Aperture Correction' that enables
 one to apply a simple multiplicative flux correction to the data point.
 
-Entering either the desired flux -- or the ratio of the desired flux to
-the original flux -- and clicking the appropriate button will modify the
+Entering either the desired flux - or the ratio of the desired flux to
+the original flux - and clicking the appropriate button will modify the
 data point flux. Iris keeps the original flux so successive applications
 of this tool will not cause the original flux value to be lost. In that
 way, we can always assign a precise meaning to the ratio value.
@@ -602,13 +612,11 @@ point on the Iris display plot, holding the Shift key down while
 dragging. Note that this feature is always enabled, even when no
 Aperture Correction window is on screen.
 
-|   |
-|--:|
-|[[Back to top][top]]|
-
-------------------------------------------------------------------------
+-->
 
 ## <a name="broadcast"></a> Iris Interoperability with other Virtual Observatory Applications
+
+<!-- MAKE SURE THIS FUNCTIONALITY IS ADDED BEFORE 3.0 GOES OUT -->
 
 Iris is able to communicate with other SAMP-enabled applications, such
 as Topcat and Aladin. So long as the SAMP status in the lower left-hand
