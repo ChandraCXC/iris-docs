@@ -29,15 +29,16 @@ completely redone, encapsulating
 
 -   **[Displaying Fitting Options](index.html#open_fit)**
 -   **[Defining Model Expressions](index.html#define_model)**
-    -   [Importing Custom Models](index.html#custom_models)
-    -   [Table Model](index.html#table_model)
-    -   [Template Model Library](index.html#template_lib)
-    -   [Python User Model](index.html#python_model)
 -   **[Setting Model Parameters](index.html#set_pars)**
 -   **[Choosing the Fit Statistic and Optimization
     Method](index.html#fit_stats)**
+-   **[Defining Fitting Ranges](index.html#fitting-ranges)**
 -   **[Fitting and Displaying the Model](index.html#fit)**
--   **[Saving the Model](index.html#save)**
+-   **[Saving and Restoring the Model](index.html#save)**
+-   **[Importing Custom Models](index.html#custom_models)**
+    -   [Table Model](index.html#table_model)
+    -   [Template Model Library](index.html#template_lib)
+    -   [Python User Model](index.html#python_model)
 -   **[Integrating Under a Fitted
     Model](index.html#integrate_under_model)**
 -   **[History](index.html#history)**
@@ -232,9 +233,9 @@ please refer to the [Statistics](/sherpa/statistics/) and
 <!--
 | Statistic                | Description                                                                                                                                                                                                                                            |
 
-| **Chi2**                 | This is the preferred chi-squared option to be used in Iris.                                                                                                                                                                                           |
-| **Chi2DataVar**          | Chi-squared statistic with variance computed from the data. If measured errors are provided, the variance is taken from these errors; else, the variance is computed from the y-values of the data points.                                             |
-| **Chi2Gehrels**          | Chi-squared statistic, where the variance is computed with a function from Gehrels et al. Suitable for low counts data (e.g., X-ray data) to correct for bias in using chi-squared.                                                                    |
+| **Chi2**                 | Chi-squared statistic, where the variance is taken from the errors. If no errors are provided, these data points are excluded from the fit. |
+| **Chi2DataVar**          | Similar to **Chi2**. Chi-squared statistic, where the variance is taken from the errors. If no errors are provided, the variance is computed from the y-values of the data points.                                             |
+| **Chi2Gehrels**          | Chi-squared statistic, where the variance is computed with a function from [Gehrels et al. (1986)](http://adsabs.harvard.edu/abs/1986ApJ...303..336G). Suitable for low counts data (e.g., X-ray data) to correct for bias in using chi-squared. |
 | **Chi2ModelVariance**    | Chi-squared statistic, where the variance is computed from the model values instead of data.                                                                                                                                                           |
 | **Chi2ConstantVariance** | Chi-squared statistic, where the variance is set to be a constant value. That constant is the average of the y-values of the data points.                                                                                                              |
 | **Chi2XspecVariance**    | Chi-squared statistic, where the variance is computed as the X-ray spectral fitting program XSPEC would compute the variance (i.e., where the variance would be less than one, reset it to one). More suitable for low counts data (e.g., X-ray data). |
@@ -268,17 +269,46 @@ biggest contributors to the chi-squared value.
 In subsequent fits - e.g., after selecting a different data range to
 fit, adding in new model components as needed, and so on - the statistic
 can be switched to a chi-squared option to use measured errors
-(preferably "Chi2", which is chi-squared with data variance). Since
-measured errors are provided, this means the variance is taken directly
-from the errors provided with the data, when the data file is read in.
+(preferably "Chi2" or "Chi2Datavar" for high counts (>5) data points; 
+"Chi2Gehrels" or "Chi2XspecVariance" for low counts data). If measured errors 
+are provided, the variance is taken directly from the errors provided with the 
+data.
+
+**COME BACK HERE!!**
 
 **Note**: When one or multiple SED segments is fit in Iris, any data
 points with associated zero-value errors are ignored in the fit. This
 design choice is intended as a safeguard against yielding potentially
 misleading fit results in the analysis of your SED data. Iris interprets
-a zero-value error* not *to mean that the uncertainty on the associated
-data value is actually zero, but that a measure of the uncertainty is
+a *zero-value error* not to mean that the uncertainty on the associated
+data value is actually zero, but that *a measure of the uncertainty is
 not available for that particular photometric point.*
+
+|   |
+|--:|
+|[[Back to top][top]]|
+
+------------------------------------------------------------------------
+
+## <a name="fitting-ranges"</a> Defining Fitting Ranges
+
+Before initiating a fit of the defined model to a SED, the
+specific subset of the SED data to be included in the fit (if not the
+entire SED) may be specified using the "Add Range.." option in the
+main fitting window. This opens a *Fitting Ranges* manager window in which a 
+user defines the fitting range(s) for the fit.
+
+[![Defining the fitting range](./imgs/define_range_v2_small.jpg)](./imgs/define_range_v2.png)
+
+A fitting range may be defined by two ways: 
+
+- typing the minimum and maximum spectral range values in the *Add Range* box then clicking "Add"
+- selecting the "Add from plot" button and setting the min and max spectral ranges by clicking on the plot twice.
+
+Fitting ranges may be removed by highlighting the ranges and clicking "Remove"; all ranges can be removed with the "Clear all" button.
+
+Defining multiple fitting ranges is useful for masking out spectral features 
+when fitting the continuum of a spectrum.
 
 |   |
 |--:|
@@ -288,43 +318,44 @@ not available for that particular photometric point.*
 
 ## <a name="fit"></a> Fitting and Displaying the Model
 
-Before initiating a fit of the defined model to a SED in Iris, the
-specific subset of the SED data to be included in the fit (if not the
-entire SED) should be specified using the "Define Range" option in the
-main fitting window. Selecting this option will prompt you to click on
-the data display twice, once to define the lower endpoint of the data
-range to be fit, and once for the upper endpoint.
-
-[![Defining the fitting range](./imgs/define_range_v2_small.jpg)](./imgs/define_range_v2.png)
-
 Having built a model expression and set initial parameter values, chosen
 an appropriate fit statistic and optimization method for your analysis,
 and defining the range of data to be fit, you are ready to initiate the
-fitting process by selecting "Start" in the Fitted window. When the fit
+fitting process.
+
+Click "Fit" in the Fitting Tool window to start the fit. When the fit
 is complete, a red model curve appears overplotted on the SED data in
-the Iris main display (beyond the specified data range to be fit; this
-extraneous portion of the fitted model may be ignored).
+the Visualizer (Note that the red line may be plotted beyond the specified data 
+range to be fit; this extraneous portion of the fitted model may be ignored).
 
 [![SED Viewer with fitted model overplotted](./imgs/model_plot_v2_small.jpg)](./imgs/model_plot_v2.png)
 
 When the fit has finished, the model parameter values will appear
-updated in the Component field of the fitting window, and fit statistics
-will be displayed in the fitting tab of the Fitted window, including the
-number of data points used in the fit, the degrees of freedom, and the
-probability that the fit is consistent with the data (q-value), where
-applicable (when fitting with the least-squares or Cash statistic, the
-"reduced statistic" value and q-value are not available, as they cannot
-be computed).
+updated in the Model Components fields, and fit statistics
+will be displayed in the bottom panel. The fit results include 
+
+- the final fit statistic
+- the reduced fit statistic*
+- the Q-value (the probability that the fit is consistent with the data)*
+- the number of model evaluations done to reach the best fit parameter values
+- the number of data points used in the fit
+- the degrees of freedom
+
+*The Q-value and reduced statistic are unavailable when fitting with the 
+least-squares or Cash, as they cannot be computed for those statistics.
 
 ![Statistics](./imgs/fit_saved_v2_small.jpg)
 ![Fit statistics window](./imgs/fit_stats_leastsq_v2.png)
 
 When fitting with one of the chi-squared statisics, or the
-chi-squared-like cstat statistic, the Confidence tab returns the
-requested sigma/percent confidence intervals on the best-fit model
-parameters, calculated using the statistic and method chosen for the
-fit. For example, entering "1.6" in the "sigma" field will return th 90%
-confidence limits on the model parameter values..
+chi-squared-like Cstat statistic, the confidence limits of the fitted model 
+parameter values may be calculated. 
+
+Enter the the confidence interval in terms of sigma and click "Compute" to 
+calculate the upper and lower confidence limits for the on the best-fit model
+parameters. For example, entering "1.6" in the "sigma" field will return the 90%
+confidence limits on the model parameter values. The limits are calculated using
+the statistic and method chosen for the fit. 
 
 ![Confidence limits](./imgs/confidence_chi2.png)
 
@@ -360,21 +391,18 @@ your SED data.
 
 ------------------------------------------------------------------------
 
-## <a name="save"></a> Saving the Model
+## <a name="save"></a> Saving and Restoring Models
 
-Once a spectral model is satisfactorily fitted, the custom fitted model
-parameters can be saved to a local file *before exiting* the fitting
-session, by making an appropriate selection in the File menu of the
-fitting window.
+Once a spectral model is satisfactorily fitted, the fitted model
+parameters can be saved to a local file by making an appropriate selection in 
+the File menu of the fitting window.
 
 ![Save Model menu](./imgs/fit_write_menu.png)
 
-Selecting the *File -&gt; Write to text file* option saves the spectral
-model to file in a human-readable text format. The "Write active
-components" option in this submenu writes only the model components
-which were used in the fit; example output is shown below:
+Selecting *File -&gt; Save Text...* saves the model and fit results to file in 
+a human-readable text format. Example output is shown below:
 
-``` {.highlight}
+```
 $ more 3c273_atten_bpl_active_comps.txt
 
 File: 3C 273
@@ -406,17 +434,20 @@ Component 2:    brokenpowerlaw.c2
        index2 = -0.6063001   (2.4033892 NaN)                              
 ```
 
-Selecting *File -&gt; Write to file*, instead, saves the model to a file
-in a format (CDB) that can be read back by the tool in a future data
-analysis session. (CDB is an XML format for reading model files in and
-out of Iris.)
+Selecting *File -&gt; Save Json...*, instead, saves the model to a file
+in Json format that can be read back by the tool in a future data
+analysis session.
 
 ![Saving a fitted model](./imgs/save_models_cdb.png)
 
 This customized Iris fitting session may be restored by selecting the
-*File-&gt;Read from file* menu option within the Iris fitting window.
+*File-&gt;Load Json...* menu option within the Iris fitting window.
 
 ![Reloading a saved, fitted model](./imgs/open_models_cdb.png)
+
+Restored models may be evaluated or refit to other SEDs. 
+
+To evaluate a model on an SED (without refitting), open the Fitting Tool, load the Json file into the fitting session, then open the Visualizer and click "Evaluate" (at the bottom of the plot window). This will overplot the model on the data, and recalculate the fit statistics.
 
 |   |
 |--:|
