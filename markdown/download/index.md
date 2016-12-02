@@ -84,6 +84,7 @@ These directions assume you are running in a BASH shell. If you are running a C-
 		$ conda config --add channels https://conda.anaconda.org/sherpa
       
   - Install Iris. This will create a environment specific to Iris. Say yes (enter "y") when the download script asks you to install the packages.
+
 		$ conda create -n iris iris=3.0b1
 
     If you have an environment named `iris` already, you can either rename your
