@@ -405,33 +405,36 @@ a human-readable text format. Example output is shown below:
 ```
 $ more 3c273_atten_bpl_active_comps.txt
 
-File: 3C 273
+Iris Fitting Tool - Fit Summary
+SED ID: Sed (Segments: 1)
 
-Thu Feb 26 15:46:31 EDT 2015  Iris 2
+Model Expression: m3 * m4
+Components:
+        brokenpowerlaw.m3
+                                  m3.refer =  3.00000E+05 Frozen
+                                   m3.ampl =  2.50378E-03
+                                 m3.index1 = -5.21571E-01
+                                 m3.index2 = -4.78847E-01
+        atten.m4
+                                   m4.hcol =  1.00000E+20 Frozen
+                               m4.heiRatio =  3.59464E-01 Frozen
+                              m4.heiiRatio =  9.69470E-01 Frozen
 
-TARGNAME: 3C 273
+Fit Results:
+                       Final Fit Statistic =  3.26931E+07
+                         Reduced Statistic =  8.69497E+04
+                     Probability (Q-value) =  0.00000E+00
+                        Degrees of Freedom = 376
+                               Data Points = 379
+                      Function Evaluations = 511
 
-Model Expression:
-        c1*c2
+                                 Optimizer = NelderMeadSimplex
+                 Statistic (Cost function) = Chi2
 
-Fit parameters:
-        Final fit statistic:      0.010714114984176791
-        Reduced statistic:        nan
-        Probability [Q-value]:    nan
-        Degrees of freedom:       413.0
-        Data points:              419
-        Last function evaluation: 394
-
-Component 1:    atten.c1 
-       hcol      = 1.0E20     (NaN NaN)                                   
-       heiRatio  = 0.04177875 (NaN NaN)                                   
-       heiiRatio = 0.74654233 (NaN NaN)                                   
-
-Component 2:    brokenpowerlaw.c2 
-   F   refer  = 300000.0                            angstroms             
-       ampl   = 0.0062282784 (0.1065081 NaN)                              
-       index1 = -0.039390083 (NaN       -4.82435)                         
-       index2 = -0.6063001   (2.4033892 NaN)                              
+Confidence Limits at 1.60 sigma (89.04%):
+                 m3.ampl: (-1.94416E-07,  1.94620E-07)
+               m3.index1: (-4.21899E-05,  4.22327E-05)
+               m3.index2: (-2.62248E-04,  2.61584E-04)                            
 ```
 
 Selecting *File -&gt; Save Json...*, instead, saves the model to a file
@@ -459,18 +462,17 @@ To evaluate a model on an SED (without refitting), open the Fitting Tool, load t
 
 As it may be necessary to fit data with a model that does not come
 pre-packaged with Iris, the Custom Model Manager interface is available
-for configuring and importing your custom table, template, or Python
+for configuring and importing your custom tables, template libraries, or Python
 function user models into the Iris fitting session.
 
 ![Custom Model Manager](./imgs/CustomModel.png)
 
-After entering the path to the file containing the custom model
-definition, assigning the model component a string ID, and entering the
-model parameter information, the custom model component may be
-installed. The next time the Fitting Tool is opened, the model can be
-selected from the menu of custom model components and added to a model
-expression for fitting, under *Add -&gt; Custom Model Components -&gt;
-tables -&gt; "your model string ID"*.
+Custom models must be defined in a file. To add a custom model, you must define 
+the path to the model file, the model type -- table, template library, or Python 
+function -- the model ID, and the model parameters. After 
+installing the model, it can be selected from the list of Model Components and 
+added to a model expression for fitting, under *User Model Components -&gt;
+tables/functions/templates -&gt; "your model string ID"*.
 
 The fields of the Custom Model Manager window are described below:
 
