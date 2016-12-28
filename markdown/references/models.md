@@ -211,7 +211,7 @@ accretiondisk
 </p>
 
      <div><pre>
-       f(x) = ampl * (x / norm)**(-beta) * exp (-ref / x)
+       f(x) = ampl * (x / 200000.0)**(-beta) * exp (-ref / x)
      </pre></div>
 
 
@@ -223,7 +223,6 @@ accretiondisk
   ref		Center of the spectral feature, in Angstroms	
   beta		index
   ampl		Amplitude of the feature
-  norm		Normalization
 </pre></div>
 
 </dd>
