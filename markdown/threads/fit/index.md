@@ -20,8 +20,9 @@ set initial model parameter values and ranges, and choose an appropriate
 fit statistic and method; as well as calculate errors on best-fit model
 parameters.
 
-**Last Update:** ________ - updated for Iris 3.0. The Fitting Tool has been 
-completely redone, encapsulating 
+**Last Update:** Jan 1 2017 - updated for Iris 3.0b2. The Fitting Tool has been 
+completely redone, encapsulating the fit statistics and model parameter editing 
+into one window.
 
 ------------------------------------------------------------------------
 
@@ -51,17 +52,13 @@ After one or more SED data segments and/or photometric points have been
 [read into Iris][entry], and [data display preferences
 set][plot], the data may be fit with a customized model 
 using the **Fitting Tool**. Clicking the Fitting Tool
-icon ![Fitting Tool icon][fitting-tool-icon] opens a new 
+icon [![Fitting Tool icon][fitting-tool-icon]](./imgs/fitting-tool-icon.png) opens a new 
 window in which individual model
 components may be combined to define a custom model expression, and where 
 initial model parameter values and the
-spectral fitting ranges are set. 
+spectral fitting ranges are set.
 
-Model amplitudes are in units
-of photon flux density by default, and model spectral coordinates are in
-Angstroms.
-
-[![Iris Screenshot](./imgs/open_fitting_v2_small.jpg)](./imgs/open_fitting_v2.png)
+![Iris Screenshot](./imgs/open_fitting_small.png)
 
 The *Model Components* section of the fitting window lists the
 model components used to construct the full model
@@ -70,6 +67,10 @@ combined to form the full model expression, in the *Model Expression*
 field. Components are referenced by a model identifier "<tt>m#</tt>", 
 where the number increases for each new component added to the Model 
 Components list.
+
+Model amplitudes are in units
+of photon flux density by default, and model spectral coordinates are in
+Angstroms. **Currently, the default fit results units cannot be changed.**
 
 |   |
 |--:|
@@ -81,12 +82,10 @@ Components list.
 
 Model expressions are defined by combining model components together in the *Model Expression* field at the top of the Fitting Tool frame.
 
-PICTURE HERE
+![Iris Screenshot](./imgs/model_expressions_intro.png)
 
 The list of available models is shown on the left-most panel of the Fitting Tool. 
 Double-clicking a model will add it to the list of model components. By default, components are linearly combined in the Model Expression field when a model is added.
-
-PICTURE HERE
 
 Iris is distributed with a list of preset optical and X-ray [Sherpa][sherpa] models. A brief description of the model is displayed below the list when the users highlights a model name. More in depth-descriptions of the Sherpa models are discussed in  [Iris Models][models].
 
@@ -102,6 +101,8 @@ custom models into Iris).
 Components may be added or multiplied together arbitrarily, which allows the modeling of emission and/or absorption features as well as the ability to apply a more complex model to the continuum itself. 
 
 For a simple model, such as an expression containing one model component, defining the model is trivial: write the component ID of the model component, e.g., “<tt>m1</tt>”, in the Model Expression field. For a composite model, add, subtract, multiply, and/or divide the model components as needed to model your SED, such as "<tt>m1\*m2 + m3/(4*3.14)</tt>". Note that numbers may be used directly in the model expression as well. 
+
+![Iris Screenshot](./imgs/arbitrary_combine_models_example.png)
 
 Consider the example of fitting an absorbed broken power-law model to
 an SED of object 3C 273. You would select and add "[atten][atten]" and
@@ -119,7 +120,7 @@ model expression as the product of the two components: "<tt>m1\*m2</tt>".
 
 Each component in the Model Components list may be expanded to show each component's model parameters. From here, the user can select the model parameters and set the initial parameter values and ranges by editing the fields shown to the right of the Components list.
 
-![Edit model parameters](./imgs/edit_pars_v2.png)
+![Edit model parameters](./imgs/edit_pars.png)
 
 The parameter <!--units,--> minimum and maximum values <!--, and links to other parameters--> 
 may be specified. The "Frozen" checkbox is for specifying whether or not to 
@@ -244,7 +245,7 @@ please refer to the [Statistics](/sherpa/statistics/) and
 | **LeastSquares**         | Sum of the squares of the differences between, data and model values.                                                                                                                                                                                  |
 -->
 
-The default fitting method and statistic are "NelderMead" and
+The default fitting method and statistic are "NelderMeadSimplex" and
 "LeastSquares", respectively, which represent good choices for a robust,
 quick, initial fit of a relatively simple model to a data set covering
 potentially many orders of magnitude in flux and/or wavelength. The fit
@@ -274,8 +275,6 @@ can be switched to a chi-squared option to use measured errors
 are provided, the variance is taken directly from the errors provided with the 
 data.
 
-**COME BACK HERE!!**
-
 **Note**: When one or multiple SED segments is fit in Iris, any data
 points with associated zero-value errors are ignored in the fit. This
 design choice is intended as a safeguard against yielding potentially
@@ -290,7 +289,7 @@ not available for that particular photometric point.*
 
 ------------------------------------------------------------------------
 
-## <a name="fitting-ranges"</a> Defining Fitting Ranges
+## <a name="fitting-ranges"></a> Defining Fitting Ranges
 
 Before initiating a fit of the defined model to a SED, the
 specific subset of the SED data to be included in the fit (if not the
@@ -298,7 +297,7 @@ entire SED) may be specified using the "Add Range.." option in the
 main fitting window. This opens a *Fitting Ranges* manager window in which a 
 user defines the fitting range(s) for the fit.
 
-[![Defining the fitting range](./imgs/define_range_v2_small.jpg)](./imgs/define_range_v2.png)
+![Fitting range manager window](./imgs/fitting_range_manager.png)
 
 A fitting range may be defined by two ways: 
 
@@ -306,6 +305,10 @@ A fitting range may be defined by two ways:
 - selecting the "Add from plot" button and setting the min and max spectral ranges by clicking on the plot twice.
 
 Fitting ranges may be removed by highlighting the ranges and clicking "Remove"; all ranges can be removed with the "Clear all" button.
+
+The fitting ranges appear on the Visualizer as a blue horizontal line.
+
+![Defining the fitting range](./imgs/define_range.png)
 
 Defining multiple fitting ranges is useful for masking out spectral features 
 when fitting the continuum of a spectrum.
@@ -328,7 +331,7 @@ is complete, a red model curve appears overplotted on the SED data in
 the Visualizer (Note that the red line may be plotted beyond the specified data 
 range to be fit; this extraneous portion of the fitted model may be ignored).
 
-[![SED Viewer with fitted model overplotted](./imgs/model_plot_v2_small.jpg)](./imgs/model_plot_v2.png)
+[![SED Viewer with fitted model overplotted](./imgs/model_plot.png)](./imgs/model_plot.png)
 
 When the fit has finished, the model parameter values will appear
 updated in the Model Components fields, and fit statistics
@@ -343,9 +346,6 @@ will be displayed in the bottom panel. The fit results include
 
 *The Q-value and reduced statistic are unavailable when fitting with the 
 least-squares or Cash, as they cannot be computed for those statistics.
-
-![Statistics](./imgs/fit_saved_v2_small.jpg)
-![Fit statistics window](./imgs/fit_stats_leastsq_v2.png)
 
 When fitting with one of the chi-squared statisics, or the
 chi-squared-like Cstat statistic, the confidence limits of the fitted model 
@@ -580,8 +580,7 @@ photons/s/cm^2^Angstrom against Angstroms).
 
 Clicking "Install Model Component" installs the model as a custom model
 in Iris. The next time the Fitting Tool is opened, the model can be
-selected from the menu of custom model components, under *Add -&gt;
-Custom Model Components -&gt; tables -&gt; my\_sedtab*.
+selected from the menu of custom model components, under *User Model Components -&gt; tables -&gt; my\_sedtab*.
 
 |   |
 |--:|
@@ -748,8 +747,7 @@ into this section must match the Python function name in the file,
 
 Clicking "Install Model Component" installs the model as a custom model
 in Iris. The next time the Fitting Tool is opened, the model can be
-selected from the menu of custom model components, under *Add -&gt;
-Custom Model Components -&gt; tables -&gt; my\_py\_powlaw*.
+selected from the menu of custom model components, under *User Model Components -&gt; functions -&gt; my\_py\_powlaw*.
 
 |   |
 |--:|
@@ -768,12 +766,12 @@ under the full model or an arbitrary combination of the model
 components. The Fitting Tool must remain open for model integration.
 
 [![\[Calculate Flux
-screenshot\]](./imgs/integrate_under_model-default_small.jpg)](./imgs/integrate_under_model-default.png)
+screenshot\]](./imgs/integrate_under_model-default.png)](./imgs/integrate_under_model-default.png)
 
 After opening the "Calculate Flux" tab, make sure Model Integration is
 selected (it should "Integrate Model (YES)"). By default, the full model
 will be used to evaluate the fluxes. For our fit of 3c273, the model
-expression is `"c1*c2"`. A quick-look view of the model and the
+expression is `"m1*m2"`. A quick-look view of the model and the
 parameter values can be displayed by clicking the "Show Model" button.
 
 [![Calculate Flux
@@ -787,7 +785,7 @@ components, then integrate the expression in the "Model Expression"
 field. This means that users can integrate under *individual model
 components*. Multiplication and addition of other model components and
 numeric values are acceptable. For example, the expressions
-`"c2 * 3.678"`, `"c2 + c1"`, and `"c1 + c2 * 1.2"` are allowed.
+`"m2 * 3.678"`, `"m2 + m1"`, and `"m1 + m2 * 1.2"` are allowed.
 
 Say we want to estimate the total infrared flux and the flux through the
 Herschel PACS and SPIRE bands . Going back to the "Calculate Flux" in
@@ -798,7 +796,7 @@ To integrate under the fitted model, we turn "Model Integration" on
 (YES), and click "Calculate."
 
 [![Calculate Flux
-screenshot](./imgs/integrate_under_model-results_small.jpg)](./imgs/integrate_under_model-results.png)
+screenshot](./imgs/integrate_under_model-results.png)](./imgs/integrate_under_model-results.png)
 
 The results can be exported as a new SED with the "Create SED" button,
 or may be saved to a text file with "Save." The text file can be loaded
@@ -828,6 +826,7 @@ Fitting Tool.
 |  05 Aug 2013 |  updated Iris screenshots |
 |  02 Dec 2013 |  updated for Iris 2.0.1   |
 |  07 May 2015 |  updated for Iris 2.1 beta. Users can now integrate under fitted models. Template library model parameter values are interpolated using k-nearest neighbor with k=2 and order=2. Templates, table models, and functions can all be arbitrarily combined in the Model Expression. |
+|  01 Jan 2016 | updated for Iris 3.0b2    |
 
 ------------------------------------
  
@@ -840,7 +839,7 @@ Fitting Tool.
 [topcat]: http://www.star.bris.ac.uk/~mbt/topcat/#docs "TOPCAT"
 
 <!-- image links -->
-[fitting-tool-icon]: ./imgs/fitting-tool-icon-small.png
+[fitting-tool-icon]: ./imgs/fitting-tool-icon-tiny.png
 
 <!-- threads -->
 [sedstacker]: 		../../threads/science/sedstacker/index.html "SED Stacker"
