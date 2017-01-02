@@ -182,8 +182,8 @@ be seen in the SED Builder and SED Viewer. There are also convenient
 check-boxes next to each operational button that let the user create a
 SED each time they redshift or normalize.
 
-![adding a SED-represntation of the Stack to the SED
-Builder](./imgs/create-sed_featureless_small.png)
+[![adding a SED-represntation of the Stack to the SED
+Builder](./imgs/create-sed_featureless_small.png)](./imgs/create-sed_featureless.png)
 
 **Figure 6.** A SED-represntation of the Stack is added to the SED
 Builder and Viewer for more analysis using the "Create SED" button in
@@ -226,8 +226,8 @@ Integrate Tool:
 
 By default, this option is checked.
 
-![screenshot of SED Stacker
-component](./imgs/stack-redshifted_small.png)
+[![screenshot of SED Stacker
+component](./imgs/stack-redshifted_small.png)](./imgs/stack-redshifted.png)
 
 **Figure 8.** Shifting the Featureless AGN to z=0.0. We correct the flux
 and automatically create a SED-representation of the shifted Stack. The
@@ -303,7 +303,7 @@ nearest-neighbor method to calculate the normalization constant at point
 (X, Y).
 
 ![screenshot of SED Stacker component](./imgs/sedstacker-frame_shifted-and-normed_small_cut.png)
-![screenshot of SED Stacker component](./imgs/stack_normalized-to-point_small.png)
+[![screenshot of SED Stacker component](./imgs/stack_normalized-to-point_small.png)](./imgs/stack_normalized-to-point.png)
 
 **Figure 11.** Featureless AGN normalized to the point (100 microns, 10
 mJy). The normalization constants are the values multiplied to the SEDs
@@ -396,8 +396,8 @@ Builder and SED Viewer. Unlike redshifting and normalizing, SEDs can be
 stacked any number of times with different sets of stacking parameters
 without affecting the SEDs.
 
-![screenshot of SED Stacker
-component](./imgs/featureless-agn-stacked_small.png)
+[![screenshot of SED Stacker
+component](./imgs/featureless-agn-stacked_small.png)](./imgs/featureless-agn-stacked.png)
 
 **Figure 13.** The averaged SED of the rest-frame, normalized (by
 integration) featureless AGN using logarithmic binning with bin sizes of
@@ -457,8 +457,8 @@ shifted SED. If you do not want to make this correction, you may add the
 SED into a Stack, un-select "Correct flux," select "Create SED," and
 click "Redshift."
 
-![screenshot of SED
-Stacker](./imgs/useful-tips_redshifting_small.png)
+[![screenshot of SED
+Stacker](./imgs/useful-tips_redshifting_small.png)](./imgs/useful-tips_redshifting.png)
 
 **Figure 14.** Shifting a SED to rest-frame without correcting for the
 flux.
@@ -492,7 +492,7 @@ and normalize. In the SED Viewer, you can open the Metadata Browser and
 use the Boolean filter to select the points with the same target name
 (column b:), and Extract the highlighted points to a new SED.
 
-![screenshot of SED Stacker](./imgs/normalize-cosmos-agn_useful-tips_small.png)
+[![screenshot of SED Stacker](./imgs/normalize-cosmos-agn_useful-tips_small.png)](./imgs/normalize-cosmos-agn_useful-tips.png)
 ![screenshot of SED Stacker](./imgs/normalize-cosmos-agn_useful-tips_metadata-browser_small.png)
 
 **Figure 15.** *Top*: Normalizing the rest-frame COSMOS AGN to the
