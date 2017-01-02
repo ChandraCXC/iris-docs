@@ -441,12 +441,12 @@ Selecting *File -&gt; Save Json...*, instead, saves the model to a file
 in Json format that can be read back by the tool in a future data
 analysis session.
 
-![Saving a fitted model](./imgs/save_models_cdb.png)
+![Saving a fitted model](./imgs/save_models_json.png)
 
 This customized Iris fitting session may be restored by selecting the
 *File-&gt;Load Json...* menu option within the Iris fitting window.
 
-![Reloading a saved, fitted model](./imgs/open_models_cdb.png)
+![Reloading a saved, fitted model](./imgs/open_models_json.png)
 
 Restored models may be evaluated or refit to other SEDs. 
 
@@ -826,7 +826,7 @@ Fitting Tool.
 |  05 Aug 2013 |  updated Iris screenshots |
 |  02 Dec 2013 |  updated for Iris 2.0.1   |
 |  07 May 2015 |  updated for Iris 2.1 beta. Users can now integrate under fitted models. Template library model parameter values are interpolated using k-nearest neighbor with k=2 and order=2. Templates, table models, and functions can all be arbitrarily combined in the Model Expression. |
-|  01 Jan 2016 | updated for Iris 3.0b2    |
+|  01 Jan 2017 | updated for Iris 3.0b2    |
 
 ------------------------------------
  
