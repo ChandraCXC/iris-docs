@@ -99,7 +99,7 @@ There are two methods for panning around the view port:
 
 #### Change the plot scaling
 
-![Iris screenshot image](./imgs/plot_type_button.png)  The X and Y axes can be plotted in linear or logarithmic scales. The user controls the scaling by clicking "View --> Plot Type -->" on the menu bar,  then choosing the scaling:
+![Iris screenshot image](./imgs/plot_type_options.png)  The X and Y axes can be plotted in linear or logarithmic scales. The user controls the scaling by clicking "View --> Plot Type -->" on the menu bar,  then choosing the scaling:
 
   * Log - plot both X and Y in a logarithmic scale.
   * Linear - plot both X and Y in a linear scale.
