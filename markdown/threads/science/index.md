@@ -6,15 +6,12 @@
 
 #### Synopsis:
 
-Since version 1.2, Iris has added several science capabilities built
+Iris has several science capabilities built
 upon the powerful SED building and modeling already implemented in the
 previous versions of the tool, making Iris even more useful for
 astronomers. In this thread, we discuss how you can interpolate and
-smooth SEDs, shift SEDs to any cosmological redshift, and calculate the
-flux through a given interval or a photometric filter.
-
-New to Iris 2.1, users can now integrate under fitted model components
-as well as directly under the SED data.
+smooth SEDs, shift SEDs to another cosmological redshift, and calculate
+fluxes through given intervals or a photometric filters from the data or model.
 
 **Related Links:**
 
@@ -22,8 +19,7 @@ as well as directly under the SED data.
     combining SEDs. Also allows bulk redshifting and normalization
     of SEDs.
 
-**Last Update:** 07 May 2015 - Updated for Iris 2.1 beta. New feature:
-intergration under fitted model components.
+**Last Update:** 03 Feb 2017 - Updated images for Iris 3.0.
 
 ------------------------------------------------------------------------
 
@@ -38,6 +34,7 @@ intergration under fitted model components.
     -   [Integrating Under a Fitted
         Model](index.html#integrate_under_model)
     -   [Saving flux values](index.html#save)
+    -  [Caveat on integrated flux units](index.html#integrated-caveat) 
 -   **[History](index.html#history)**
 
 ------------------------------------------------------------------------
@@ -49,7 +46,7 @@ ultra-luminous infrared galaxy (redshift z=0.018). The photometric data
 is imported from the NED SED service via the *Load NED SED* desktop
 icon. The more useful visualization of the SED of this source can be
 obtained in the Viewer window switching from flux density to flux in the
-"Units" field (here we use erg/s/cm^2^ against microns). In this
+"Units" field (here we use erg/s/cm^2 against microns). In this
 visualization, we can clearly see that the infrared radiation dominates
 the SED.
 
@@ -88,7 +85,7 @@ data over the interpolated SED using the "co-plot" function located
 under "Display" in the Iris Visualizer tool bar.
 
 [![Arp220 Smoothed Linear
-Spline](./imgs/arp220_linearspline_coplot_small.jpg)](./imgs/arp220_linearspline_coplot.png)
+Spline](./imgs/arp220_linearspline_coplot_small.png)](./imgs/arp220_linearspline_coplot.png)
 
 |   |
 |--:|
@@ -118,7 +115,7 @@ about co-plotting in [Visualizing SED Data in
 Iris](../plot/index.html#coplot)).
 
 [![Arp220 at 3
-redshifts](./imgs/arp220_redshifted_small.jpg)](./imgs/arp220_redshifted.png)
+redshifts](./imgs/arp220_redshifted_small.png)](./imgs/arp220_redshifted.png)
 
 We might also be interested in how the SED of this source would look
 like if it was in the vicinity of the Milky Way, say at redshift z=0. We
@@ -200,7 +197,7 @@ for example \[1e9, 1e10\] Hz, and the resulting integrated flux will
 appear in the "Results" panel after clicking on "Add".
 
 [![Calculate Flux
-screenshot](./imgs/arp220_flux_passband_small.jpg)](./imgs/arp220_flux_passband.png)
+screenshot](./imgs/arp220_flux_passband_small.png)](./imgs/arp220_flux_passband.png)
 
 |   |
 |--:|
@@ -259,7 +256,7 @@ extracted as a separate SED by clicking "Create SED" on the bottom of
 the window.
 
 [![Calculate Flux
-screenshot](./imgs/arp220_phot_filter_wise_small.jpg)](./imgs/arp220_phot_filter_wise.png)
+screenshot](./imgs/arp220_phot_filter_wise_small.png)](./imgs/arp220_phot_filter_wise.png)
 
 |   |
 |--:|
@@ -289,19 +286,19 @@ components, then integrate the expression in the "Model Expression"
 field. This means that users can integrate under *individual model
 components*. Multiplication and addition of other model components and
 numeric values are acceptable. For example, the expressions
-`"c2 * 3.678"`, `"c2 * c1"`, and `"c1 + c2 * 1.2"` are allowed.
+`"m2 * 3.678"`, `"m2 * m1"`, and `"m1 + m2 * 1.2"` are allowed.
 
 Say we fit our original Arp220 SED with a [broken
 powerlaw][brokenpowerlaw] for the near IR
 and a [blackbody][blackbody] for the IR
-dust bump using Nelder-Mead optimization and chi-squared statistics.
+dust bump using Nelder-Mead optimization and chi-squared statistics ([download model](./arp220_bb_bp.json)).
 Going back to the "Calculate Flux" in the Science tool, we add the WISE
 photometry filters and add a user-defined pass band from 0.8 to 1000
 microns (8000 - 1E7 Angstroms). To integrate under the fitted model, we
 turn "Integrate Model" on (YES), and click "Calculate."
 
 [![Calculate Flux
-screenshot](./imgs/arp220_integrate_under_model_small.jpg)](./imgs/arp220_integrate_under_model.png)
+screenshot](./imgs/arp220_integrate_under_model_small.png)](./imgs/arp220_integrate_under_model.png)
 
 Users may view the fitted model component details by clicking on "Show
 model". This convenience button let's you see the model components and
@@ -315,7 +312,7 @@ screenshot](./imgs/integrate_show_model.png)](./imgs/integrate_show_model.png)
 
 Now say we want to see what the flux under our passbands are for only
 the [blackbody][blackbody]. We uncheck
-"Full Model," type `"c1"` into the Model Expression field, and click
+"Full Model," type `"m1"` into the Model Expression field, and click
 "Calculate":
 
 [![Calculate Flux
@@ -343,37 +340,62 @@ without highlighting any of the Results will save all fluxes. A simple
 interface allow users to pick the location, name of the file, and the
 units for the effective wavelengths of the spectral
 intervals/photometric systems and fluxes, respectively, using the X and
-Y drop-down menus. The following is the file output from our
-interpolated Arp 220 SED, with the effective wavelength in microns and
-the flux in erg/s/cm^2^.
+Y drop-down menus. The following is the file output from the fitted model fluxes
+of Arp 220, with the effective wavelength in microns and
+the flux in erg/s/cm^2.
 
 ``` {.highlight}
-# This file was generated by Iris, the VAO SED building and analysis tool
+# This file was generated by the Iris SED building and analysis tool
 #
 # Iris Flux Integration output
 # Spectral values are the effective wavelengths of the passbands
 #
-# File created on Wed Feb 25 16:05:58 EST 2015
+# File created on Fri Feb 03 10:28:10 EST 2017
 #
 #
 # TARGET = ARP 220
-# RA = 233.737985
-# DEC = 23.503187
-# XUNIT = um
+# RA = 233.738563
+# DEC = 23.503139
+# XUNIT = μm
 # YUNIT = erg/s/cm2
 #
 # x y
 
-3.315655859375 1.15034615781E-15
-4.56449921875 6.69067475881E-16
-10.78684453125 1.22262438471E-15
-21.9149640625 2.88628452028E-15
-4000.5 8.44103142055E-9
-164885.875 2.02285348225E-14
+3.315655859375 1.3133792045799999E-40
+4.56449921875 4.60502059155E-32
+10.78684453125 8.66839572412E-18
+21.9149640625 9.49445585416E-16
+500.4 6.80848269931E-9
        
 ```
 
 These files can be re-loaded into Iris as an ASCII Table.
+
+|   |
+|--:|
+|[[Back to top][top]]|
+
+------------------------------------------------------------------------
+
+### <a name="integrated-caveat"></a> Caveat on integrated flux units
+
+All flux calculations, including those calculated from a photometric filter, 
+are recorded as a *flux* quantity, not a flux *density*. The data are converted 
+to erg/s/cm2/Angstrom vs Angstroms for integration. After the integrated fluxes 
+are calculated, the fluxes are recorded in erg/s/cm2 with the effective 
+wavelength as the X-value in Angstroms.
+
+Of course this may not make sense for fluxes calculated through the photometric 
+filters.  If you want to convert these fluxes to flux densities:
+
+  1. click the "Save" button in the Flux tab
+  2. choose "Angstroms" as the X Units, and "erg/s/cm2" as the Y Units
+  3. open the saved text file in a text editor
+  4. remove the comments (lines beginning with "#")
+  5. load back into Iris, using "Angstroms" as the X axis units, and 
+     "erg/s/cm2/Angstrom" as the Y axis units
+
+The points will be loaded in the correct flux density units.
 
 |   |
 |--:|
@@ -389,7 +411,7 @@ These files can be re-loaded into Iris as an ASCII Table.
 |  05 Aug 2013 |  Updated to illustrate shifting, interpolation and integration features only. Previous version moved to "[Iris 2.0 Features Tour](../../../v2.0/threads/v2.0_features/)". |
 |  02 Dec 2013 |  Updated for Iris 2.0.1 |
 |  07 May 2015 |  Updated for Iris 2.1 beta. New feature: intergration under fitted model components. |
-  
+|  03 Feb 2017 |  Updated images for Iris 3.0. |   
   
 ------------------------------------
  
