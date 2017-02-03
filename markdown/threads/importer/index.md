@@ -146,7 +146,7 @@ $ iris &
 ```
 
 [![Iris desktop with SED Builder
-open](./imgs/load_file_windows_v2_small.jpg)](./imgs/load_file_windows_v2.png)
+open](./imgs/load_file_windows_v2_small.png)](./imgs/load_file_windows_v2.png)
 
 Then, according to the instructions in the "Loading Data into Iris"
 section of the [How-to Guide][guide], load your first (or
@@ -178,7 +178,7 @@ an entry for the SED will automatically display in the SED Builder
 window, and the data plot will appear in the Iris Visualizer.
 
 [![snapshot of Iris
-desktop](./imgs/loaded_ned_sed_v2_small.jpg)](./imgs/loaded_ned_sed_v2.png)
+desktop](./imgs/loaded_ned_sed_v2_small.png)](./imgs/loaded_ned_sed_v2.png)
 
 In the SED Builder window, you have the option of entering a target name
 and coordinates to be associated with the new SED, and recorded in the
@@ -193,7 +193,7 @@ Frame will open, prompting you to enter the conversion configuration for
 the loaded data so that it can be displayed in the Iris Visualizer.
 
 [![Import setup 
-frame](./imgs/import_setup_frame_v2_small.jpg)](./imgs/import_setup_frame_v2.png)
+frame](./imgs/import_setup_frame_v2_small.png)](./imgs/import_setup_frame_v2.png)
 
 An extra step of entering configuration information is also required of
 the user when the Load Photometry Catalog option is selected upon
@@ -201,7 +201,7 @@ loading data; the Photometry Catalog Import window will open, where you
 specify how to display the loaded photometric points.
 
 [![Iris photometry import
-frame](./imgs/catalog_import_v2_small.jpg)](./imgs/catalog_import_v2.png)
+frame](./imgs/catalog_import_v2_small.png)](./imgs/catalog_import_v2.png)
 
 |   |
 |--:|
@@ -322,7 +322,7 @@ catalog is similar to the method outlined for single photometric point.
 The contents of an example file are shown below, which contains one row
 of SDSS optical *ugriz* AB magnitudes for the quasar 3C273, downloaded
 from the
-[SkyServer](http://skyserver.sdss.org/dr3/en/tools/search/radial.asp)
+[SkyServer](http://skyserver.sdss.org/en/tools/search/radial.asp)
 interface in CSV format.
 
 ``` {.highlight}
@@ -388,7 +388,7 @@ magnitudes in our example - you can import the data into Iris by
 clicking the "Import Catalog to SED" button, which will open the Iris
 Visualizer and display the imported points.
 
-  [![Photometry Catalog Importer](./imgs/phot_import_ugriz_small.png)](./imgs/phot_import_ugriz.png)   [![Photometry Catalog Importer](./imgs/sdss_phot_cat_v2_small.jpg)](./imgs/sdss_phot_cat_v2.png)
+  [![Photometry Catalog Importer](./imgs/phot_import_ugriz_small.png)](./imgs/phot_import_ugriz.png)   [![Photometry Catalog Importer](./imgs/sdss_phot_cat_v2_small.png)](./imgs/sdss_phot_cat_v2.png)
 
 |   |
 |--:|
@@ -422,7 +422,7 @@ SED". We now see the NED photometric catalog (in blue squares and pink
 diamonds) overlaid on the SDSS photometric points, and see that the NED
 SED has been added into the "Segments" box in the SED Builder window.
 
-  [![\[snapshot of Iris GUI\]](./imgs/load_from_NED_small.png)](./imgs/load_from_NED.png)   [![\[snapshot of Iris GUI\]](./imgs/second_seg_v2_sdss-NED_small.jpg)](./imgs/second_seg_v2_sdss-NED.png)
+  [![\[snapshot of Iris GUI\]](./imgs/load_from_NED_small.png)](./imgs/load_from_NED.png)   [![\[snapshot of Iris GUI\]](./imgs/second_seg_v2_sdss-NED_small.png)](./imgs/second_seg_v2_sdss-NED.png)
 
 |   |
 |--:|
@@ -445,7 +445,7 @@ in the "Open SEDs" section along the left side of the window, as well as
 a new entry in the "Segments" section.
 
 [![snapshot of SED Builder
-GUI](./imgs/separate_seds_v2_small.jpg)](./imgs/separate_seds_v2.png)
+GUI](./imgs/separate_seds_v2_small.png)](./imgs/separate_seds_v2.png)
 
 After selecting the newly added SED in the "Open SEDS" section, you can
 add a segment or point using the "Load File" or "New Point" options in
@@ -861,7 +861,7 @@ the top of the SED Builder window. In this example, we choose to
 serialize the data in VOTable format.
 
 [![Setup file 
-example](./imgs/example_save_converted_arp220_IR.dat_small.jpg)](./imgs/example_save_converted_arp220_IR.dat.png)
+example](./imgs/example_save_converted_arp220_IR.dat_small.png)](./imgs/example_save_converted_arp220_IR.dat.png)
 
 Since we saved our ASCII conversion configuration to a setup file in the
 SED Builder interactive session, we may now run the tool
