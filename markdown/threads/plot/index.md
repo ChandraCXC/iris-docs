@@ -8,9 +8,7 @@
 
 The Iris GUI uses the [STILTS][stilts] API for its plotting backend. The tabular and plot displays of SED data are heavily based on [STIL][stil], the library both [TOPCAT][topcat] and STILTS use. This thread presents the various options available for interacting with and customizing the SED data display in the *Iris Visualizer*.
 
-**WARNING** The visualization documentation is currently **OUTDATED**. The text is matches Iris 3.0b2, but the images reflect an older version.
-
-**Last Update:** Jan 03 2017 - Updated text for Iris 3.0.
+**Last Update:** Feb 03 2017 - Updated text and images for Iris 3.0.
 
 ------------------------------------------------------------------------
 
@@ -485,19 +483,23 @@ Viewer.
 
 One can simultaneously plot two or more separate SEDs using the Co-plot
 function in the SED Viewer. In this example, we will co-plot two out of
-the three separate SEDs imported from NED: M82, M87 and NGC7714. Click
-the "Display" button on the Viewer toolbar (upper-left corner) and
-select "Co-plot." A menu with the list of all SEDs available for
+the three separate SEDs imported from NED: M82, M87 and NGC7714.
+
+Click the "View" button on the Viewer toolbar (upper-left corner) and
+select "Coplot..." A menu with the list of all SEDs available for
 co-plotting will pop up.
 
-  ![Iris screenshot](./imgs/coplot_small_display.png)   
-  [![Iris screenshot](./imgs/coplot_menu_sedbuilder_small.png)](./imgs/coplot_menu_sedbuilder.png)
+  ![Iris screenshot](./imgs/coplot_small_display.png)  [![Iris screenshot](./imgs/coplot_menu_sedbuilder_small.png)](./imgs/coplot_menu_sedbuilder.png)
 
 To co-plot, hold-down the Control key (Command key on Mac systems) and
-click on the SED names you wish to view, and then click the "Co-plot"
+click on the SED names you wish to view, and then click the "Plot Seds"
 button on the menu (to select all SEDs, click on the first SED,
-hold-down the Shift key, click on the last SED, and hit "Co-plot").
-Here, we've selected M82 and NGC7714. The Visualizer updates with all
+hold-down the Shift key, click on the last SED, and hit "Plot Seds").
+Here, we've selected M82 and NGC7714. 
+
+![Iris screenshot](./imgs/coplot_small_display2.png)
+
+The Visualizer updates with all
 SEDs selected for co-plotting. Each SED is plotted with a different
 color, and the color-coding and the names of the SEDs co-plotted are
 shown in the legend <!--(which can be deleted with a mouse click)-->(which can 
@@ -542,10 +544,12 @@ One can "Extract" the desired points to a new SED. If you masked the points in t
 
 or 
 
-   * sort the Masked column, click the first unmasked point, hold the Shift key, and select the last unmasked point, then click "Extract."
+   * sort the Masked column, click the first unmasked point, hold the Shift key, and select the last unmasked point, then click "Extract." An image of this method is shown below:
+   
+[![Iris Screenshot](./imgs/coplot5.5_small.png)](./imgs/coplot5.5.png)
 
-A new SED, called "FilterSed," is displayed in the
-Viewer, and is available for saving, appending and analyzing in the SED
+Either method will produce new SED called "FilterSed." This SED is displayed in the
+Viewer, and is available for saving, appending and analyzing from the SED
 Builder window. The final SED is displayed in the figure below.
 
 [![Iris Screenshot](./imgs/coplot6_small.png)](./imgs/coplot6.png)
@@ -711,7 +715,7 @@ screenshot](./imgs/topcat_example_small.png)](./imgs/topcat_example.png)
 
 <!-- external links -->
 [topcat]: http://www.star.bris.ac.uk/~mbt/topcat/#docs "TOPCAT"
-[stils]:  http://www.star.bris.ac.uk/~mbt/stilts/ "STILTS"
+[stilts]:  http://www.star.bris.ac.uk/~mbt/stilts/ "STILTS"
 [stil]:   http://www.star.bris.ac.uk/~mbt/stil/ "STIL"
 
 <!-- threads -->
