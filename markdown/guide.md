@@ -2,12 +2,10 @@
 
 The Iris How-to Guide serves as a roadmap for navigating the Iris SED analysis tool. It provides instructions for downloading, installing, and running the Iris application; describes the individual features and capabilities of Iris; and ties it all together in an example SED analysis session.
 
-** NEW **
-
-  * Users can now integrate under fitted model components.
-  * Groups of SEDs may be statistically combined together to create averaged SEDs with the new Iris tool, SED Stacker..
-  * The version of Sherpa packaged with Iris has been updated to 4.7. This means template libraries and table models can now be combined with other libraries, models, and functions as the Model Expression in the Fiting Tool.
-  * SEDs can now be saved in ASCII format.
+**NOTE: WARNING (Jan 3, 2017)** Most of the user guides do not have the most up-to-date 
+screenshots of Iris. However, the text *is* up-to-date. We will be updating the 
+images over time. If you have any issues with the documentation, feel free to 
+contact us at the [CXC Helpdesk][helpdesk].
 
 ----------------
 

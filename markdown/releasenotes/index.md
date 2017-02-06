@@ -1,8 +1,8 @@
 # Iris Release Notes
 
-## Iris 3.0b1 Release Notes
+## Iris 3.0 Release Notes
 
-Iris 3.0b1 introduces a new infrastructure for visualizing and fitting
+Iris 3.0b1 introduced a new infrastructure for visualizing and fitting
 spectrophotometric data. The new infrastructure allows users to load and fit
 high resolution spectra as well as broadband, multi-wavelength
 spectrophotometric datasets. The new infrastructure is also more flexible and
@@ -11,6 +11,12 @@ introduces a simple client for the Vizier/CDS SED service while keeping the
 dedicated clients to NED and ASDC services. This release also fixes several bugs
 and introduces some new functionality and user interface improvements, as
 specified in more detail below, component by component.
+
+3.0b2 was a much smaller addition of bug fixes and a few minor enhancements to the 3.0b1 release. 
+
+Iris 3.0 introduced a complete update of the user documentation, along with a handful of remaining bugs fixes.
+
+The release notes shown here are a combination of the 3.0 releases.
 
 ### Fitting Tool
 
@@ -74,23 +80,17 @@ release. For the complete report of caveats and known bugs, please view the
 list in [Bugs & Caveats][bugs]. If you experience any other issues with Iris,
 please send us a message at the [CXC HelpDesk][helpdesk].
 
-### Fitting Tool
-
-  * The tool is currently missing "bulk" operations on model parameters
-(e.g. thaw all, freeze all).
-  * There is currently no warning when overwriting existing files.
-
 ### Visualizer
 
-    * Residuals and main plot are not bound together when zooming, panning, etc.
-    * Depending on the size of the Visualizer window, legend might spill over
-the bounds of the Visualizer when many segments are displayed.
-Workaround: users can hide the legend from the "View" menu.
-    * It is not possible to filter data points by selecting them
-in the Visualizer.
-    * When analyzing SEDs with more than 16 segments, fitting ranges are not
-visualized in the plotter. However, they are still listed in the
-Fitting Ranges window.
+  * Residuals and main plot are not bound together when zooming, panning, etc.
+  * Depending on the size of the Visualizer window, legend might spill over
+    the bounds of the Visualizer when many segments are displayed.
+    **Workaround:** users can hide the legend from the "View" menu.
+  * It is not possible to filter data points by selecting them
+    in the Visualizer.
+  * When analyzing SEDs with more than 16 segments, fitting ranges are not
+    visualized in the plotter. However, they are still listed in the
+    Fitting Ranges window.
 
 ### Metadata Browser
 
