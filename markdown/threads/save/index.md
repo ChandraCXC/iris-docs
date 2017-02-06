@@ -13,8 +13,7 @@ file. This also explains how data can be exported to other programs.
 Saved SED data and fitting session files may be read back into the
 application at a later time to restore the analysis session.
 
-**Last Update:** 07 May 2015 - updated for Iris 2.1 beta. SEDs can now
-be saved in ASCII format.
+**Last Update:** 06 Feb 2017 - updated for Iris 3.0.
 
 ------------------------------------------------------------------------
 
@@ -62,7 +61,7 @@ save all open SED segments together, or the "Save" option in the
 a small window where you can enter a filename and file format, VOT,
 FITS, or ASCII.
 
-[![Save SED frame](./imgs/save_sed_new_small.jpg)](./imgs/save_sed_new.png)
+[![Save SED frame](./imgs/save_sed_new_small.png)](./imgs/save_sed_new.png)
 
 By default, saving SEDs in VOT or FITS format will store all associated
 metadata along with the data values of the selected SED or segments.
@@ -190,12 +189,12 @@ Component 1: brokenpowerlaw
 
 The SED data currently displayed in Iris may be printed to a hardcopy
 image in either JPG (.jpg), PNG (.png), GIF (.gif) or BITMAP (.bmp)
-format, by selecting *File-&gt;Save plot to image file*, and making the
+format, by selecting *File-&gt;Export Plot to File*, and making the
 desired image format selection. The image will scale to the size and
 shape of the plot in the Iris Visualizer. Below is an example image
-saved in JPG format.
+saved in PNG format.
 
-![Iris screenshot](./imgs/NGC7714.jpg)
+![Iris screenshot](./imgs/starbursts.png)
 
 |   |
 |--:|
@@ -214,8 +213,24 @@ the option to save any or all of the calculated fluxes in ASCII format
 by highlighting the ones you wish to save; clicking "Save" without
 highlighting any of the Results will save all fluxes. You can convert
 the calculated fluxes and effective wavelengths/passbands into whichever
-units you want by using the X and Y drop-menus. Below is an example of
-the ASCII file displaying the output file:
+units you want by using the X and Y drop-menus. 
+
+For example, use the NED SED service to import data for ARP 220, then [compute 
+an interpolated SED](../science/index.html#interpolation) of ARP 220 using the default interpolation options:
+
+  * Linear Spline
+  * 1000 bins
+  * Logarithmic binning
+  * from -infinity to infinity
+
+Switch to the Calculate Flux tab. [Add][science_integrate] a Passband from 8000 to 1e7 Angstroms, 
+then add all the Photometry Filters for 2MASS and WISE. Click "Save" at the 
+bottom of the Science window.
+
+![Save fluxes](./imgs/save_arp220_fluxes.png)
+
+Below is the [output ASCII file](./arp220_fluxes.txt) displaying the fluxes for the linear-spline 
+interpolated SED of ARP 220 imported from NED:
 
 ``` {.highlight}
 % more arp220_fluxes.txt
@@ -265,14 +280,14 @@ and other SAMP-enabled Virtual Observatory programs.
 
 Iris exports data to outside applications via the "Broadcast" button.
 Iris can broadcast data from the SED Builder, which allows us to send
-the metadata for SED segments and aggregate SEDs, and from the Metadata
-Browser, from which we can select specific data points to send. The SED
+the metadata for SED segments and aggregate SEDs <!--, and from the Metadata
+Browser, from which we can select specific data points to send-->. The SED
 Builder window has two "Broadcast" buttons: one at the very top of the
 window, which allows for the highlighted SED in the *Open SEDs* box to
 be exported, and one in the *Segments* section, which allows one or
-multiple SED segments to be broadcasted; its icon is a radio tower. The
+multiple SED segments to be broadcasted; its icon is a radio tower. <!--The
 Metadata Browser "Broadcast" button is in the bottom right-hand corner
-of the window.
+of the window.-->
 
 With the external application open and connected to the SAMP network,
 highlighted SED segments or data points may be broadcasted from Iris to
@@ -283,11 +298,11 @@ section, and exported the data to TOPCAT by clicking on the highlighted
 TOPCAT by clicking *Views -&gt; Table Data*.
 
 [![Iris SAMP
-icon](./imgs/samp_example_small.jpg)](./imgs/samp_example.png)
+icon](./imgs/samp_example_small.png)](./imgs/samp_example.png)
 
-See ["Transmitting Data from a SAMP-enabled
+<!--See ["Transmitting Data from a SAMP-enabled
 Application"][plot_broadcast] for an example of exporting
-SED data from the Metadata Browser in Iris to TOPCAT.
+SED data from the Metadata Browser in Iris to TOPCAT.-->
 
 |   |
 |--:|
@@ -308,6 +323,7 @@ SED data from the Metadata Browser in Iris to TOPCAT.
 |  02 Dec 2013 |  updated for Iris 2.0.1	  |
 |  21 Apr 2014 |  fixed typo. Single Tables store only 3 columns: the spectral, flux and flux error data. |
 |  07 May 2015 |  updated for Iris 2.1 beta. SEDs can now be saved in ASCII format. |
+|  06 Feb 2017 |  updated for Iris 3.0        |
 
 ------------------------------------
  
