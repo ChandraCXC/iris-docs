@@ -1,6 +1,6 @@
 # Iris Bugs & Caveats
 
-[Fitting](#fit) | [Multiple Users](#multiple_users) | [Science Tools](#sci_tools) | [Graphics](#graphics) | [SED Data Types](#sed_data) | [Visualization/Interaction](#visuals)
+[Fitting](#fit) | [Multiple Users](#multiple_users) | [Science Tools](#sci_tools) | [Graphics](#graphics) | [SED Data Types](#sed_data) | [Visualization/Interaction](#visuals) | ["Tried calling Sherpa 100 times..."](#tried-calling-sherpa)
 
 The following is a list of known limitations of the Iris software. If you encounter a software bug or analysis caveat that is not listed here, please report it to the [CXC Helpdesk][helpdesk].
 
@@ -110,6 +110,32 @@ For troubleshooting the Iris installation, see the [Troubleshooting page][downlo
   * Deleted model components are not removed automatically from the model expression. 
 
   * Highlighting and deleting multiple models from the Components list simultaneously may result in the deletion of unhighlighted models. Delete models from the Components list one-at-a-time for desirable results. 
+
+
+### <a name="tried-calling-sherpa"></a> "Tried calling Sherpa 100 times every 100 milliseconds. Giving up"
+
+This error may occur when doing one of the following operations:
+  
+  * redshifting
+  * interpolating
+  * calculating integrated fluxes
+  * fitting
+  * calculating confidence intervals
+  * evaluating the model
+  
+If this happens, it is possible that the Sherpa connection stalled out. To remedy this issue, open a new terminal, kill any currently-running `sherpa-samp` processes, start a new `iris` conda environment and launch a new `sherpa-samp` process.
+     
+        $ pkill sherpa-samp
+        $ bash
+        $ source activate iris    # or whatever you've named the environment
+        (iris) $ sherpa-samp
+        
+Then try to do the operation again. You shouldn't lose any of your data if you see this error.
+
+**NOTE:** When you are finished with Iris, you will need to end the sherpa-samp process manually with
+
+    pkill sherpa-samp
+
 
 |   |
 |--:|

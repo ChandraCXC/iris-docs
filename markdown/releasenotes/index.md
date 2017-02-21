@@ -99,6 +99,30 @@ please send us a message at the [CXC HelpDesk][helpdesk].
   * SAMP broadcasting is not available any more from the Metadata Browser directly. One can extract an SED in the Metadata Browser and then use the SED Builder capabilities to broadcast a flattened SED or an arbitrary number of segments.
   * Data can now be sorted only according to one column, not two as in Iris 2.1.
 
+### Sherpa Communication
+
+Sometimes the connection to Sherpa stalls out, and you get a "`Tried calling Sherpa 100 times every 100 milliseconds. Giving up`" error when doing one of the following operations:
+  
+  * redshifting
+  * interpolating
+  * calculating integrated fluxes
+  * fitting
+  * calculating confidence intervals
+  * evaluating the model
+  
+To remedy this issue, open a new terminal, kill any currently-running `sherpa-samp` processes, start a new `iris` conda environment and launch a new `sherpa-samp` process.
+     
+        $ pkill sherpa-samp
+        $ bash
+        $ source activate iris    # or whatever you've named the environment
+        (iris) $ sherpa-samp
+        
+Then try to do the operation again. You shouldn't lose any of your data if you see this error.
+
+**NOTE:** When you are finished with Iris, you will need to end the sherpa-samp process manually with
+
+    pkill sherpa-samp
+
 ### Sed Stacker
 
   * After stacking a group of SEDs, the resultant SED is added to the SED Builder. A silent java.lang.NullPointerException exception is raised when a user tries to add new segments to this SED. No warning pops up to the user.
