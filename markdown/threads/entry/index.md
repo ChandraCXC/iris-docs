@@ -102,7 +102,7 @@ $ source activate iris
 $ iris
 ```
 
-![snapshot of Iris GUI](./imgs/iris_desktop_small.png)
+![snapshot of Iris GUI](../../imgs/iris_desktop_small.png)
 
 You can also start the application by opening a folder manager window on
 Linux or the Finder on Mac, navigating to the Iris 2.1 directory, and

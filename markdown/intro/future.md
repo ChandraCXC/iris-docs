@@ -1,8 +1,8 @@
 # Future Direction
 
-Iris version 2.1 provides new features that meet a few of the scientific requirements written at the time of Iris' inception. However, there remain several capabilities that need to be implemented. These additional SED building, analysis, and visualization functions will continue to be added in incremental releases.
+Iris version 3.0 provides new features that meet a few of the scientific requirements written at the time of Iris' inception. However, there remain several capabilities that need to be implemented. These additional SED building, analysis, and visualization functions will continue to be added in incremental releases.
 
-Iris will continue to be maintained and enhanced by the Chandra X-ray Observatory software development group at the Smithsonian Astrophysical Observatory. We encourage our users to send us comments, suggestions, and concerns so that we can expand Iris to meet the needs of the science community. Please use the [CXC HelpDesk][helpdesk] with the tag "Iris" for feedback and suggestions.
+Iris is maintained and enhanced by the Chandra X-ray Observatory software development group at the Smithsonian Astrophysical Observatory. We encourage our users to send us comments, suggestions, and concerns so that we can expand Iris to meet the needs of the science community. Please use the [CXC HelpDesk][helpdesk] with the tag "Iris" for feedback and suggestions.
 
 ### Short-term Additions to Iris
 

@@ -68,7 +68,7 @@ $ source activate iris
 $ iris
 ```
 
-![Iris Desktop screenshot](../entry/imgs/iris_desktop_small.png)
+![Iris Desktop screenshot](../../imgs/iris_desktop_small.png)
 
 We can choose to import SED data directly from NED via either the Get an
 SED from the NED Service option in the Iris *Load File* or *Load NED

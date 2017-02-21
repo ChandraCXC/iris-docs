@@ -39,11 +39,10 @@ spectral range.
 </div>
 
 <div align="center">
-
-<img src="./imgs/new_homepage_pic.png" 
-     href="./intro/index.html" 
+<a href="./intro/index.html">
+<img src="./imgs/homepage-image.png"  
      alt="Iris desktop application"/>
-
+</a>
 </div>
 
 *Iris* is a Virtual Observatory downloadable application for analysis of

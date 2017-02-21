@@ -12,15 +12,7 @@
 
 -----------------------------------------------------------------------
 
-<!-- TODO: highlight this area -->
-Iris 3.0b1: released August 2015 
-This version of Iris is a beta release. Please see the latest Release Notes for details on the new features, bug fixes, and currently known bugs and limitations. If you find any bugs or have suggestions, please contact us at the [CXC HelpDesk](/helpdesk) with the tag "Iris."
-<!-- end highlight section -->
-
 The Iris software package is available for download through Anaconda. Iris is supported on Linux and Macintosh OS X 10.6 - 10.11 computer platforms running Java version 1.6 or higher.
-
-*If you are running Mac OS X 10.5 with Java 1.5, please follow the special
- installation instructions available [here][macosx105].*
 
 -----------------------------------------------------------------------
 
@@ -85,12 +77,12 @@ These directions assume you are running in a BASH shell. If you are running a C-
       
   - Install Iris. This will create a environment specific to Iris. Say yes (enter "y") when the download script asks you to install the packages.
 
-		$ conda create -n iris iris=3.0b1
+		$ conda create -n iris iris=3.0
 
     If you have an environment named `iris` already, you can either rename your
     old environment (with, for example, `mv $HOME/miniconda/envs/iris
     $HOME/miniconda/envs/iris2.1`), give this new Iris installation a new
-    enviornment name (with `conda create -n iris30b1 iris=3.0b1`), or delete
+    enviornment name (with `conda create -n iris30b1 iris=3.0`), or delete
     your old Iris installation entirely (with `rm -rf
     $HOME/miniconda/envs/iris`).
     
@@ -163,7 +155,7 @@ These directions assume you are running in a BASH shell. If you are running a C-
       
   - Install Iris. This will create a environment specific to Iris.
 
-		$ conda create -n iris iris=3.0b1
+		$ conda create -n iris iris=3.0
       
     You will see something like the following output below. Say yes (enter "y") when the download script asks you to install the packages.
 
@@ -177,7 +169,8 @@ These directions assume you are running in a BASH shell. If you are running a C-
 
 			package                    |            build
 			---------------------------|-----------------
-			iris-3.0b1                 |                3        24.4 MB
+			openjdk-8.17.0.3           |                1        63.3 MB
+			iris-3.0                   |                3        23.5 MB
 			numpy-1.8.2                |           py27_0         7.3 MB
 			pyfits-3.3.0               |       np18py27_1         1.9 MB
 			python-2.7.12              |                2        13.4 MB
@@ -188,35 +181,37 @@ These directions assume you are running in a BASH shell. If you are running a C-
 			pip-8.1.2                  |           py27_0         1.4 MB
 			sherpa-4.8                 |       np18py27_1         6.2 MB
 			sedstacker-0.1.0_iris      |       np18py27_3         4.7 MB
-			sherpa-samp-3.0b1          |       np18py27_3          84 KB
+			sherpa-samp-3.0            |       np18py27_3          84 KB
 			------------------------------------------------------------
 												   Total:        90.5 MB
 
 		The following NEW packages will be INSTALLED:
 
-			astlib:      0.7.0-np18py27_2     
-			iris:        3.0b1-1                
-			numpy:       1.8.2-py27_1         
-			openssl:     1.0.2h-1             
-			pip:         8.1.2-py27_0         
-			pyfits:      3.3.0-np18py27_1     
-			python:      2.7.12-1              
-			readline:    6.2-2                
-			sampy:       1.2.1-py27_1         
-			scipy:       0.14.0-np18py27_0    
-			sedstacker:  0.1.0_iris-np18py27_3
-			setuptools:  25.1.6-py27_0          
-			sherpa:      4.8.0-py27_2       
-			sherpa-samp: 3.0b1-np18py27_3       
-			sqlite:      3.13.0-0            
-			system:      5.8-2                
-			tk:          8.5.18-0             
-			zlib:        1.2.8-3
+            astlib:      0.7.0-np18py27_1      cxc             
+            iris:        3.0-0                 cxc
+            numpy:       1.8.2-py27_0                          
+            openjdk:     8.17.0.3-1                            
+            openssl:     1.0.2k-0                              
+            pip:         9.0.1-py27_1                          
+            pyfits:      3.3.0-np18py27_1      cxc             
+            python:      2.7.13-0                              
+            readline:    6.2-2                                 
+            sampy:       1.2.1-py27_1          cxc             
+            scipy:       0.14.0-np18py27_0                     
+            sedstacker:  0.1.0_iris-np18py27_3 cxc             
+            setuptools:  27.2.0-py27_0                         
+            sherpa:      4.8.0-py27_2          sherpa          
+            sherpa-samp: 3.0-np18py27_0        cxc
+            sqlite:      3.13.0-0                              
+            tk:          8.5.18-0                              
+            wheel:       0.29.0-py27_0                         
+            zlib:        1.2.8-3
              
 
 		Proceed ([y]/n)? y
 		Fetching packages ...
-		iris-3.0b1-1.t 100% |################################| Time: 0:00:03   6.62 MB/s
+		openjdk-8.17.0 100% |################################| Time: 0:00:07   8.60 MB/s
+		iris-3.0-0     100% |################################| Time: 0:00:03   6.62 MB/s
 		numpy-1.8.2-py 100% |################################| Time: 0:00:02   3.08 MB/s
 		pyfits-3.3.0-n 100% |################################| Time: 0:00:00   6.01 MB/s
 		python-2.7.12- 100% |################################| Time: 0:00:35 390.66 kB/s
@@ -229,7 +224,7 @@ These directions assume you are running in a BASH shell. If you are running a C-
 		sedstacker-0.1 100% |################################| Time: 0:00:05 869.50 kB/s
 		sherpa-samp-3. 100% |################################| Time: 0:00:00 833.10 kB/s
 		Extracting packages ...
-		[      COMPLETE     ]|#######################################################################################################| 100%
+		[      COMPLETE    ]|#######################################################################################################| 100%
 		Linking packages ...
 		[      COMPLETE     ]|#######################################################################################################| 100%
 		#
@@ -251,7 +246,7 @@ From the command line, activate the Iris environment. Then, you can run Iris fro
 	     
 **IMPORTANT:** If you have set "`iris`" as an alias in your `$HOME/.bashrc` or `$HOME/.bash_profile` to run an older version of Iris, please rename the old alias to something else (for example, "`iris2.0.1`" for Iris v2.0.1).
 
-![Iris GUI](./imgs/iris_desktop_small.jpg "The Iris Desktop")
+![Iris GUI](../imgs/iris_desktop_small.png "The Iris Desktop")
 
 **Above:** The Iris Desktop
 

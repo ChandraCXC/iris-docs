@@ -2,11 +2,6 @@
 
 The Iris How-to Guide serves as a roadmap for navigating the Iris SED analysis tool. It provides instructions for downloading, installing, and running the Iris application; describes the individual features and capabilities of Iris; and ties it all together in an example SED analysis session.
 
-**NOTE: WARNING (Jan 3, 2017)** Most of the user guides do not have the most up-to-date 
-screenshots of Iris. However, the text *is* up-to-date. We will be updating the 
-images over time. If you have any issues with the documentation, feel free to 
-contact us at the [CXC Helpdesk][helpdesk].
-
 ----------------
 
 ## Download and Installation
@@ -33,6 +28,7 @@ contact us at the [CXC Helpdesk][helpdesk].
   * [The Plugin Manager][plugin_manager]
   * [Developing Iris Plugins][sdk]
 
+<!--
 ## Videos
 
   * Iris Video Tutorial - Explore all of Iris' features in two 10-minute videos.
@@ -41,6 +37,8 @@ contact us at the [CXC Helpdesk][helpdesk].
     Please note that the videos were made for Iris v2.0 and do not show all the new features introduced in Iris 2.1 beta. The videos will be updated for the Iris v2.1 release.
   * [Overview of Iris features](https://www.youtube.com/watch?v=pF5ivLshPyw)
   * [Statistically Combine SEDs with Iris]()
+  
+-->
 
 
 
