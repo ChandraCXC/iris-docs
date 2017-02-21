@@ -21,6 +21,8 @@ For troubleshooting the Iris installation, see the [Troubleshooting page][downlo
   
     Wait 10 seconds for Sherpa to reconnect, then you may continue you fitting session. 
 
+  * If you have model components with the same component IDs as those in a JSON file of a previously saved fit, loading that JSON file will override the current model components. If you load the JSON file first, then add new model components, the new model components will override the JSON model components if the model components share the same IDs.
+
 #### Fitting Data with Custom Models
 
   * When a spectral model component is deleted from the Custom Model Manager, the Sherpa model expression being used for fitting, shown in the Fitting Tool window, is not automatically updated; it needs to be edited manually by the user. 

@@ -114,6 +114,7 @@ The following bugs and caveats will be addressed before the Iris 2.1 release.
 
 ## Previous Release Notes
 
+  * [v3.0b2](/iris/v3.0b2/releasenotes/index.html)
   * [v2.1](/iris/v2.1/releasenotes/index.html)
   * [v2.0.1](/iris/v2.0.1/releasenotes/index.html)
   * [v2.0](/iris/v2.0/releasenotes/index.html)
@@ -154,4 +155,4 @@ The following bugs and caveats will be addressed before the Iris 2.1 release.
 
 <!-- Navigation -->
 [toc]:				#toc
-[top]:      			#top
+[top]:      		#top
