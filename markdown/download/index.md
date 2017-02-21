@@ -12,31 +12,17 @@
 
 -----------------------------------------------------------------------
 
-The Iris software package is available for download through Anaconda. Iris is supported on Linux and Macintosh OS X 10.6 - 10.11 computer platforms running Java version 1.6 or higher.
+The Iris software package is available for download through Anaconda. Iris is supported on Linux and Macintosh OS X 10.6 - 10.11 computer platforms.
 
 -----------------------------------------------------------------------
 
 ### <a name="sysreqs"></a> Iris system requirements
 
-Iris will not run on a system which does not have at least Java SE 6 (developer version 1.6), preferably Oracle JRE, though special installation instructions are available for the Mac OS X 10.5 platform running Java 1.5.
-
-To check your current Java version, type `java -version` into a terminal window:
-
-	unix% java -version
-	java version "1.8.0_40"
-	Java(TM) SE Runtime Environment (build 1.8.0_40-b27)
-	Java HotSpot(TM) 64-Bit Server VM (build 25.40-b25, mixed mode)
-      
 Free disk space:
 
   * OS X: ~220 MB
   * Linux 64-bit: ~370 MB
   * Linux 32-bit: ~330 MB
-  
-<!--
-The Specview and Sherpa applications which comprise Iris run simultaneously and
-communicate with each other via a SAMP hub.
--->
 
 Known issues with installing and starting Iris are listed on the [Troubleshooting page][download_trouble].
 
