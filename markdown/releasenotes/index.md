@@ -34,6 +34,7 @@ window, and information should be easier to set and retrieve.
   * Models can be saved as Json files and then loaded back into Iris. Note that the Iris 1 and 2 xml serializations are not supported any more. If you have such a file and you want it converted to the new format, please let us know.
   * Models can be evaluated even if they have not been fitted. So for instance you can change model parameters and re-evaluate the model, or evaluate individual model components.
   * You can right-click on a model component to select it and remove it from the expression.
+  * Clicking "Dismiss" or "Stop" during a fit or confidence level calculation will no longer disconnect Sherpa from the SAMP hub.
 
 ### SED Viewer
 

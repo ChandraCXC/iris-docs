@@ -10,16 +10,7 @@ For troubleshooting the Iris installation, see the [Troubleshooting page][downlo
 
 #### General Fitting
 
-  * The internal units for fitting in Iris are photons/sec/cm2/angstrom and Angstroms, and so the best-fit parameters values will always be in terms of $photons/s/cm^{2}/Angstrom$ and $Angstroms$, regardless of the user-defined unit settings. 
-
-  * Clicking "Stop" or "Dismiss" while calculating the fit statistics in either the "Fit" or "Confidence" tab may disconnect Sherpa from the SAMP hub. This prevents any more fitting routines within Iris. You can reconnect Sherpa to Iris from the command line:
-(in a new Terminal window or tab)
-
-		% /bin/bash       # if in a C-shell
-		$ source activate iris
-		$ sherpa-samp
-  
-    Wait 10 seconds for Sherpa to reconnect, then you may continue you fitting session. 
+  * The internal units for fitting in Iris are photons/sec/cm2/angstrom and Angstroms, and so the best-fit parameters values will always be in terms of $photons/s/cm^{2}/Angstrom$ and $Angstroms$, regardless of the user-defined unit settings.  
 
   * If you have model components with the same component IDs as those in a JSON file of a previously saved fit, loading that JSON file will override the current model components. If you load the JSON file first, then add new model components, the new model components will override the JSON model components if the model components share the same IDs.
 
