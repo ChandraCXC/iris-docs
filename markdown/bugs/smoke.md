@@ -4,43 +4,11 @@ The following is a list of known issues that may arise while installing or attem
 
 -----------------------
 
-[I do not have the Java version required to run Iris.](#java_version)
-
 [I exited Iris with a Force Quit or 'kill' command; now, it does not run properly.](#forcequit)
 
 [(OS X) Smoke tests fail with "Error: Sherpa didn't respond to ping."](#libgcc_missing)
 
 -----------------------
-
-### <a name="java_version"></a>I do not have the Java version required to run Iris.
-
-When you run the Iris startup command, the application does not open; the SED Importer startup command fails with an error message. This likely indicates that you do not have the minimum required Java version on your system to run the Iris application; or you do, but your global 'path' variable points to an older Java version which coexists on your system with the up-to-date one. In the case of the former, you should upgrade to at least Java SE 6 (version 1.6) by following the installation instructions for the Java Runtime Environment (JRE) specific to your computer platform, on the [Oracle website][oracle].
-
-In the case of the latter, first check to see if your path points to an older version of Java on your system; if so, contact your systems administrator to find out if a newer version of Java is available elsewhere on your system.
-
-For example, the output below shows that the global path variable is pointed to a directory containing an outdated version of Java.
-
-	% which java
-	/usr/bin/java
-
-	% java -version
-	java version "1.4.2"
-	gij (GNU libgcj) version 4.1.2 20080704 (Red Hat 4.1.2-50)
-
-Checking `/usr/local/bin`, however, reveals that an up-to-date Java version coexists on the system with the older version:
-
-	% /usr/local/bin/java -version
-	java version "1.6.0_24"
-	Java(TM) SE Runtime Environment (build 1.6.0_24-b07)
-	Java HotSpot(TM) Server VM (build 19.1-b02, mixed mode)
-
-Editing the global path variable so that the directory containing Java SE 6 is searched before the directory containing the older version, will allow Iris to properly install.
-
-	% set path = (/usr/local/bin $path)
-
-	% Iris &
-
-Adding the "set path ..." line shown above to your user preferences file for the shell, e.g. `$HOME/.cshrc.user` or `$HOME/.cshrc` for the tcsh shell or `$HOME/.bashrc` or `$HOME/.bash_profile` for bash shell, will make this change permanent; running it in the terminal window will alter the path only temporarily, i.e., for that particular terminal session.
 
 ### <a name="forcequit"></a>I exited Iris with a Force Quit or 'kill' command; now it does not run properly.
 

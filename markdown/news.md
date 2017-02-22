@@ -13,7 +13,7 @@
     <tbody>
     
       <tr>
-	    <td valign="top">Feb. 03, 2017</td>
+	    <td valign="top">Feb. 22, 2017</td>
         <td valign="top">
           <p>
                 <strong>Iris v3.0 Released</strong>
