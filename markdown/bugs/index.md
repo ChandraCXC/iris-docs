@@ -18,7 +18,7 @@ For troubleshooting the Iris installation, see the [Troubleshooting page][downlo
 
   * When a spectral model component is deleted from the Custom Model Manager, the Sherpa model expression being used for fitting, shown in the Fitting Tool window, is not automatically updated; it needs to be edited manually by the user. 
 
-  * When fitting with a template model, the search method is automatically switched to a grid search over the templates included in the model. The template parameters are interpolated using the default K-nearest neighbor (KNN) algorithm in Sherpa, Iris' fitting engine. 
+  * When fitting with template libraries, the template parameters are interpolated using the default K-nearest neighbor (KNN) algorithm in Sherpa, Iris' fitting engine.
 
   * All custom table and template data files must be in ASCII format. Table and template models do not read from FITS files.
 

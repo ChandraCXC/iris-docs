@@ -2,21 +2,15 @@
 
 ## Iris 3.0 Release Notes
 
-Iris 3.0b1 introduced a new infrastructure for visualizing and fitting
+Iris 3.0 introduces a new infrastructure for visualizing and fitting
 spectrophotometric data. The new infrastructure allows users to load and fit
 high resolution spectra as well as broadband, multi-wavelength
 spectrophotometric datasets. The new infrastructure is also more flexible and
-it will enable future extensions of the Iris functionality. Moreover, Iris 3.0b1
+it will enable future extensions of the Iris functionality. Moreover, Iris 3.0
 introduces a simple client for the Vizier/CDS SED service while keeping the
 dedicated clients to NED and ASDC services. This release also fixes several bugs
 and introduces some new functionality and user interface improvements, as
 specified in more detail below, component by component.
-
-3.0b2 was a much smaller addition of bug fixes and a few minor enhancements to the 3.0b1 release. 
-
-Iris 3.0 introduced a complete update of the user documentation, along with a handful of remaining bugs fixes.
-
-The release notes shown here are a combination of the 3.0 releases.
 
 ### Fitting Tool
 
@@ -33,6 +27,7 @@ window, and information should be easier to set and retrieve.
   * Output files created by the "Save Text" option now contain more information, including the location of custom user models.
   * Models can be saved as Json files and then loaded back into Iris. Note that the Iris 1 and 2 xml serializations are not supported any more. If you have such a file and you want it converted to the new format, please let us know.
   * Models can be evaluated even if they have not been fitted. So for instance you can change model parameters and re-evaluate the model, or evaluate individual model components.
+  * You can edit a SED (mask/unmask points, add/remove segments) during a fitting session.
   * You can right-click on a model component to select it and remove it from the expression.
   * Clicking "Dismiss" or "Stop" during a fit or confidence level calculation will no longer disconnect Sherpa from the SAMP hub.
 
@@ -119,10 +114,6 @@ To remedy this issue, open a new terminal, kill any currently-running `sherpa-sa
         (iris) $ sherpa-samp
         
 Then try to do the operation again. You shouldn't lose any of your data if you see this error.
-
-**NOTE:** When you are finished with Iris, you will need to end the sherpa-samp process manually with
-
-    pkill sherpa-samp
 
 ### Sed Stacker
 
