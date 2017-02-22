@@ -18,7 +18,7 @@ objects.
 This thread demonstrates how users may redshift, normalize, and
 statistically combine groups of SEDs with Iris' tool *SED Stacker*.
 
-**Last Update:** 01 Jan 2017 - Updated for Iris 3.0b2. Minor GUI updates.
+**Last Update:** 22 Jan 2017 - Updated for Iris 3.0. Minor updates.
 
 
 ------------------------------------------------------------------------
@@ -618,7 +618,8 @@ the individual SEDs out using the Metadata Broswer.
 | Date          | Change							   |
 |---------------|--------------------------------------|
 |  07 May 2015  | First issue. Added in Iris 2.1 beta. |
-|  01 Jan 2017  | Updated for Iris 3.0b2. Minor GUI updates. |
+|  01 Jan 2017  | Updated for Iris 3.0b2. GUI updates. |
+|  22 Feb 2017  | Updated for Iris 3.0. Minor updates. |
 
 ----------------------------------
 

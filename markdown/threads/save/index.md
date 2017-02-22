@@ -13,7 +13,7 @@ file. This also explains how data can be exported to other programs.
 Saved SED data and fitting session files may be read back into the
 application at a later time to restore the analysis session.
 
-**Last Update:** 06 Feb 2017 - updated for Iris 3.0.
+**Last Update:** 22 Feb 2017 - updated for Iris 3.0.
 
 ------------------------------------------------------------------------
 
@@ -323,7 +323,7 @@ SED data from the Metadata Browser in Iris to TOPCAT.-->
 |  02 Dec 2013 |  updated for Iris 2.0.1	  |
 |  21 Apr 2014 |  fixed typo. Single Tables store only 3 columns: the spectral, flux and flux error data. |
 |  07 May 2015 |  updated for Iris 2.1 beta. SEDs can now be saved in ASCII format. |
-|  06 Feb 2017 |  updated for Iris 3.0        |
+|  22 Feb 2017 |  updated for Iris 3.0        |
 
 ------------------------------------
  

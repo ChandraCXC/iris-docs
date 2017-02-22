@@ -20,9 +20,7 @@ set initial model parameter values and ranges, and choose an appropriate
 fit statistic and method; as well as calculate errors on best-fit model
 parameters.
 
-**Last Update:** Jan 1 2017 - updated for Iris 3.0b2. The Fitting Tool has been 
-completely redone, encapsulating the fit statistics and model parameter editing 
-into one window.
+**Last Update:** Feb 22 2017 - updated for Iris 3.0.
 
 ------------------------------------------------------------------------
 
@@ -827,6 +825,7 @@ Fitting Tool.
 |  02 Dec 2013 |  updated for Iris 2.0.1   |
 |  07 May 2015 |  updated for Iris 2.1 beta. Users can now integrate under fitted models. Template library model parameter values are interpolated using k-nearest neighbor with k=2 and order=2. Templates, table models, and functions can all be arbitrarily combined in the Model Expression. |
 |  01 Jan 2017 | updated for Iris 3.0b2    |
+|  22 Feb 2017 | updated for Iris 3.0      |
 
 ------------------------------------
  

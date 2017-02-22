@@ -14,7 +14,7 @@ SED to file. We string together the components of the [Iris How-to
 Guide][guide] in order to integrate the individual features
 and capabilities of Iris into one, big picture.
 
-**Last Update:** 21 Feb 2017 - Updated for Iris 3.0.
+**Last Update:** 22 Feb 2017 - Updated for Iris 3.0.
 
 ------------------------------------------------------------------------
 
@@ -722,7 +722,7 @@ Please view the other threads for more details and use cases. If you have any tr
 |  05 Aug 2013  | Updated analysis example for Iris 2.0.|
 |  02 Dec 2013  | Updated for Iris 2.0.1				|
 |  07 May 2015  | Updated for Iris 2.1 beta.			|
-|  21 Feb 2017  | Updated for Iris 3.0.      			|
+|  22 Feb 2017  | Updated for Iris 3.0.      			|
 
 
 |   |

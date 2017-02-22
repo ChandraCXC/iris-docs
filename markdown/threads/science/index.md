@@ -19,7 +19,7 @@ fluxes through given intervals or a photometric filters from the data or model.
     combining SEDs. Also allows bulk redshifting and normalization
     of SEDs.
 
-**Last Update:** 03 Feb 2017 - Updated images for Iris 3.0.
+**Last Update:** 22 Feb 2017 - Updated for Iris 3.0.
 
 ------------------------------------------------------------------------
 
@@ -411,7 +411,7 @@ The points will be loaded in the correct flux density units.
 |  05 Aug 2013 |  Updated to illustrate shifting, interpolation and integration features only. Previous version moved to "[Iris 2.0 Features Tour](../../../v2.0/threads/v2.0_features/)". |
 |  02 Dec 2013 |  Updated for Iris 2.0.1 |
 |  07 May 2015 |  Updated for Iris 2.1 beta. New feature: intergration under fitted model components. |
-|  03 Feb 2017 |  Updated images for Iris 3.0. |   
+|  22 Feb 2017 |  Updated for Iris 3.0. |   
   
 ------------------------------------
  

@@ -8,7 +8,7 @@
 
 The Iris GUI uses the [STILTS][stilts] API for its plotting backend. The tabular and plot displays of SED data are heavily based on [STIL][stil], the library both [TOPCAT][topcat] and STILTS use. This thread presents the various options available for interacting with and customizing the SED data display in the *Iris Visualizer*.
 
-**Last Update:** Feb 03 2017 - Updated text and images for Iris 3.0.
+**Last Update:** Feb 22 2017 - Updated images and text for Iris 3.0.
 
 ------------------------------------------------------------------------
 
@@ -705,7 +705,7 @@ screenshot](./imgs/topcat_example_small.png)](./imgs/topcat_example.png)
 |  02 Dec 2013 |  Updated for Iris 2.0.1       |
 |  07 May 2015 |  Updated for Iris 2.1 beta.   |
 |  Jan 03 2017 |  Updated text for Iris 3.0.   |
-|  Feb 03 2017 |  Updated images for Iris 3.0. |
+|  Feb 22 2017 |  Updated images for Iris 3.0. |
 
 ------------------------
 

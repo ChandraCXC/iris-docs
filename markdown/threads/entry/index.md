@@ -24,7 +24,7 @@ simultaneously plot multiple SED segments together in the main display.
 This thread demonstrates the various ways to read SED data into Iris to
 begin your data analysis session.
 
-**Last Update:** 07 May 2015 - Updated for Iris 2.1 beta.
+**Last Update:** 22 Feb 2017 - Updated for Iris 3.0.
 
 ------------------------------------------------------------------------
 
@@ -1062,6 +1062,7 @@ table.tableizer-table {
 |05 Aug 2013|updated figures for Iris 2.0. Integrated ASDC documentation to the website. |
 |02 Dec 2013|Updated for Iris 2.0.1														 |
 |07 May 2015|Updated for Iris 2.1 beta.												 	 |
+|22 Feb 2017|Updated for Iris 3.0.												 	     |
 
 -----------------------------------
 
