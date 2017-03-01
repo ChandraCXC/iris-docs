@@ -27,31 +27,37 @@ These directions assume you are running in a BASH shell. If you are running a C-
 
 	$ /bin/bash
     
-  - If you do not have Anaconda, download Miniconda (a minimal version of Anaconda) for your platform. Otherwise, skip to step 2.
-
-	  * [OS X (64-bit)][conda_osx]
-	  * [Linux (64-bit)][conda_l64]
+  1. Download and install [conda][conda], if you do not have it. **If you already have Anaconda or Miniconda installed, skip to step 2.**
   
-  - Install Miniconda. Installing Miniconda in batch mode assumes the user agrees with the end user [license agreement][conda_license].
+     Iris uses conda for packaging and distribution. If you do not have Anaconda or Miniconda (a minimal version of Anaconda), download either for your platform. These directions assume you are downloading Miniconda. If you wish to download and install Anaconda, replace all "miniconda" references with "anaconda".
 
-		$ bash Miniconda-latest-Linux-x86_64.sh -b -p $HOME/miniconda
-		$ export PATH=$PATH:$HOME/miniconda/bin
+     Miniconda download links:
+    
+	   * [OS X (64-bit)][conda_osx]
+	   * [Linux (64-bit)][conda_l64]
+     
+     <br/>
+     Install Miniconda to the directory of your choice. Installing Miniconda in batch mode assumes the user agrees with the end user [license agreement][conda_license].
       
-  - Add `$ export PATH=$PATH:$HOME/miniconda/bin` to your `$HOME/.bashrc` or `$HOME/.bash_profile` so that you can run Anaconda commands from your terminal at any time. For example:
+     Please replace `<path-to-install-dir>` with the directory you want Miniconda installed in. For example, if you want it installed in your home directory, use `export $INSTALL_DIR=$HOME`.
 
-		$ emacs ~/.bashrc
-		
-		export PATH=$PATH:$HOME/miniconda/bin
-
-    Otherwise, you will need to run `$ export PATH=$PATH:$HOME/miniconda/bin`
-    each time before you run Iris.
+        $ export $INSTALL_DIR=<path-to-install-dir>    # <-- REPLACE with your own directory, e.g., "$HOME" or "/my/cool/directory"
+            
+		$ bash Miniconda-latest-Linux-x86_64.sh -b -p $INSTALL_DIR/miniconda
+		$ export PATH=$PATH:$INSTALL_DIR/miniconda/bin
       
-  - Add the CXC and Sherpa conda repositories to your Anaconda configuration:
+     Add `export PATH=$PATH:<path-to>/miniconda/bin` to your `$HOME/.bashrc` or `$HOME/.bash_profile` so that you can run Anaconda commands from your terminal at any time. Otherwise, you will need to run "export PATH=$PATH:&lt;path-to-install-dir&gt;/miniconda/bin" each time before you run Iris. For example:
+
+           $ emacs ~/.bashrc
+		    
+		   export PATH=$PATH:<path-to-install-dir>/miniconda/bin
+      
+  2. Add the CXC and Sherpa conda repositories to your Anaconda configuration:
   
 		$ conda config --add channels https://conda.anaconda.org/cxc
 		$ conda config --add channels https://conda.anaconda.org/sherpa
       
-  - Create a conda environment named "iris" with Iris installed in it.
+  3. Create a conda environment named "iris" with Iris installed in it.
 
 		$ conda create -n iris iris=3.0
 	
@@ -67,11 +73,11 @@ These directions assume you are running in a BASH shell. If you are running a C-
         ....
 	    
     
-  - Activate the Iris environment
+  4. Activate the Iris environment
   
         $ source activate iris
 
-  - Run the Iris smoke tests to confirm that Iris was installed successfully:
+  5. Run the Iris smoke tests to confirm that Iris was installed successfully:
   
 		$ iris smoketest
 	
@@ -121,6 +127,7 @@ This will update your Iris installation to the latest version available.
 [conda_osx]:		https://repo.continuum.io/miniconda/Miniconda2-latest-MacOSX-x86_64.sh "OS X Miniconda"
 [conda_l64]:		https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh "Linux 64 Miniconda"
 [conda_license]:	https://docs.continuum.io/anaconda/eula
+[conda]:            https://conda.io/docs/
 
 <!-- threads -->
 [sedstacker]: 		../threads/science/sedstacker/index.html "SED Stacker"
