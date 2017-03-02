@@ -39,18 +39,19 @@ These directions assume you are running in a BASH shell. If you are running a C-
      <br/>
      Install Miniconda to the directory of your choice. Installing Miniconda in batch mode assumes the user agrees with the end user [license agreement][conda_license].
       
-     Please replace `<path-to-install-dir>` with the directory you want Miniconda installed in. For example, if you want it installed in your home directory, use `export $INSTALL_DIR=$HOME`.
+     For example, if you want it installed in your home directory, use `export $MINICONDA_DIR=$HOME/miniconda`.
 
-        $ export $INSTALL_DIR=<path-to-install-dir>    # <-- REPLACE with your own directory, e.g., "$HOME" or "/my/cool/directory"
+        $ export $MINICONDA_DIR=$HOME/miniconda         # <-- or wherever you'd like
             
-		$ bash Miniconda-latest-Linux-x86_64.sh -b -p $INSTALL_DIR/miniconda
-		$ export PATH=$PATH:$INSTALL_DIR/miniconda/bin
+		$ bash Miniconda-latest-Linux-x86_64.sh -b -p $MINICONDA_DIR
+		$ export PATH=$PATH:$MINICONDA_DIR/bin
       
-     Add `export PATH=$PATH:<path-to>/miniconda/bin` to your `$HOME/.bashrc` or `$HOME/.bash_profile` so that you can run Anaconda commands from your terminal at any time. Otherwise, you will need to run "export PATH=$PATH:&lt;path-to-install-dir&gt;/miniconda/bin" each time before you run Iris. For example:
+     Add `export PATH=$PATH:<path-to>/miniconda/bin` to your `$HOME/.bashrc` or `$HOME/.bash_profile` so that you can run Anaconda commands from your terminal at any time. Otherwise, you will need to run "export PATH=$PATH:&lt;path-to-&gt;/miniconda/bin" each time before you run Iris. For example:
 
            $ emacs ~/.bashrc
-		    
-		   export PATH=$PATH:<path-to-install-dir>/miniconda/bin
+           
+		   export $MINICONDA_DIR=${HOME}/miniconda      # <-- or wherever miniconda is installed
+		   export PATH=$PATH:$MINICONDA_DIR/bin
       
   2. Add the CXC and Sherpa conda repositories to your Anaconda configuration:
   
