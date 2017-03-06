@@ -24,7 +24,7 @@ simultaneously plot multiple SED segments together in the main display.
 This thread demonstrates the various ways to read SED data into Iris to
 begin your data analysis session.
 
-**Last Update:** 07 May 2015 - Updated for Iris 2.1 beta.
+**Last Update:** 22 Feb 2017 - Updated for Iris 3.0.
 
 ------------------------------------------------------------------------
 
@@ -102,7 +102,7 @@ $ source activate iris
 $ iris
 ```
 
-![snapshot of Iris GUI](./imgs/iris_desktop_small.jpg)
+![snapshot of Iris GUI](../../imgs/iris_desktop_small.png)
 
 You can also start the application by opening a folder manager window on
 Linux or the Finder on Mac, navigating to the Iris 2.1 directory, and
@@ -212,7 +212,7 @@ appear automatically in the *Iris Visualizer*, and an entry for the
 imported SED will be added to the SED Builder window.
 
 [![Iris GUI
-snapshot](./imgs/entry_3c066a_plot_small.jpg)](./imgs/entry_3c066a_plot.png)
+snapshot](./imgs/entry_3c066a_plot_small.png)](./imgs/entry_3c066a_plot.png)
 
 This example query returns a collection of photometric data points
 obtained by various astronomical observatories, all contributed to the
@@ -249,7 +249,7 @@ Builder window of Iris there are no open SEDs, a new SED will be
 created.
 
 [![Transmitting a table from Topcat to
-Iris](./imgs/topcat_example_3c066a_small.jpg)](./imgs/topcat_example_3c066a.png)
+Iris](./imgs/topcat_example_3c066a_small.png)](./imgs/topcat_example_3c066a.png)
 
 Note that the "Broadcast SED" button in the SED Builder window can be
 used to transmit a SED *from* Iris to another SAMP-enabled application.
@@ -1062,6 +1062,7 @@ table.tableizer-table {
 |05 Aug 2013|updated figures for Iris 2.0. Integrated ASDC documentation to the website. |
 |02 Dec 2013|Updated for Iris 2.0.1														 |
 |07 May 2015|Updated for Iris 2.1 beta.												 	 |
+|22 Feb 2017|Updated for Iris 3.0.												 	     |
 
 -----------------------------------
 

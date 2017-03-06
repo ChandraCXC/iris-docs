@@ -6,7 +6,7 @@
 
 #### Synopsis:
 
-Astronomers analyze Spectral Energy Distributions (SEDs) by fitting them
+Astronomers analyze spectral energy distributions (SEDs) by fitting them
 with models over a wide range in wavelength, from gamma rays to radio
 waves. The resulting best-fit values for the SED model parameters, and
 associated confidence limits, are physically meaningful quantities. The
@@ -20,11 +20,7 @@ set initial model parameter values and ranges, and choose an appropriate
 fit statistic and method; as well as calculate errors on best-fit model
 parameters.
 
-**Last Update:** 07 May 2015 - updated for Iris 2.1 beta. Users can now
-integrate under fitted models. Template library model parameter values
-are interpolated using k-nearest neighbor with k=2 and order=2.
-Templates, table models, and functions can all be arbitrarily combined
-in the Model Expression.
+**Last Update:** Feb 22 2017 - updated for Iris 3.0.
 
 ------------------------------------------------------------------------
 
@@ -32,52 +28,47 @@ in the Model Expression.
 
 -   **[Displaying Fitting Options](index.html#open_fit)**
 -   **[Defining Model Expressions](index.html#define_model)**
-    -   [Importing Custom Models](index.html#custom_models)
-    -   [Table Model](index.html#table_model)
-    -   [Template Model Library](index.html#template_lib)
-    -   [Python User Model](index.html#python_model)
 -   **[Setting Model Parameters](index.html#set_pars)**
 -   **[Choosing the Fit Statistic and Optimization
     Method](index.html#fit_stats)**
+-   **[Defining Fitting Ranges](index.html#fitting-ranges)**
 -   **[Fitting and Displaying the Model](index.html#fit)**
--   **[Saving the Model](index.html#save)**
+-   **[Saving and Restoring the Model](index.html#save)**
+-   **[Importing Custom Models](index.html#custom_models)**
+    -   [Table Model](index.html#table_model)
+    -   [Template Model Library](index.html#template_lib)
+    -   [Python User Model](index.html#python_model)
 -   **[Integrating Under a Fitted
     Model](index.html#integrate_under_model)**
 -   **[History](index.html#history)**
 
 ------------------------------------------------------------------------
 
-## <a name="open_fit"></a> Displaying Fitting Options
+## <a name="open_fit"></a> Opening the Fitting Tool
 
 After one or more SED data segments and/or photometric points have been
 [read into Iris][entry], and [data display preferences
-set][plot], the data may be fit with a customized model
-expression using the Iris *Fitting Tool*. Clicking the *Fitting Tool*
-icon on the Iris desktop opens a new window in which individual model
-components may be added in order to define a custom model expression to
-fit to the data, and where initial model parameter values and the
-spectral fitting range are set. In Iris, model amplitudes are in units
-of photon flux density by default, and model spectral coordinates are in
-Angstroms.
+set][plot], the data may be fit with a customized model 
+using the **Fitting Tool**. Clicking the Fitting Tool
+icon [![Fitting Tool icon][fitting-tool-icon]](./imgs/fitting-tool-icon.png) opens a new 
+window in which individual model
+components may be combined to define a custom model expression, and where 
+initial model parameter values and the
+spectral fitting ranges are set.
 
-[![Iris Screenshot](./imgs/open_fitting_v2_small.jpg)](./imgs/open_fitting_v2.png)
+![Iris Screenshot](./imgs/open_fitting_small.png)
 
-When the fitting window opens, the default model that is provided,
-[powerlaw][powerlaw].c1, is automatically
-plotted as a red line, and is calculated using the default power-law
-parameters. (At this point, the model has *not* been fit to the data,
-therefore it appears offset from the data curve.)
-
-The Component section of the fitting window is the place to list the
-model components which will be used to construct the full model
+The *Model Components* section of the fitting window lists the
+model components used to construct the full model
 expression for fitting; these components can then be arbitrarily
-combined to form the full model expression, in the Model Expression
-field. The Component field is populated with a power-law model component
-by default, with model identifier "c1". The model component naming
-convention uses an ordered component list from top to bottom, starting
-with "c1". Removing various model components from the list will cause
-remaining components to potentially be renamed according to their
-position in the list, e.g., "c2", "c3", and so on.
+combined to form the full model expression, in the *Model Expression*
+field. Components are referenced by a model identifier "<tt>m#</tt>", 
+where the number increases for each new component added to the Model 
+Components list.
+
+Model amplitudes are in units
+of photon flux density by default, and model spectral coordinates are in
+Angstroms. **Currently, the default fit results units cannot be changed.**
 
 |   |
 |--:|
@@ -87,65 +78,399 @@ position in the list, e.g., "c2", "c3", and so on.
 
 ## <a name="define_model"></a> Defining Model Expressions
 
-A list of preset optical and X-ray Sherpa models is opened in a new
-window when the "Add" option in the fitting window is selected, from
-which you can choose a model to be added to the list of model
-components. Each model has a brief description which you can read by
-hovering the mouse over the model name (for more in depth descriptions
-of each model, see the [Iris Models][models]
-page). There is also the option to choose from among any custom table,
-template, or Python user models which you may have imported into the
-session via the Iris "Custom Models Manager" tool (see the ["Importing
-Custom Models"](#custom_models)section below to learn how to import
+Model expressions are defined by combining model components together in the *Model Expression* field at the top of the Fitting Tool frame.
+
+![Iris Screenshot](./imgs/model_expressions_intro.png)
+
+The list of available models is shown on the left-most panel of the Fitting Tool. 
+Double-clicking a model will add it to the list of model components. By default, components are linearly combined in the Model Expression field when a model is added.
+
+Iris is distributed with a list of preset optical and X-ray [Sherpa][sherpa] models. A brief description of the model is displayed below the list when the users highlights a model name. More in depth-descriptions of the Sherpa models are discussed in  [Iris Models][models].
+
+There is also the option to choose a custom template,
+template library, or Python user model which you may have imported into the
+session via the Iris "Custom Models Manager" tool (see "[Importing
+Custom Models](#custom_models)" below to learn how to import
 custom models into Iris).
 
 ![Iris Screenshot](./imgs/preset_modcomps.png)
 ![Iris Screenshot](./imgs/custom_modcomps.png)
 
-Considering the example of fitting an absorbed broken power-law model to
-an SED of object 3C 273, you would choose
-"[atten][atten]" and
-"[brokenpowerlaw][brokenpowerlaw]" from the
-list of preset Iris models, in order to add both model components to the
-Component section of the fitting window (where you may have deleted the
-default power-law component which is automatically added to the list
-upon startup, as was done in this example).
+Components may be added or multiplied together arbitrarily, which allows the modeling of emission and/or absorption features as well as the ability to apply a more complex model to the continuum itself. 
+
+For a simple model, such as an expression containing one model component, defining the model is trivial: write the component ID of the model component, e.g., “<tt>m1</tt>”, in the Model Expression field. For a composite model, add, subtract, multiply, and/or divide the model components as needed to model your SED, such as "<tt>m1\*m2 + m3/(4*3.14)</tt>". Note that numbers may be used directly in the model expression as well. 
+
+![Iris Screenshot](./imgs/arbitrary_combine_models_example.png)
+
+Consider the example of fitting an absorbed broken power-law model to
+an SED of object 3C 273. You would select and add "[atten][atten]" and
+"[brokenpowerlaw][brokenpowerlaw]" from the list of preset Iris models, which 
+adds both models to the Model Components section of the fitting window.
 
 ![Model Components](./imgs/mod_comps.png)
 
-To model 3C 273 emission as a broken power-law using the
-"[brokenpowerlaw][brokenpowerlaw]"
-component, and the ISM absorption using
-"[atten][atten]," we need to define our
-model expression as the product of these two components. This is done in
-the Model Expression field, where model components can be added or
-multiplied together arbitrarily to create a composite model expression.
-This allows for modeling emission and/or absorption features, as well as
-the ability to apply a more complex model to the continuum itself. For
-an expression containing one model component, it is trivial: simply add
-the name of the model component, e.g., "c1", to the Model Expression
-field. For a composite model such as an absorbed broken power-law,
-considered in this example, you would add "c1\*c2" to represent the
-product of the "[atten][atten]" and
-"[brokenpowerlaw][brokenpowerlaw]"
-components.
+Then, you would define the
+model expression as the product of the two components: "<tt>m1\*m2</tt>".
 
-### <a name="custom_models"></a> Importing Custom Models
+------------------------------------------------------------------------
+
+## <a name="set_pars"></a> Setting Model Parameters
+
+Each component in the Model Components list may be expanded to show each component's model parameters. From here, the user can select the model parameters and set the initial parameter values and ranges by editing the fields shown to the right of the Components list.
+
+![Edit model parameters](./imgs/edit_pars.png)
+
+The parameter <!--units,--> minimum and maximum values <!--, and links to other parameters--> 
+may be specified. The "Frozen" checkbox is for specifying whether or not to 
+freeze that parameter during the fit; if unchecked, the parameter will be 
+allowed to vary. 
+
+*Note: flux and spectral parameter values must be in units of photons/s/cm2/Angstrom and Angstroms, respectively.*
+
+<!--The "Fix all" and "Default Fit" options in the main fitting window may
+be used (while the model editor window remains open) to freeze all model
+parameters at current values, or thaw all model parameters (even those
+initially fixed), respectively.-->
+
+The initial model parameter values are where Sherpa starts the fit in
+parameter space; the parameter ranges are the bounds of parameter space.
+It is not possible to fit using parameter values outside the specified
+parameter ranges.
+
+|   |
+|--:|
+|[[Back to top][top]]|
+
+------------------------------------------------------------------------
+
+## <a name="fit_stats"></a> Choosing the Fit Statistic and Optimization Method
+
+The next step in the preparation for fitting involves choosing a fit
+statistic and optimization method appropriate for your analysis. These methods 
+are listed below with brief descriptions. For more detailed descriptions, 
+please refer to the [Statistics](/sherpa/statistics/) and 
+[Optimization](/sherpa/methods/) pages of the Sherpa website.
+
+![Fitting Tool window](./imgs/fitting.png)
+
+<div style="text-align:center;font-size:1.5em;padding-bottom:10px">Fit Optimization Methods</div>
+
+<table class="item-description table">
+<tr>
+<th>Optimization Method</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>Levenberg-Marquardt</td>
+<td>a method to find the best-fit model parameter  values, by finding the local minimum in parameter space; the functions to be minimized are nonlinear least-squares functions, of the model parameters.</td>
+</tr>
+<tr>
+<td>Nelder-Mead</td>
+<td>a method to find the best-fit model parameter,values, by finding the local minimum in parameter space; a direct,search method is used to continually move "downhill" in parameter,space, until settling in a local minimum.</td>
+</tr>
+<tr>
+<td>Monte Carlo</td>
+<td>a method using the differential evolution,algorithm, to find a global minimum in parameter space; the search,is seeded with randomly selected starting points, and can continue,the search for the true minimum where the other methods could get,stuck in local minima that do not represent the actual best fit.,(Most useful for complex models and fits that could explore,complicated regions of parameter space.)</td>
+</tr>
+</table>
+
+<!--
+
+| Optimization Method     | Description                                      |
+
+| **Levenberg-Marquardt** | a method to find the best-fit model parameter  values, by finding the local minimum in parameter space; the functions to be minimized are nonlinear least-squares functions, of the model parameters. |
+| **Nelder-Mead**         | a method to find the best-fit model parameter,values, by finding the local minimum in parameter space; a direct,search method is used to continually move "downhill" in parameter,space, until settling in a local minimum. |
+| **Monte Carlo**         | a method using the differential evolution,algorithm, to find a global minimum in parameter space; the search,is seeded with randomly selected starting points, and can continue,the search for the true minimum where the other methods could get,stuck in local minima that do not represent the actual best fit.,(Most useful for complex models and fits that could explore,complicated regions of parameter space.) |
+
+-->
+
+<div style="text-align:center;font-size:1.5em;padding-bottom:10px">Fit Statistics</div>
+
+<table class="item-description table">
+<tr>
+<th>Statistic</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>Chi2</td>
+<td></td>
+</tr>
+<tr>
+<td>Chi2DataVar</td>
+<td>Chi-squared statistic with variance computed from the data. If measured errors are provided, the variance is taken from these errors; else, the variance is computed from the y-values of the data points.</td>
+</tr>
+<tr>
+<td>Chi2Gehrels</td>
+<td>Chi-squared statistic, where the variance is computed with a function from Gehrels et al. Suitable for low counts data (e.g., X-ray data) to correct for bias in using chi-squared.</td>
+</tr>
+<tr>
+<td>Chi2ModelVariance</td>
+<td>Chi-squared statistic, where the variance is computed from the model values instead of data.</td>
+</tr>
+<tr>
+<td>Chi2ConstantVariance</td>
+<td>Chi-squared statistic, where the variance is set to be a constant value. That constant is the average of the y-values of the data points.</td>
+</tr>
+<tr>
+<td>Chi2XspecVariance</td>
+<td>Chi-squared statistic, where the variance is computed as the X-ray spectral fitting program XSPEC would compute the variance (i.e., where the variance would be less than one, reset it to one). More suitable for low counts data (e.g., X-ray data).</td>
+</tr>
+<tr>
+<td>CStat</td>
+<td>A maximum likelihood function similar to Cash, but with a chi-squared-like probability distribution. More suitable for counts data than for fluxes.</td>
+</tr>
+<tr>
+<td>Cash</td>
+<td>A maximum likelihood function based on Poisson statistics. More suitable for counts data than for fluxes.</td>
+</tr>
+<tr>
+<td>LeastSquares</td>
+<td>Sum of the squares of the differences between, data and model values.</td>
+</tr>
+</table>
+
+<!--
+| Statistic                | Description                                                                                                                                                                                                                                            |
+
+| **Chi2**                 | Chi-squared statistic, where the variance is taken from the errors. If no errors are provided, these data points are excluded from the fit. |
+| **Chi2DataVar**          | Similar to **Chi2**. Chi-squared statistic, where the variance is taken from the errors. If no errors are provided, the variance is computed from the y-values of the data points.                                             |
+| **Chi2Gehrels**          | Chi-squared statistic, where the variance is computed with a function from [Gehrels et al. (1986)](http://adsabs.harvard.edu/abs/1986ApJ...303..336G). Suitable for low counts data (e.g., X-ray data) to correct for bias in using chi-squared. |
+| **Chi2ModelVariance**    | Chi-squared statistic, where the variance is computed from the model values instead of data.                                                                                                                                                           |
+| **Chi2ConstantVariance** | Chi-squared statistic, where the variance is set to be a constant value. That constant is the average of the y-values of the data points.                                                                                                              |
+| **Chi2XspecVariance**    | Chi-squared statistic, where the variance is computed as the X-ray spectral fitting program XSPEC would compute the variance (i.e., where the variance would be less than one, reset it to one). More suitable for low counts data (e.g., X-ray data). |
+| **CStat**                | A maximum likelihood function similar to Cash, but with,a chi-squared-like probability distribution. More suitable for,counts data than for fluxes.                                                                                                    |
+| **Cash**                 | A maximum likelihood function based on,Poisson statistics. More suitable for counts data than for fluxes.                                                                                                                                              |
+| **LeastSquares**         | Sum of the squares of the differences between, data and model values.                                                                                                                                                                                  |
+-->
+
+The default fitting method and statistic are "NelderMeadSimplex" and
+"LeastSquares", respectively, which represent good choices for a robust,
+quick, initial fit of a relatively simple model to a data set covering
+potentially many orders of magnitude in flux and/or wavelength. The fit
+can also be done with a chi-squared statistic or with a maximum likelihood 
+statistic useful for data with low number counts. The optimization 
+method can be changed to "Levenberg-Marquardt" or "Monte Carlo", but note that switching
+the method is less important than switching the statistic, e.g., from
+least-squares to chi-squared.
+
+Nelder-Mead is the optimal fitting method to start with because it does
+not depend on taking derivatives of the model function. As for the fit
+statistic, least-squares is preferred because it does not use measured
+errors and thus essentially weights all data points equally (it seeks to
+minimize the sum of the squares of the differences between data and
+model values, without taking errors into account). Chi-squared fitting,
+in contrast, can be decidedly biased towards the data points with the
+lowest fluxes and smallest measured error bars. In other words, when there are data
+points with measured errors that are orders of magnitude smaller than
+the error bars on most of the data points, then these points become the
+biggest contributors to the chi-squared value.
+
+In subsequent fits - e.g., after selecting a different data range to
+fit, adding in new model components as needed, and so on - the statistic
+can be switched to a chi-squared option to use measured errors
+(preferably "Chi2" or "Chi2Datavar" for high counts (>5) data points; 
+"Chi2Gehrels" or "Chi2XspecVariance" for low counts data). If measured errors 
+are provided, the variance is taken directly from the errors provided with the 
+data.
+
+**Note**: When one or multiple SED segments is fit in Iris, any data
+points with associated zero-value errors are ignored in the fit. This
+design choice is intended as a safeguard against yielding potentially
+misleading fit results in the analysis of your SED data. Iris interprets
+a *zero-value error* not to mean that the uncertainty on the associated
+data value is actually zero, but that *a measure of the uncertainty is
+not available for that particular photometric point.*
+
+|   |
+|--:|
+|[[Back to top][top]]|
+
+------------------------------------------------------------------------
+
+## <a name="fitting-ranges"></a> Defining Fitting Ranges
+
+Before initiating a fit of the defined model to a SED, the
+specific subset of the SED data to be included in the fit (if not the
+entire SED) may be specified using the "Add Range.." option in the
+main fitting window. This opens a *Fitting Ranges* manager window in which a 
+user defines the fitting range(s) for the fit.
+
+![Fitting range manager window](./imgs/fitting_range_manager.png)
+
+A fitting range may be defined by two ways: 
+
+- typing the minimum and maximum spectral range values in the *Add Range* box then clicking "Add"
+- selecting the "Add from plot" button and setting the min and max spectral ranges by clicking on the plot twice.
+
+Fitting ranges may be removed by highlighting the ranges and clicking "Remove"; all ranges can be removed with the "Clear all" button.
+
+The fitting ranges appear on the Visualizer as a blue horizontal line.
+
+![Defining the fitting range](./imgs/define_range.png)
+
+Defining multiple fitting ranges is useful for masking out spectral features 
+when fitting the continuum of a spectrum.
+
+|   |
+|--:|
+|[[Back to top][top]]|
+
+------------------------------------------------------------------------
+
+## <a name="fit"></a> Fitting and Displaying the Model
+
+Having built a model expression and set initial parameter values, chosen
+an appropriate fit statistic and optimization method for your analysis,
+and defining the range of data to be fit, you are ready to initiate the
+fitting process.
+
+Click "Fit" in the Fitting Tool window to start the fit. When the fit
+is complete, a red model curve appears overplotted on the SED data in
+the Visualizer (Note that the red line may be plotted beyond the specified data 
+range to be fit; this extraneous portion of the fitted model may be ignored).
+
+[![SED Viewer with fitted model overplotted](./imgs/model_plot.png)](./imgs/model_plot.png)
+
+When the fit has finished, the model parameter values will appear
+updated in the Model Components fields, and fit statistics
+will be displayed in the bottom panel. The fit results include 
+
+- the final fit statistic
+- the reduced fit statistic*
+- the Q-value (the probability that the fit is consistent with the data)*
+- the number of model evaluations done to reach the best fit parameter values
+- the number of data points used in the fit
+- the degrees of freedom
+
+*The Q-value and reduced statistic are unavailable when fitting with the 
+least-squares or Cash, as they cannot be computed for those statistics.
+
+When fitting with one of the chi-squared statisics, or the
+chi-squared-like Cstat statistic, the confidence limits of the fitted model 
+parameter values may be calculated. 
+
+Enter the the confidence interval in terms of sigma and click "Compute" to 
+calculate the upper and lower confidence limits for the on the best-fit model
+parameters. For example, entering "1.6" in the "sigma" field will return the 90%
+confidence limits on the model parameter values. The limits are calculated using
+the statistic and method chosen for the fit. 
+
+![Confidence limits](./imgs/confidence_chi2.png)
+
+If the statistic is left at the default "leastsq", Iris will issue an
+error stating that least-squares cannot be used with the confidence
+limit function (this is because the only way calculate to confidence
+limits is to know the probability distribution for the fit statistic,
+which is known for the chi-squared and chi-squared-lke cstat statistic,
+but not least squares).
+
+Also of note is that blank or "NaN" values are returned in the
+confidence results when a parameter bound is found to lie outside the
+hard limit boundary for a model parameter (which ought not to be changed
+by the user, so there is not an option to do so in Iris). This could
+result from an issue with the signal-to-noise of the data, the
+applicability of the model to the data, systematic errors in the data,
+among others things. A parameter hard limit represents either a hard
+physical limit (e.g., temperature is not allowed to go below zero), a
+mathematical limit (e.g., prevent a number from going to zero or below,
+when the log of that number will be taken), or the limit of what a float
+or double can hold (the fit should not be driven above or below the
+maximum or minimum values a variable can hold).
+
+You can iterate through the fitting process in Iris as many times as
+necessary - adding or deleting models from the model expression;
+changing parameter values or ranges; including or excluding new points
+from the SED - until you find a satisfactory model that best describes
+your SED data.
+
+|   |
+|--:|
+|[[Back to top][top]]|
+
+------------------------------------------------------------------------
+
+## <a name="save"></a> Saving and Restoring Models
+
+Once a spectral model is satisfactorily fitted, the fitted model
+parameters can be saved to a local file by making an appropriate selection in 
+the File menu of the fitting window.
+
+![Save Model menu](./imgs/fit_write_menu.png)
+
+Selecting *File -&gt; Save Text...* saves the model and fit results to file in 
+a human-readable text format. Example output is shown below:
+
+```
+$ more 3c273_atten_bpl_active_comps.txt
+
+Iris Fitting Tool - Fit Summary
+SED ID: Sed (Segments: 1)
+
+Model Expression: m3 * m4
+Components:
+        brokenpowerlaw.m3
+                                  m3.refer =  3.00000E+05 Frozen
+                                   m3.ampl =  2.50378E-03
+                                 m3.index1 = -5.21571E-01
+                                 m3.index2 = -4.78847E-01
+        atten.m4
+                                   m4.hcol =  1.00000E+20 Frozen
+                               m4.heiRatio =  3.59464E-01 Frozen
+                              m4.heiiRatio =  9.69470E-01 Frozen
+
+Fit Results:
+                       Final Fit Statistic =  3.26931E+07
+                         Reduced Statistic =  8.69497E+04
+                     Probability (Q-value) =  0.00000E+00
+                        Degrees of Freedom = 376
+                               Data Points = 379
+                      Function Evaluations = 511
+
+                                 Optimizer = NelderMeadSimplex
+                 Statistic (Cost function) = Chi2
+
+Confidence Limits at 1.60 sigma (89.04%):
+                 m3.ampl: (-1.94416E-07,  1.94620E-07)
+               m3.index1: (-4.21899E-05,  4.22327E-05)
+               m3.index2: (-2.62248E-04,  2.61584E-04)                            
+```
+
+Selecting *File -&gt; Save Json...*, instead, saves the model to a file
+in Json format that can be read back by the tool in a future data
+analysis session.
+
+![Saving a fitted model](./imgs/save_models_json.png)
+
+This customized Iris fitting session may be restored by selecting the
+*File-&gt;Load Json...* menu option within the Iris fitting window.
+
+![Reloading a saved, fitted model](./imgs/open_models_json.png)
+
+Restored models may be evaluated or refit to other SEDs. 
+
+To evaluate a model on an SED (without refitting), open the Fitting Tool, load the Json file into the fitting session, then open the Visualizer and click "Evaluate" (at the bottom of the plot window). This will overplot the model on the data, and recalculate the fit statistics.
+
+|   |
+|--:|
+|[[Back to top][top]]|
+
+------------------------------------------------------------------------
+
+## <a name="custom_models"></a> Importing Custom Models
 
 As it may be necessary to fit data with a model that does not come
 pre-packaged with Iris, the Custom Model Manager interface is available
-for configuring and importing your custom table, template, or Python
+for configuring and importing your custom tables, template libraries, or Python
 function user models into the Iris fitting session.
 
 ![Custom Model Manager](./imgs/CustomModel.png)
 
-After entering the path to the file containing the custom model
-definition, assigning the model component a string ID, and entering the
-model parameter information, the custom model component may be
-installed. The next time the Fitting Tool is opened, the model can be
-selected from the menu of custom model components and added to a model
-expression for fitting, under *Add -&gt; Custom Model Components -&gt;
-tables -&gt; "your model string ID"*.
+Custom models must be defined in a file. To add a custom model, you must define 
+the path to the model file, the model type -- table, template library, or Python 
+function -- the model ID, and the model parameters. After 
+installing the model, it can be selected from the list of Model Components and 
+added to a model expression for fitting, under *User Model Components -&gt;
+tables/functions/templates -&gt; "your model string ID"*.
 
 The fields of the Custom Model Manager window are described below:
 
@@ -253,8 +578,7 @@ photons/s/cm^2^Angstrom against Angstroms).
 
 Clicking "Install Model Component" installs the model as a custom model
 in Iris. The next time the Fitting Tool is opened, the model can be
-selected from the menu of custom model components, under *Add -&gt;
-Custom Model Components -&gt; tables -&gt; my\_sedtab*.
+selected from the menu of custom model components, under *User Model Components -&gt; tables -&gt; my\_sedtab*.
 
 |   |
 |--:|
@@ -421,285 +745,7 @@ into this section must match the Python function name in the file,
 
 Clicking "Install Model Component" installs the model as a custom model
 in Iris. The next time the Fitting Tool is opened, the model can be
-selected from the menu of custom model components, under *Add -&gt;
-Custom Model Components -&gt; tables -&gt; my\_py\_powlaw*.
-
-|   |
-|--:|
-|[[Back to top][top]]|
-
-------------------------------------------------------------------------
-
-## <a name="set_pars"></a> Setting Model Parameters
-
-Initial model parameter values and ranges may be set by selecting a
-model in the Component list, and then "Edit". This will open a new
-window containing a list of the parameters for the selected model
-component, with associated fields for editing.
-
-![Edit model parameters](./imgs/edit_pars_v2.png)
-
-Entering a value into a model parameter field, and then pressing the
-"Return" key, will update that model parameter in the Component section
-of the fitting window. The "Fit" checkbox next to each parameter in the
-editing window is for specifying whether or not to freeze that parameter
-during the fit; if checked, the parameter will be allowed to vary.
-Selecting the button labeled with a blue arrow beneath the 'Fit'
-checkbox opens a separate window in which parameter units, minimum and
-maximum values, and links to other parameters may be specified.
-
-![Edit model parameters](./imgs/edit_par_range.png)
-
-The "Fix all" and "Default Fit" options in the main fitting window may
-be used (while the model editor window remains open) to freeze all model
-parameters at current values, or thaw all model parameters (even those
-initially fixed), respectively.
-
-The initial model parameter values are where Sherpa starts the fit in
-parameter space; the parameter ranges are the bounds of parameter space.
-It is not possible to fit using parameter values outside the specified
-parameter ranges.
-
-|   |
-|--:|
-|[[Back to top][top]]|
-
-------------------------------------------------------------------------
-
-## <a name="fit_stats"></a> Choosing the Fit Statistic and Optimization Method
-
-The next step in the preparation for fitting involves choosing a fit
-statistic and optimization method appropriate for your analysis.
-Selecting "Fit" in the main fitting window (where model components are
-listed) launches a new model fitting window (labeled "Fitted")
-containing the statistic and method options. These are listed below with
-brief descriptions (refer to the [Statistics](/sherpa/statistics/)
-and [Optimization](/sherpa/methods/) pages of the Sherpa website for
-a detailed explanation of each of the Sherpa fit statistics and methods
-available in Iris).
-
-![Fitting Tool window](./imgs/fitting.png)
-
-**Fit Optimization Methods**
-
--   **Levenberg-Marquardt** - a method to find the best-fit model
-    parameter values, by finding the local minimum in parameter space;
-    the functions to be minimized are nonlinear least-squares functions
-    of the model parameters.
--   **Nelder-Mead** - a method to find the best-fit model parameter
-    values, by finding the local minimum in parameter space; a direct
-    search method is used to continually move "downhill" in parameter
-    space, until settling in a local minimum.
--   **Monte Carlo** - a method using the differential evolution
-    algorithm, to find a global minimum in parameter space; the search
-    is seeded with randomly selected starting points, and can continue
-    the search for the true minimum where the other methods could get
-    stuck in local minima that do not represent the actual best fit.
-    (Most useful for complex models and fits that could explore
-    complicated regions of parameter space.)
-
-**Fit Statistics**
-
--   **least-squares** - Sum of the squares of the differences between
-    data and model values.
--   **Cash** - A maximum likelihood function based on
-    Poisson statistics. More suitable for counts data than for fluxes.
--   **C-stat** - A maximum likelihood function similar to Cash, but with
-    a chi-squared-like probability distribution. More suitable for
-    counts data than for fluxes.
--   **chi2datavar** - Chi-squared statistic with variance computed from
-    the data. If measured errors are provided, the variance is taken
-    from these errors; else, the variance is computed from the y-values
-    of the data points. This is the preferred chi-squared option to be
-    used in Iris.
--   **chi2gehrels** - Chi-squared statistic, where the variance is
-    computed with a function from Gehrels et al. Suitable for low counts
-    data (e.g., X-ray data) to correct for bias in using chi-squared.
--   **chi2modvar** - Chi-squared statistic, where the variance is
-    computed from the model values instead of data.
--   **chi2constvar** - Chi-squared statistic, where the variance is set
-    to be a constant value. That constant is the average of the y-values
-    of the data points.
--   **chi2xspecvar** - Chi-squared statistic, where the variance is
-    computed as the X-ray spectral fitting program XSPEC would compute
-    the variance (i.e., where the variance would be less than one, reset
-    it to one). More suitable for low counts data (e.g., X-ray data).
-
-The Iris default fitting method and statistic are "neldermead" and
-"leastsq", respectively, which represent good choices for a robust,
-quick, initial fit of a relatively simple model to a data set covering
-potentially many orders of magnitude in flux and/or wavelength. The fit
-can also be done with a chi-squared statistic, with various methods for
-estimating variance, or with either of two maximum likelihood statistics
-that are useful when the data have low numbers of counts. The fitting
-method can be changed to "levmar" or "moncar", but note that switching
-the method is less important than switching the statistic, e.g., from
-least-squares to chi-squared.
-
-Nelder-Mead is the optimal fitting method to start with because it does
-not depend on taking derivatives of the model function. As for the fit
-statistic, least-squares is preferred because it does not use measured
-errors and thus essentially weights all data points equally (it seeks to
-minimize the sum of the squares of the differences between data and
-model values, without taking errors into account). Chi-squared fitting,
-in contrast, can be decidedly biased towards the data points with the
-lowest fluxes and smallest measured error bars (when there are data
-points with measured errors that are orders of magnitude smaller than
-the error bars on most of the data points, then these points become the
-biggest contributors to the chi-squared value).
-
-In subsequent fits - e.g., after selecting a different data range to
-fit, adding in new model components as needed, and so on - the statistic
-can be switched to a chi-squared option to use measured errors
-(preferably chi2datavar, which is chi-squared with data variance). Since
-measured errors are provided, this means the variance is taken directly
-from the errors provided with the data, when the data file is read in.
-
-**Note**: When one or multiple SED segments is fit in Iris, any data
-points with associated zero-value errors are ignored in the fit. This
-design choice is intended as a safeguard against yielding potentially
-misleading fit results in the analysis of your SED data. Iris interprets
-a zero-value error* not *to mean that the uncertainty on the associated
-data value is actually zero, but that a measure of the uncertainty is
-not available for that particular photometric point.*
-
-|   |
-|--:|
-|[[Back to top][top]]|
-
-------------------------------------------------------------------------
-
-## <a name="fit"></a> Fitting and Displaying the Model
-
-Before initiating a fit of the defined model to a SED in Iris, the
-specific subset of the SED data to be included in the fit (if not the
-entire SED) should be specified using the "Define Range" option in the
-main fitting window. Selecting this option will prompt you to click on
-the data display twice, once to define the lower endpoint of the data
-range to be fit, and once for the upper endpoint.
-
-[![Defining the fitting range](./imgs/define_range_v2_small.jpg)](./imgs/define_range_v2.png)
-
-Having built a model expression and set initial parameter values, chosen
-an appropriate fit statistic and optimization method for your analysis,
-and defining the range of data to be fit, you are ready to initiate the
-fitting process by selecting "Start" in the Fitted window. When the fit
-is complete, a red model curve appears overplotted on the SED data in
-the Iris main display (beyond the specified data range to be fit; this
-extraneous portion of the fitted model may be ignored).
-
-[![SED Viewer with fitted model overplotted](./imgs/model_plot_v2_small.jpg)](./imgs/model_plot_v2.png)
-
-When the fit has finished, the model parameter values will appear
-updated in the Component field of the fitting window, and fit statistics
-will be displayed in the fitting tab of the Fitted window, including the
-number of data points used in the fit, the degrees of freedom, and the
-probability that the fit is consistent with the data (q-value), where
-applicable (when fitting with the least-squares or Cash statistic, the
-"reduced statistic" value and q-value are not available, as they cannot
-be computed).
-
-![Statistics](./imgs/fit_saved_v2_small.jpg)
-![Fit statistics window](./imgs/fit_stats_leastsq_v2.png)
-
-When fitting with one of the chi-squared statisics, or the
-chi-squared-like cstat statistic, the Confidence tab returns the
-requested sigma/percent confidence intervals on the best-fit model
-parameters, calculated using the statistic and method chosen for the
-fit. For example, entering "1.6" in the "sigma" field will return th 90%
-confidence limits on the model parameter values..
-
-![Confidence limits](./imgs/confidence_chi2.png)
-
-If the statistic is left at the default "leastsq", Iris will issue an
-error stating that least-squares cannot be used with the confidence
-limit function (this is because the only way calculate to confidence
-limits is to know the probability distribution for the fit statistic,
-which is known for the chi-squared and chi-squared-lke cstat statistic,
-but not least squares).
-
-Also of note is that blank or "NaN" values are returned in the
-confidence results when a parameter bound is found to lie outside the
-hard limit boundary for a model parameter (which ought not to be changed
-by the user, so there is not an option to do so in Iris). This could
-result from an issue with the signal-to-noise of the data, the
-applicability of the model to the data, systematic errors in the data,
-among others things. A parameter hard limit represents either a hard
-physical limit (e.g., temperature is not allowed to go below zero), a
-mathematical limit (e.g., prevent a number from going to zero or below,
-when the log of that number will be taken), or the limit of what a float
-or double can hold (the fit should not be driven above or below the
-maximum or minimum values a variable can hold).
-
-You can iterate through the fitting process in Iris as many times as
-necessary - adding or deleting models from the model expression;
-changing parameter values or ranges; including or excluding new points
-from the SED - until you find a satisfactory model that best describes
-your SED data.
-
-|   |
-|--:|
-|[[Back to top][top]]|
-
-------------------------------------------------------------------------
-
-## <a name="save"></a> Saving the Model
-
-Once a spectral model is satisfactorily fitted, the custom fitted model
-parameters can be saved to a local file *before exiting* the fitting
-session, by making an appropriate selection in the File menu of the
-fitting window.
-
-![Save Model menu](./imgs/fit_write_menu.png)
-
-Selecting the *File -&gt; Write to text file* option saves the spectral
-model to file in a human-readable text format. The "Write active
-components" option in this submenu writes only the model components
-which were used in the fit; example output is shown below:
-
-``` {.highlight}
-$ more 3c273_atten_bpl_active_comps.txt
-
-File: 3C 273
-
-Thu Feb 26 15:46:31 EDT 2015  Iris 2
-
-TARGNAME: 3C 273
-
-Model Expression:
-        c1*c2
-
-Fit parameters:
-        Final fit statistic:      0.010714114984176791
-        Reduced statistic:        nan
-        Probability [Q-value]:    nan
-        Degrees of freedom:       413.0
-        Data points:              419
-        Last function evaluation: 394
-
-Component 1:    atten.c1 
-       hcol      = 1.0E20     (NaN NaN)                                   
-       heiRatio  = 0.04177875 (NaN NaN)                                   
-       heiiRatio = 0.74654233 (NaN NaN)                                   
-
-Component 2:    brokenpowerlaw.c2 
-   F   refer  = 300000.0                            angstroms             
-       ampl   = 0.0062282784 (0.1065081 NaN)                              
-       index1 = -0.039390083 (NaN       -4.82435)                         
-       index2 = -0.6063001   (2.4033892 NaN)                              
-```
-
-Selecting *File -&gt; Write to file*, instead, saves the model to a file
-in a format (CDB) that can be read back by the tool in a future data
-analysis session. (CDB is an XML format for reading model files in and
-out of Iris.)
-
-![Saving a fitted model](./imgs/save_models_cdb.png)
-
-This customized Iris fitting session may be restored by selecting the
-*File-&gt;Read from file* menu option within the Iris fitting window.
-
-![Reloading a saved, fitted model](./imgs/open_models_cdb.png)
+selected from the menu of custom model components, under *User Model Components -&gt; functions -&gt; my\_py\_powlaw*.
 
 |   |
 |--:|
@@ -718,12 +764,12 @@ under the full model or an arbitrary combination of the model
 components. The Fitting Tool must remain open for model integration.
 
 [![\[Calculate Flux
-screenshot\]](./imgs/integrate_under_model-default_small.jpg)](./imgs/integrate_under_model-default.png)
+screenshot\]](./imgs/integrate_under_model-default.png)](./imgs/integrate_under_model-default.png)
 
 After opening the "Calculate Flux" tab, make sure Model Integration is
 selected (it should "Integrate Model (YES)"). By default, the full model
 will be used to evaluate the fluxes. For our fit of 3c273, the model
-expression is `"c1*c2"`. A quick-look view of the model and the
+expression is `"m1*m2"`. A quick-look view of the model and the
 parameter values can be displayed by clicking the "Show Model" button.
 
 [![Calculate Flux
@@ -737,7 +783,7 @@ components, then integrate the expression in the "Model Expression"
 field. This means that users can integrate under *individual model
 components*. Multiplication and addition of other model components and
 numeric values are acceptable. For example, the expressions
-`"c2 * 3.678"`, `"c2 + c1"`, and `"c1 + c2 * 1.2"` are allowed.
+`"m2 * 3.678"`, `"m2 + m1"`, and `"m1 + m2 * 1.2"` are allowed.
 
 Say we want to estimate the total infrared flux and the flux through the
 Herschel PACS and SPIRE bands . Going back to the "Calculate Flux" in
@@ -748,7 +794,7 @@ To integrate under the fitted model, we turn "Model Integration" on
 (YES), and click "Calculate."
 
 [![Calculate Flux
-screenshot](./imgs/integrate_under_model-results_small.jpg)](./imgs/integrate_under_model-results.png)
+screenshot](./imgs/integrate_under_model-results.png)](./imgs/integrate_under_model-results.png)
 
 The results can be exported as a new SED with the "Create SED" button,
 or may be saved to a text file with "Save." The text file can be loaded
@@ -778,6 +824,8 @@ Fitting Tool.
 |  05 Aug 2013 |  updated Iris screenshots |
 |  02 Dec 2013 |  updated for Iris 2.0.1   |
 |  07 May 2015 |  updated for Iris 2.1 beta. Users can now integrate under fitted models. Template library model parameter values are interpolated using k-nearest neighbor with k=2 and order=2. Templates, table models, and functions can all be arbitrarily combined in the Model Expression. |
+|  01 Jan 2017 | updated for Iris 3.0b2    |
+|  22 Feb 2017 | updated for Iris 3.0      |
 
 ------------------------------------
  
@@ -788,6 +836,9 @@ Fitting Tool.
 
 <!-- external links -->
 [topcat]: http://www.star.bris.ac.uk/~mbt/topcat/#docs "TOPCAT"
+
+<!-- image links -->
+[fitting-tool-icon]: ./imgs/fitting-tool-icon-tiny.png
 
 <!-- threads -->
 [sedstacker]: 		../../threads/science/sedstacker/index.html "SED Stacker"

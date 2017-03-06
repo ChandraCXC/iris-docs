@@ -1,0 +1,107 @@
+{
+  "model" : {
+    "name" : "m8 + m9",
+    "parts" : [ {
+      "pars" : [ {
+        "name" : "m8.refer",
+        "val" : 500000.0,
+        "min" : 1.1754943508222875E-38,
+        "max" : 3.4028234663852886E38,
+        "frozen" : 1,
+        "alwaysfrozen" : 0,
+        "hidden" : null,
+        "units" : null,
+        "link" : null
+      }, {
+        "name" : "m8.ampl",
+        "val" : 0.2676830490165102,
+        "min" : 1.1754943508222875E-38,
+        "max" : 3.4028234663852886E38,
+        "frozen" : 0,
+        "alwaysfrozen" : 0,
+        "hidden" : null,
+        "units" : null,
+        "link" : null
+      }, {
+        "name" : "m8.temperature",
+        "val" : 48.23804245712571,
+        "min" : 1.1754943508222875E-38,
+        "max" : 3.4028234663852886E38,
+        "frozen" : 0,
+        "alwaysfrozen" : 0,
+        "hidden" : null,
+        "units" : null,
+        "link" : null
+      } ],
+      "name" : "blackbody.m8",
+      "description" : "Emission from a blackbody",
+      "id" : "m8"
+    }, {
+      "pars" : [ {
+        "name" : "m9.refer",
+        "val" : 6200.0,
+        "min" : 1.1754943508222875E-38,
+        "max" : 3.4028234663852886E38,
+        "frozen" : 1,
+        "alwaysfrozen" : 0,
+        "hidden" : null,
+        "units" : null,
+        "link" : null
+      }, {
+        "name" : "m9.ampl",
+        "val" : 0.006439561161982973,
+        "min" : 1.1754943508222875E-38,
+        "max" : 3.4028234663852886E38,
+        "frozen" : 0,
+        "alwaysfrozen" : 0,
+        "hidden" : null,
+        "units" : null,
+        "link" : null
+      }, {
+        "name" : "m9.index1",
+        "val" : 6.388948814753515,
+        "min" : -10.0,
+        "max" : 10.0,
+        "frozen" : 0,
+        "alwaysfrozen" : 0,
+        "hidden" : null,
+        "units" : null,
+        "link" : null
+      }, {
+        "name" : "m9.index2",
+        "val" : -0.8589190474380072,
+        "min" : -10.0,
+        "max" : 10.0,
+        "frozen" : 0,
+        "alwaysfrozen" : 0,
+        "hidden" : null,
+        "units" : null,
+        "link" : null
+      } ],
+      "name" : "brokenpowerlaw.m9",
+      "description" : "Broken power law; index changes after the break",
+      "id" : "m9"
+    } ]
+  },
+  "fittingRanges" : [ {
+    "startPoint" : 523.976705172432,
+    "endPoint" : 2.76185346873918E7,
+    "xunit" : "ANGSTROM"
+  } ],
+  "stat" : "Chi2",
+  "method" : "NelderMeadSimplex",
+  "confidence" : {
+    "name" : "conf",
+    "config" : {
+      "sigma" : 1.6
+    }
+  },
+  "rStat" : 1258.2369912196789,
+  "nFev" : 946,
+  "qVal" : 0.0,
+  "numPoints" : 144,
+  "statVal" : 174894.94177953535,
+  "dof" : 139,
+  "userModelList" : [ ],
+  "confidenceResults" : null
+}

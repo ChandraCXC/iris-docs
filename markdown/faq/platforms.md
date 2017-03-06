@@ -2,7 +2,7 @@
 
 # On which computer platforms is Iris supported?
 
-Iris is [available for download][download] on 32-bit and 64-bit Linux systems and Mac OSX 10.6 - 10.10 Intel platforms. We have [special installation instructions for Mac OS X 10.5 with Java 1.5][macosx105].
+Iris is [available for download][download] on 64-bit Linux systems and Mac OS X 10.9 - 10.11 Intel platforms.
 
 [Return to: FAQ index][faq]
 

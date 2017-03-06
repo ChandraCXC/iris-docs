@@ -10,7 +10,7 @@ The SED Builder tool within Iris allows the user to convert SED data written in 
   * [FITS](#fits) - consists of a series of Header Data Units (HDUs), each containing two components: an ASCII text header and the binary data. The header contains a series of header keywords that describe the data in a particular HDU and the data component immediately follows the header.
   * [VOTABLE](#vot) - (text or binary) XML standard for the interchange of data represented as a set of tables. Consists of an unordered set of rows, each of a uniform structure, as specified in the table metadata. Each row in a table is a sequence of table cells, and each of these contains either a primitive data type, or an array of such primitives.
   * [IPAC](#ipac) - a custom bar-separated text format by IPAC
-  ( [TST](#tst) - Tab Separated Table (comments are ignored, metadata is in key, value pairs)
+  * [TST](#tst) - Tab Separated Table (comments are ignored, metadata is in key, value pairs)
 Since the SED Builder uses the STIL library to read files, STIL being the library on the top of which TOPCAT is implemented, the following documentation about the detailed specification of the supported formats is derived from the [TOPCAT documentation](http://www.star.bris.ac.uk/~mbt/topcat/sun253/inFormats.html).
 
 ## <a name="fits"></a>FITS
@@ -122,7 +122,7 @@ The Infrared Processing and Analysis Center at CalTech uses a text-based format 
 			  3     goldfish          Dobbin         0       0.05
 			  4          ant            null         6      0.001
 
-Comma-Separated Values
+## <a name="csv"></a>Comma-Separated Values
 
 Comma-separated value ("CSV") format is a common semi-standard text-based format in which fields are delimited by commas. Spreadsheets and databases are often able to export data in some variant of it. The intention is that TOPCAT can read tables in the version of the format spoken by MS Excel amongst other applications, though the documentation on which it was based was not obtained directly from Microsoft.
 

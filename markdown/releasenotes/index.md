@@ -1,85 +1,137 @@
 # Iris Release Notes
 
+## Iris 3.0 Release Notes
 
-### Iris v2.1 Release Notes
+Iris 3.0 introduces a new infrastructure for visualizing and fitting
+spectrophotometric data. The new infrastructure allows users to load and fit
+high resolution spectra as well as broadband, multi-wavelength
+spectrophotometric datasets. The new infrastructure is also more flexible and
+it will enable future extensions of the Iris functionality. Moreover, Iris 3.0
+introduces a simple client for the Vizier/CDS SED service while keeping the
+dedicated clients to NED and ASDC services. This release also fixes several bugs
+and introduces some new functionality and user interface improvements, as
+specified in more detail below, component by component.
 
-The following updates have been made since the 2.0.1 patch release:
+### Fitting Tool
 
-#### New Features
+The fitting tool GUI has been completely redesigned. It now relies on a single
+window, and information should be easier to set and retrieve.
 
-  * \#44: SED Stacker: Users can statistically combine a group of SEDs into a single, representative SED. The group of SEDs, called a "Stack," is made up of SEDs already loaded in the SED Builder. The tool provides optional bulk redshifting and normalization of the SEDs before combination. Users combine the SEDs together using average, weighted average, or a summation of the SEDs, with linear or logarithmic binning.
-Enhancements
-  * \#12: Units were reviewed to ensure that the different Iris components support the same set of units, and to address users requests to deal with additional units. 
+  * The list of available models is always visible: you can double-click on a model to make it part of your model expression.
+  * A search box allows to easily filter the model components, and a description box displays simple documentation for the model.
+  * We introduced a simple "Chi2" statistic (In Iris 2.1 you had to select one of the specialized chi2 statistics and Sherpa would fall back to Chi2 if errors were provided by the user).
+  * Model parameter values are updated on the fly.
+  * You can select ranges by either clicking on the plot or by manually setting ranges in any units.
+  * Model components now have unique IDs in a working session. Component IDs do not change if components are deleted.
+  * Model expressions are validated on the fly, so you know if a model expression is not valid as soon as you type it.
+  * Output files created by the "Save Text" option now contain more information, including the location of custom user models.
+  * Models can be saved as Json files and then loaded back into Iris. Note that the Iris 1 and 2 xml serializations are not supported any more. If you have such a file and you want it converted to the new format, please let us know.
+  * Models can be evaluated even if they have not been fitted. So for instance you can change model parameters and re-evaluate the model, or evaluate individual model components.
+  * You can edit a SED (mask/unmask points, add/remove segments) during a fitting session.
+  * You can right-click on a model component to select it and remove it from the expression.
+  * Clicking "Dismiss" or "Stop" during a fit or confidence level calculation will no longer disconnect Sherpa from the SAMP hub.
 
-    The following units where added to the SED Importer:
+### SED Viewer
 
-    * mm
-    * uJy
-    * Watt/m2/nm
-    * Watt/cm2/um
-    * Rayleigh/A
-    * 1/um
-    * km/s @ CO (11.5 GHz)
-    * km/s @ 21 cm	
+The viewer component was completely redesigned. It now relies on STILTS as a
+plotting backend. Functionality is mostly unchanged, but now you can:
 
-    GeV was added to the SED Viewer. 
+  * plot and analyze high resolution spectra.
+  * coplot SEDs with their models.
+  * plot model functions even if they have not been fitted. You can also plot
+individual model components.
 
-    photon/cm2/s was removed from SED Importer as this unit is not supported by the SED Viewer. 
+Note that SED with multiple segments show points belonging to different
+segments with different colors. The current palette has 16 distinct colors.
+More than 16 segments would result in points having color differences that are
+hardly noticeable, not to mention a rather long legend. When more than 16
+segments are plotted, Iris will show the SED as a single segment.
+The Metadata Browser is unaffected by the number of segments.
 
-  * \#17: Updated NED logo to latest version.
-  * \#34: SEDs can now be saved in ASCII format in addition to VOTable and FITS
-  * \#37: Upgraded Sherpa to version 4.7. This means users can combine templates with other templates and with regular models, and templates can be fitted continuously.
-  * \#41: Users can now integrate models in addition to data, including individual model components or arbitrary combinations of components.
-  * \#42: The model expression is now written in the fit results ASCII file.
-  * \#53 and #58: New log locations and conventions.
+### Metadata Browser
 
-  * Logs are now created in $HOME/.vao/iris. The GUI logs are created in $HOME/.vao/iris/logs. The directory is different because the GUI logs are created for each session and their number grows over time. Users can change the location and name of the log files by exporting the environment variables IRIS\_LOG\_LOCATION and IRIS\_LOG\_NAME. A timestamp for the session start is added to the log file name. The timestamp is now human readable.
-    * \#83 - Updated the "About Iris" window to reflect change in ownership from VAO to SAO.
-    * \#84 - Updated the Iris logo.
+The metadata browser GUI, which is accessible by clicking "Metadata" on the
+Visualizer toolbar, has been completely redesigned. Functionality is mostly
+unchanged, however:
 
-#### Bug Fixes
+  * Points can now be masked and unmasked directly from the metadata browser.
+  * Masked points are not included in the fit.
 
-  * \#1: Iris startup script now correctly sets IRIS_DOC to the correct version number.
-  * \#30: Users can now add new data to redshifted SEDs.
-  * \#54: The output units for integration were mistakenly indicated as Jy (flux density) although the output was flux. Also, the flux was calculated integrating over the wavelength space, which resulted in units that could not easily be translated into meaningful physical units.
-  * \#55: The fitting tools now displays a warning message when the selected SED is empty, instead of doing nothing.
-  * \#59: Regression from bug fix #52 (see Caveats) that prevented SED Viewer to update SEDs when new Segments were added/removed.
-  * \#60: Fixed Cancel button behavior in confirmation dialog box when closing the Fitting tools window. The window does not disappear anymore when users cancel the action of closing the window itself.
-  * \#61 and #62: Fixed bugs related to the way sherpa-samp checks the connection to the SAMP hub. The fix reduces the resources required to poll the SAMP hub, and avoids sherpa-samp to disconnect from the hub at random times during the Iris execution, which could lead to incomplete tasks in Iris.
-  * \#71 - Fixed bug where the flux errors weren't sorted correctly when redshifting multiple-segment SEDs.
-  * \#80 - Passbands no longer disappear from the integration panel Results list. If a user adds a user-defined passband, then adds photometry filters, the passband no longer disappears from the results list until the user clicks "Calculate."
-Caveats and Known Bugs
+### Sed Stacker
+
+  * The GUI was redesigned to follow suggestions from users. The SED Stacker frame
+is now laid out in a horizontal fashion, so users will move from left to right
+on the frame as they work on a Stack. Open Stacks and Stack Management are on
+the left; a list of added SEDs (with Add/Remove capabilities) is in the center;
+redshifting, normalizing, and stacking options are on the far right.
+  * Right-clicking a Stack in the Open Stacks window now offers a Remove option.
+  * We also fixed some typos in the GUI.
 
 -----------------------
 
-*The following is a list of caveats and bugs that were documented this release. For the complete report of caveats and known bugs, please view the list in [Bugs & Caveats][bugs]. If you experience any other issues with Iris, please send us a message at the [CXC HelpDesk][helpdesk].*
+## Caveats and Known Bugs
 
-  * Integration under model components: Only one filter/passband can be added to the list for each SED. It is not currently possible to calculate the flux for the same filter with different combinations of model components. This shortcoming of the GUI can be worked around in this way: one can save the results for each component/combination to file, input a different model expression, click calculate, and then save the new results with a different name.
-  
-  * Internal Frames misbehave with some versions of Java on OS X. Gray lines may appear around windows after moving or resizing the windows. This does not impact the functionality of Iris, only the appearance. This is most notable on Java 1.8.
-  
-  * The Fitting Tool help bar is disabled. This is because the fitting tool help docs built in the Fitting Tool are for Specview; there is no information on fitting specifically in Iris. So to not confuse the readers with Specview-only operations, the help tool is left disabled.
-  
-  * When switching from a populated SED to an empty SED, the Viewer and the Fit windows will not update.
-  
-  * When a SED is edited (e.g. by adding or removing segments) during a fitting session, the fitting window needs to be closed and the fitting session restarted from scratch. This is due to a bug in the fitting component. A dialog box will warn the user that if they change an SED during a fitting session, they should click OK when asked to close the fitting window itself. Clicking "Cancel" would leave the fitting manager in an undesired state, and out of sync with the rest of the Iris components. 
+The following is a list of caveats and bugs that were documented this
+release. For the complete report of caveats and known bugs, please view the
+list in [Bugs & Caveats][bugs]. If you experience any other issues with Iris,
+please send us a message at the [CXC HelpDesk][helpdesk].
 
-    **WORKAROUND:** If this happens, users can save the fitting session, close the fitting window, and then load the saved file in a new session. Due to the nature of the bug, no warnings can be displayed when the user starts the fitting tool but edits the SED before performing any actual fit. 
-   
-  * If the user has two fitting sessions open, and has fitted their SED without closing the Fit Statistics and Optimization Method window for either SED, switching back and forth will cause one of the "Statistics" drop-down menus to disappear. 
+### Visualizer
 
-    **WORKAROUND:** Close the Fit Statistics window and re-open it from the main Fitting window (i.e., click the "Fit" button).
+  * Residuals and main plot are not bound together when zooming, panning, etc.
+  * Depending on the size of the Visualizer window, legend might spill over
+    the bounds of the Visualizer when many segments are displayed.
+    **Workaround:** users can hide the legend from the "View" menu.
+  * It is not possible to filter data points by selecting them
+    in the Visualizer.
+  * When analyzing SEDs with more than 16 segments, fitting ranges are not
+    visualized in the plotter. However, they are still listed in the
+    Fitting Ranges window.
+
+### Metadata Browser
+
+  * Filtering data by filter expressions has been completely redesigned and is much more responsive. However, it only applies to numerical columns. Also, when masking points, a new column is added and column identifiers change. At this time, scientific notation is not fully supported, especially with negative exponents, e.g. 1e-5.
+  * Simple scaling ("aperture correction") has been disabled. Future versions of Iris will provide a mechanism for performing arbitrary operations on columns.
+  * SAMP broadcasting is not available any more from the Metadata Browser directly. One can extract an SED in the Metadata Browser and then use the SED Builder capabilities to broadcast a flattened SED or an arbitrary number of segments.
+  * Data can now be sorted only according to one column, not two as in Iris 2.1.
+
+### Sherpa Communication
+
+Sometimes the connection to Sherpa stalls out, and you get a "`Tried calling Sherpa 100 times every 100 milliseconds. Giving up`" error when doing one of the following operations:
+  
+  * redshifting
+  * interpolating
+  * calculating integrated fluxes
+  * fitting
+  * calculating confidence intervals
+  * evaluating the model
+  
+To remedy this issue, open a new terminal, kill any currently-running `sherpa-samp` processes, start a new `iris` conda environment and launch a new `sherpa-samp` process.
+     
+        $ pkill sherpa-samp
+        $ bash
+        $ source activate iris    # or whatever you've named the environment
+        (iris) $ sherpa-samp
+        
+Then try to do the operation again. You shouldn't lose any of your data if you see this error.
+
+### Sed Stacker
+
+  * After stacking a group of SEDs, the resultant SED is added to the SED Builder. A silent java.lang.NullPointerException exception is raised when a user tries to add new segments to this SED. No warning pops up to the user.
+  * Sometimes the normalization configuration parameters don't update correctly when you switch between Stacks.
 
 -------------------------
 
+<!--
 The following bugs and caveats will be addressed before the Iris 2.1 release.
 
   * In SED Stacker, sometimes the Y-Units for normalizing by Integration may reset to the default unit after switching between Stacks.
-  
--------------------------
+-->
 
-### Previous Release Notes
+## Previous Release Notes
 
+  * [v3.0b2](/iris/v3.0b2/releasenotes/index.html)
+  * [v2.1](/iris/v2.1/releasenotes/index.html)
   * [v2.0.1](/iris/v2.0.1/releasenotes/index.html)
   * [v2.0](/iris/v2.0/releasenotes/index.html)
   * [v1.2](/iris/v1.2/releasenotes/index.html)

@@ -1,0 +1,13 @@
+/** Iris Stylesheet **/
+
+
+
+.item-description td:nth-child(1) {
+  width: 17%;
+}
+.item-description td:nth-child(2) {
+  width: 83%;
+}
+.item-description tr:nth-child(even) {
+  background: #f9f9f9
+}

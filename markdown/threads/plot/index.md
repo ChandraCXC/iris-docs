@@ -6,22 +6,9 @@
 
 #### Synopsis:
 
-The Iris GUI is an adaptation of the [Specview
-(STScI)](http://www.stsci.edu/resources/software_hardware/specview/)
-spectral visualization and analysis GUI, and as a result is equipped
-with several of the data display preferences and editing capabilities
-offered by that application. This thread presents the various options
-available for interacting with and customizing the SED data display in
-the *Iris Visualizer*.
+The Iris GUI uses the [STILTS][stilts] API for its plotting backend. The tabular and plot displays of SED data are heavily based on [STIL][stil], the library both [TOPCAT][topcat] and STILTS use. This thread presents the various options available for interacting with and customizing the SED data display in the *Iris Visualizer*.
 
-*Note*: As most Specview features remain unchanged between the standard
-and the Sherpa-enabled Iris version, the documentation provided in the
-[Specview help
-documentation](http://specview.stsci.edu/javahelp/Main.html) serves as
-an exhaustive reference for most of the data visualization features in
-Iris.
-
-**Last Update:** 07 May 2015 - Updated for Iris 2.1 beta.
+**Last Update:** Feb 22 2017 - Updated images and text for Iris 3.0.
 
 ------------------------------------------------------------------------
 
@@ -30,25 +17,24 @@ Iris.
 
 -   **[Introduction](index.html#intro)**
 -   **[Setting Display Preferences](index.html#set_prefs)**
-    -   [Adjusting the coordinates view port](index.html#wcsviewport)
+    -   [Adjusting the Coordinates View Port](index.html#wcsviewport)
     -   [Refreshing the Data Plot](index.html#redraw)
     -   [Units](index.html#units)
     -   [Axis Scale](index.html#axis_scale)
     -   [Grid](index.html#grid)
-    -   [Labeling the Data Plot](index.html#labels)
+    -   [Plot Legend](index.html#legend)
+    -   [Change SED Display Name](index.html#labels)
 -   **[Displaying Metadata and Data Values](index.html#metadata)**
+    -   [Data tab](index.html#data_metadata)
     -   [Point Metadata tab](index.html#point_metadata)
     -   [Segment Metadata tab](index.html#segment_metadata)
-    -   [Data tab](index.html#data_metadata)
 -   **[Selecting and Masking SED Data Points](index.html#mask)**
     -   [Select Points using Metadata Browser](index.html#mask_metadata)
     -   [Select Points from Data Plot](index.html#select_plot)
     -   [Select Points by Boolean operations](index.html#boolean)
 -   **[Extracting a Filtered SED](index.html#extract)**
 -   **[Co-plotting Separate SEDs](index.html#coplot)**
--   **[Coloring Data Points based on Metadata](index.html#coloring)**
 -   **[Saving Plot Image to File](index.html#save_plot)**
--   **[Simple Aperture Correction](index.html#aperture)**
 -   **[Iris Interoperability with other Virtual Observatory
     Applications](index.html#broadcast)**
 -   **[History](index.html#history)**
@@ -59,7 +45,7 @@ Iris.
 
 When SED data is read into Iris, it displays in the Iris Visualizer,
 where you can interact with the data plot in various ways. You can open
-the Iris Visualizer from the desktop icon "SED Viewer." The terms *Iris
+the Iris Visualizer from the desktop icon "Iris Visualizer." The terms *Iris
 Visualizer* and *SED Viewer* are used interchangeably throughout the
 documentation. The options available for customizing the data display
 are described in this thread.
@@ -87,41 +73,55 @@ below.
 
 ### <a name="wcsviewport"></a> Adjusting the coordinates view port
 
-The set of widgets in the upper-left corner of the data display are
-available for adjusting the view and orientation of the SED segment(s)
-within the main display.
+The set of widgets in the Visualizer toolbar are available for adjusting the view and orientation of the SED segment(s) within the main display.
 
-  * ![\[Iris screenshot image\]](./imgs/auto_button.png)          **Auto/fixed coordinates** - automatically scale the coordinates view port to fully encompass the data each time the plot is refreshed; or, fix the coordinates view port so that all subsequent plot refreshes that result from a data change will take place on a fixed coordinates view port.
-  * ![\[Iris screenshot image\]](./imgs/reset_button.png)         **Reset** - set the coordinates view port to a full view of the data.
-  * ![\[Iris screenshot image\]](./imgs/reset_central.png)        **Reset to central data** - set the coordinates view port to a central view of the data, with edges discarded. The central third of the wavelength span of the data is used to normalize the view port.
-  * ![\[Iris screenshot image\]](./imgs/back_button.png)          **Back** - return to the previously used coordinates view port. Successive application of this function causes a walk back throughout the coordinates view port history.
-  * ![\[Iris screenshot image\]](./imgs/zoom_buttons.png)         **Zoom out/in** - zoom out/in by 20%. One can also zoom in and out using the cursor and scroll button on the mouse. Rolling the button forward zooms out from the location of the cursor on the graph; rolling backward zooms in.
-  * ![\[Iris screenshot image\]](./imgs/left_right_buttons.png)   **Move left/right** - move the coordinates view port to the left/right
-  * ![\[Iris screenshot image\]](./imgs/expand_button.png)        **Expand** - expand the coordinates view port in the X direction only.
+#### Zooming in and out
+
+There are a few methods of zooming and out of the view port:
+
+  * ![\[Iris screenshot image\]](./imgs/zoom_buttons.png)  Zoom out/in by 33% from the center of the viewport by clicking the "In" and "Out" buttons at the top of the Visualizer.
+  * Zoom in/out from the cursor's position by hovering over the view port scrolling up or down.
+  * Hold Shift and click-and-drag the box to zoom into a specific region on the view port.
+
+#### Expanding the view port
+
+  * Expand or contract either the X or Y axis by hovering over the outside of the graph and scrolling up (to expand) or down (to contract). The cursor's position is the reference position for expanding/contracting the axis.
+  * Right-click and drag the mouse over the plot to expand/contract the view port along both the X and Y axes.
+
+#### Panning
+
+There are two methods for panning around the view port:
+
+  * Left-click and drag the plot.
+  * ![\[Iris screenshot image\]](./imgs/left_right_buttons.png)   Use the four (4) arrow buttons at the top of the plot window to pan the view port up, down, left, and right.
+
+#### Fix the plot coordinates
+
+![Iris screenshot image](./imgs/auto_button.png)
+
+The user may choose to automatically scale the coordinates view port to fully encompass the data each time the plot is refreshed; or, fix the coordinates view port so that all subsequent plot refreshes that result from a data change will take place on a fixed coordinates view port. To choose the behavior, toggle "View --> Fixed" preference.
+
+By default, if any SED changes occur (adding/removing a SED segment, switching SEDs, etc.), the plot ranges will automatically be reset to show every data point in the SED. By fixing the plot, any SED events that happen outside of the Visualizer will not affect the view port plot ranges. The user can still pan, zoom in/out, and reset the plot ranges manually; the plot view will remain unaffected only by SED changes.  
 
 ------------------------------------------------------------------------
 
-### <a name="redraw"></a> Refreshing the Data Plot
+### <a name="reset"></a> Resetting the Data Plot
 
-|-------------------------------------------------|-|
-| ![Iris screenshot image](./imgs/redraw.png)     | The "Redraw" button is available within the Iris main display for refreshing the data plot, e.g., to clear any visual garbling or crosshair cursor leftovers that arise under certain combinations of computer platform and CPU speed. 																 |
+![\[Iris screenshot image\]](./imgs/reset_button.png) The "Reset" button is available within the Iris main display for resetting the data plot so that all edges. |
 
 
 ------------------------------------------------------------------------
 
 ### <a name="units"></a> Units
 
-|--------------------------------------------------------|-|
-| ![Iris screenshot image](./imgs/set_units_buttons.png) | The preferred units for the data display, e.g., "ergs/cm2/s/angstrom" versus "angstrom", may be set using either the "Units" or "Flux density" buttons in the upper-right corner of the main display. |
+![Iris screenshot image](./imgs/set_units_buttons.png) The preferred units for the data display, e.g., "ergs/cm2/s/angstrom" versus "angstrom", may be set using either the "Units" button in the upper-right corner of the main display. This also updates the units shown in the Metadata Browser's "Data" tab.
 
-The "Flux density" selection box allows you to choose the type of
-spectral quantity to be displayed on the Y axis, either "Flux density"
-or "Flux", and also enables the selection of units for the spectral axis
-quantity. Once a selection is made, a dialog box populated with all
-available physical units appropriate for that quantity, will pop up
-(this pop-up box matches the "Units" selections). Selecting the desired
-units and clicking on the "Apply" button adjusts the data display to the
-desired preference.
+The "Units" button allows you to choose the spectral and flux/flux density
+units to display an SED in. A dialog box populated with all available physical
+units will pop up: the left column is for the spectral (X) axis, and the right
+column holds the flux/flux density axis. Selecting the desired units and
+clicking the "Update" button adjusts the data display to the desired
+preference.
 
 ![Iris screenshot image](./imgs/set_units.png)
 
@@ -129,17 +129,22 @@ desired preference.
 
 ### <a name="axis_scale"></a> Axis Scale
 
-|-------------------------------------------------------|-|
-| ![Iris screenshot image](./imgs/plot_type_button.png) | The scale of the data plot axes in the Iris main display can be changed using the "Plot Type" button, or by clicking the cursor near any one of the four corners of the display; this will open a small window in which the X and Y axes scale may be set to linear or logarithmic (regular or extended).|
+The X and Y axes can be plotted in linear or logarithmic scales. The user controls the scaling by clicking "View --> Plot Type -->" on the menu bar,  then choosing the scaling.
+
+![Iris screenshot image](./imgs/plot_type_options.png)  
+
+  * Log - plot both X and Y in a logarithmic scale.
+  * Linear - plot both X and Y in a linear scale.
+  * X Log - plot X in a logarithmic scale, and Y linearly.
+  * Y Log - plot Y in a logarithmic scale, and X linearly.
 
 ------------------------------------------------------------------------
 
 ### <a name="grid"></a>Grid
 
-|--------------------------------------------------|-|
-| ![Iris screenshot image](./imgs/grid_button.png) | Selecting the "Grid" option in the main display overlays a coordinate grid onto the main plot.|
+Selecting the "Grid" option in the main display overlays a coordinate grid onto the main plot.
 
-![Iris screenshot image](./imgs/plot2_grid_on_angs.png)
+![Iris screenshot image](./imgs/grid_button.png) [![Iris screenshot image](./imgs/plot2_grid_on_small.png)](./imgs/plot2_grid_on.png)
 
 |   |
 |--:|
@@ -147,34 +152,20 @@ desired preference.
 
 ------------------------------------------------------------------------
 
-### <a name="labels"></a> Labeling the Data Plot
+### <a name="legend"></a>Plot legend
 
-#### Change SED Display Name
+Be default, a plot legend is shown in the top-right corner of the plot display. The legend can be hidden/shown by checking the preference "View --> "Show Legend" off and on.
+
+### <a name="labels"></a>Change SED Display Name
 
 By default, the SED Viewer window displays either "Sed" or "Iris
 Visualizer" for any file loaded into Iris. This name can be changed in
 the SED Builder window. Type the desired name in the bar next to "ID:"
 under "Selected SED" then click "Change." From now on, the SED Viewer
-window will display the new name on the top bar and on the graph itself.
-You can also change the name of the SED on the graph by clicking on it;
-a box pops-up in the upper-left corner of the Iris desktop, into which
-you can type the desired name. Note that this title will revert back to
-the name of the SED listed in the Builder window.
+window will display the new name on the top bar and on the plot.
 
-  [![Iris screenshot](./imgs/change_sed_name_small.jpg)](./imgs/change_sed_name.png)   
-  [![Iris screenshot](./imgs/change_sed_name2_small.jpg)](./imgs/change_sed_name2.png)
-
-#### Add Labels to Data Plot
-
-You can also add labels and move them wherever you want on the plot.
-Double-clicking on empty space in the plot window will open up a box in
-the upper-left corner of the Iris Desktop, into which you can type the
-desired label name. By default, the label will be laid-out horizontally.
-Clicking the "Flip" putton will rotate the text 90 degrees. You can move
-the label by clicking and dragging it to another position. Clicking once
-on the label will re-open the box in the upper-left corner of the
-Desktop and allow you to edit it. To delete, click on the label and
-select "Erase" in the dialogue box.
+  [![Iris screenshot](./imgs/change_sed_name_small.png)](./imgs/change_sed_name.png)   
+  [![Iris screenshot](./imgs/change_sed_name2_small.png)](./imgs/change_sed_name2.png)
 
 |   |
 |--:|
@@ -188,9 +179,45 @@ Clicking the "Metadata" button in the upper-right corner of the Iris
 display opens a window with tabs containing different levels of data and
 metadata in the SED.
 
+[![Iris screenshot](./imgs/open_metadata_browser_small.png)](./imgs/open_metadata_browser.png)
+
+The metadata tables may be sorted by clicking the header of the column by
+which you would like to sort - once for ascending order, twice for
+descending order <!--, and three times to restore the default sorting--> - and
+rearranged by clicking and dragging columns left or right. <!--A nested sort
+may be achieved by first selecting the column that will set the master
+sort, clicking and holding the Control key, and then selecting the
+column by which to sort the groups of the master sort.-->
+
+Users can view the metadata of an arbitrary selection of SED Segments from the 
+left column. Hold down Shift and click on the Segments you wish to display in 
+the Metadata Browser tabs. The rows in the Data and Point Metadata tabs will 
+update to the highlighted SED segments.
+
+[![Metadata Browser](./imgs/mb_segment_select_small.png)](./imgs/mb_segment_select.png)
+
+These sections use VOTable [pks1127-14.vot](./pks1127-14.vot) for demonstrating 
+the Metadata Browser. Refer to [Loading SED Data into Iris][entry] if you need instructions on 
+loading files from disk.
+
+### <a name="data_metadata"></a> Data tab
+
+![Metadata Browser: data tab](./imgs/data_new.png)
+
+The X and Y coordinate values of each SED data point in the Iris display
+are contained in the "Spectral Axis" and "Flux Axis" columns of the Data
+tab, and reflect the values that are currently plotted in the Iris display;
+when the plot units are changed, the Data tab updates accordingly.
+
+|   |
+|--:|
+|[[Back to top][top]]|
+
+------------------------------------------------------------------------
+
 ### <a name="point_metadata"></a> Point Metadata tab
 
-![Iris screenshot](./imgs/metadata_new.png)
+[![Metadata Browser: point metadata tab](./imgs/metadata_new_small.png)](./imgs/metadata_new.png)
 
 When available, the Metadata tab includes many useful pieces of
 information about the data points currently displayed. When a SED is
@@ -202,14 +229,6 @@ published, data point significance values, among other properties. The
 full list of metadata information available for each data point will
 depend on the specific data sources.
 
-The metadata table may be sorted by clicking the header of the column by
-which you would like to sort - once for ascending order, twice for
-descending order, and three times to restore the default sorting - and
-rearranged by clicking and dragging columns left or right. A nested sort
-may be achieved by first selecting the column that will set the master
-sort, clicking and holding the Control key, and then selecting the
-column by which to sort the groups of the master sort.
-
 |   |
 |--:|
 |[[Back to top][top]]|
@@ -218,32 +237,11 @@ column by which to sort the groups of the master sort.
 
 ### <a name="segment_metadata"></a> Segment Metadata tab
 
+[![Metadata Browser: segment metadata tab](./imgs/mb_segment_metatdata_small.png)](./imgs/mb_segment_metatdata.png)
+
 Metadata that is common to all data points in a SED segment is displayed
 under this tab, in a similar table as the one that appears under the
 Point Metadata tab.
-
-<!-- should there be a picture here? -->
-
-|   |
-|--:|
-|[[Back to top][top]]|
-
-------------------------------------------------------------------------
-
-### <a name="data_metadata"></a> Data tab
-
-![Iris screenshot](./imgs/data_new.png)
-
-The X and Y coordinate values of each SED data point in the Iris display
-are contained in the "Spectral Axis" and "Flux Axis" columns of the Data
-tab in the Metadata window, and reflect the values as they were imported
-into Iris from NED or uploaded from a file on your hard disk - i.e.,
-*not* what is currently plotted in the Iris display (in the event that
-you changed the units of the data plot within the display). For example,
-if the data were uploaded in Jansky flux units versus frequency in
-Hertz, but then you change the display units to ergs/s/cm2/Angstrom
-versus Angstrom, the data point values returned will be in Jansky flux
-units and Hertz.
 
 |   |
 |--:|
@@ -253,48 +251,87 @@ units and Hertz.
 
 ## <a name="mask"></a> Selecting and Masking SED Data Points
 
-### <a name="mask_metadata"></a> Select Points using Metadata Browser
+Users can filter and mask SED data using various tools in the Metadata Browser. These capabilities can be accessed from the toolbar under "Select --> ", or through the convenience buttons at the bottom of the Browser window. 
 
-Data points can be masked, or 'grayed out' from the Iris plot display
-with a number of tools. The most basic works by simply selecting the
-rows corresponding to these points in any one of the Point Metadata,
-Segment Metadata, or Data tabs of the Metadata window, and then click
-"View un-selected" at the bottom of that window; you can select the
-points by clicking the desired rows while holding the Ctrl/Command key
-down. In the display, the points selected in the Metadata window will
-appear fainter than the unselected points.
+![Metadata Browser buttons](./imgs/mb_filter_mask_selection_tools.png)
+ 
+Here is a quick reference list to the Metadata window's filtering tool buttons:
 
-[![Iris screenshot](./imgs/mask_points_random_small.jpg)](./imgs/mask_points_random.png)
+<!--|-|-|
+|![Iris screenshot image](./imgs/mb_select_all_button.png) | select all the points in the table|
+|![Iris screenshot image](./imgs/mb_invert_selection_button.png) | invert the selection of points|
+|![Iris screenshot image](./imgs/mb_clear_selection_button.png) | clear all point selections|
+|![Iris screenshot image](./imgs/mb_extract_button.png) | create a new SED out of the selected points|
+|![Iris screenshot image](./imgs/mb_mask_button.png) | mask the selected points. These points will be hidden from the plot and will not be included in any fits|
+|![Iris screenshot image](./imgs/mb_unmask_button.png) | unmask the selected points.|
+|![Iris screenshot image](./imgs/mb_clear_all_button.png) | clear all masks|
+|![Iris screenshot image](./imgs/mb_select_points_filter_button.png) | select the rows for which the given [filter expression](#boolean) returns True.| -->
 
-The "View selected" button performs the reverse operation, and the
-"Restore" button restores the plot display to its original state. The
-"Un-select" button removes the selection state from all rows in the
-table, without affecting the plot display.
+* ![Iris screenshot image](./imgs/mb_select_all_button.png) - select all the points in the table
+* ![Iris screenshot image](./imgs/mb_invert_selection_button.png) - invert the selection of points
+* ![Iris screenshot image](./imgs/mb_clear_selection_button.png) - clear all point selections
+* ![Iris screenshot image](./imgs/mb_extract_button.png) - create a new SED out of the selected points
+* ![Iris screenshot image](./imgs/mb_mask_button.png) - mask the selected points. These points will be hidden from the plot and will not be included in any fits
+* ![Iris screenshot image](./imgs/mb_unmask_button.png) - unmask the selected points.
+* ![Iris screenshot image](./imgs/mb_clear_all_button.png) - clear all masks
+* ![Iris screenshot image](./imgs/mb_select_points_filter_button.png) - select the rows for which the given [filter expression](#boolean) returns True.
 
-The Point Metadata table can be hierarchically sorted by clicking on
+The subsections below describe in more detail how users may view, filter, and 
+extract new datasets from their SEDs.
+
+### <a name="mask_metadata"></a> Selecting Points using Metadata Browser
+
+Data points can be masked from the Iris plot display and fitting sessions
+with a number of methods. 
+
+The most basic works by simply selecting the
+rows corresponding to these points in any one of the Point Metadata
+<!--, Segment Metadata, --> or Data tabs of the Metadata window, and then 
+clicking "Mask Points" at the bottom of that window. You can select the
+points by clicking the desired rows while pressing the Ctrl/Command key. In 
+the display, the selected points will be removed. 
+
+[![Metadata Browser: select points](./imgs/mask_points_random_small.png)](./imgs/mask_points_random.png) [![Metadata Browser: select points](./imgs/mask_points_random2_small.png)](./imgs/mask_points_random2.png)
+
+In the Metadata Browser, masked points are denoted by a checkmark in 
+the "Masked" column. The "Masked" column is only present when at least one point 
+is masked. Note that this checkbox column is not clickable; to mask/unmask
+points, select the rows you wish to edit, then click ![button](./imgs/mb_mask_button.png) or 
+![button](./imgs/mb_unmask_button.png).
+
+<!--
+The Metadata Browser provides a couple quick selection tools for table rows:
+"Select All" selects all the points shown in the current tab. Users can invert 
+the selection of points with the "Invert Selection" button. The 
+"Clear Selection" button removes the selection state from all rows in the
+table, without affecting the plot display. 
+
+To unmask a point, select it in the 
+table, then click "Unmask Points" at the bottom of the frame. The "Clear All" 
+button removes all selections and masks, restoring the plot and table displays to their original states. 
+-->
+
+The Data and Point Metadata tables can be hierarchically sorted by clicking on
 specific column headers. Clicking once sorts the rows in ascending order
-of that column; next click sorts it in descending order, and the next
+of that column; the next click sorts it in descending order <!--, and the next
 click places the rows back on their original ordering. By holding the
 Ctrl key pressed when clicking on a column header, the sorting state of
 previously sorted columns is kept unchanged, thus enabling hierarchical
-sorting.
-
-Using that mechanism, rows can be re-ordered together according to
+sorting-->. Using that mechanism, rows can be re-ordered together according to
 relatively complex selection criteria against column content. This
 facilitates the lumping together of the desired rows, that can in turn
 be selected and operated upon with the tools described in the preceding
-paragraph. For example, we can click on the "DataSignificance" tab
-(column c) and easily mask data points without uncertainties by holding
+paragraph. 
+
+For example, we can click on the "DataComments" column and easily 
+mask data points with values "Recalibrated Data" by holding down the Shift key and clicking the top and bottom of the "Recalibrated Data" block in the table (see figure below).
+
+<!--without uncertainties by holding
 down the Shift key and clicking the top and bottom of the "no
-uncertainty reported" block in the table (see figure below).
+uncertainty reported" block in the table (see figure below).-->
 
 [![Iris
-screenshot](./imgs/view_unselected_small.jpg)](./imgs/view_unselected.png)
-
-*Note that these data masking operations relate to the display only.
-Internally, masked data is kept intact and will be used in data analysis
-and modeling performed by Iris. To really get rid of unwanted data,
-please refer to section 'Extracting a Filtered SED' below.*
+screenshot](./imgs/mask_points_column_sort_small.png)](./imgs/mask_points_column_sort.png)
 
 *Note that columns can be re-positioned at will by dragging their headers
 horizontally.*
@@ -319,14 +356,13 @@ non-destructive, meaning that by successively clicking on points on the
 display, one can add the rows corresponding to each one, to the set of
 selected rows.
 
-Another way is by zooming over the region that contains the points one
+<!--Another way is by zooming over the region that contains the points one
 wants to select, and then clicking the "Select from plot" button on the
 Metadata window. The table rows corresponding to the data points that
 show up inside the plot viewport will be added to the selected set of
-rows already on the table.
+rows already on the table.-->
 
-  [![Iris screenshot](./imgs/plot3_zoom_box_angs_small.png)](./imgs/plot3_zoom_box_angs.png)   
-  [![Iris screenshot](./imgs/zoomed_in_with_metadata_small.png)](./imgs/zoomed_in_with_metadata.png)
+[![Iris screenshot](./imgs/select_points_from_plot_click_small.png)](./imgs/select_points_from_plot_click.png)
 
 |   |
 |--:|
@@ -339,42 +375,82 @@ rows already on the table.
 In order to enable even more complex selection criteria though, table
 rows can be selected based on the result of an arbitrary Boolean
 expression computed on selected column contents. This expression is
-entered in the 'Type boolean expression:' text field, and by hitting
+entered in the 'Filter Expression' text field, and by hitting
 Return, or clicking on the 'Select points' button, the expression is
 computed for every row in the table, and the row is selected if the
-Boolean result is True. Data points selected by the Boolean filter on
+Boolean result is True. 
+
+<!--**NOT TRUE ANYMORE** Data points selected by the Boolean filter on
 one table (metadata or data) are automatically propgated to the other
-table.
+table.-->
 
-Iris uses a Python interpreter to parse and execute the expression, thus
-the syntax for this expression is plain Python. All Python built-in and
-string functions are supported. See the Python documentation here:
-<http://docs.python.org/2/library/functions.html>
-[http://docs.python.org/2/library/string.html\#string-function](http://docs.python.org/2/library/string.html#string-functions)
+In the expression, columns are referred by their ordering, where the first 
+column is 0. Columns are specified by a "`$`" followed by the column number. 
+For example, given the table below, one may select the points which have an 
+associated uncertainty with
 
-In the expression, columns are referred by their name prefix. Notice
-that each column name starts with a lower-case letter followed by a
-colon (':'). This is the prefix one should use in the expression to
-refer to the column.
+    $4 > 0
 
-An example of a valid expression that can be applied to the NED-supplied
-SED for 3C 066A could be:
+then they can mask the points without associated errors by clicking 
+"Invert Selection".
 
-    n: > 1.0 and c:.rstrip().endswith('reported')
+[![filter expression selection](./imgs/filter_expression_selection_small.png)](./imgs/filter_expression_selection.png) [![filter expression selection](./imgs/filter_expression_selection_invert_small.png)](./imgs/filter_expression_selection_invert.png)
 
-In this SED, column `n:` contains the DataFluxPublishedValue metadata
-property, a floating-point value, and column `c:` contains the
-DataSignificance metadata property, a string. (See more examples of
-using the Boolean filter in [Co-plotting Separate
+Columns may be arbitrarily combined in an expression; what is required are 
+boolean comparisons with at least one column on the left- or right-hand side. 
+Comparisons may be combined with the logical operators `AND`, `OR`, and `NOT`. 
+Expressions are evaluated following the basic order of operations. Iris uses 
+[javaluator]() under the hood as to evaluate numeric expressions. All 
+mathematical operators `(*, /, +, -,^,log(),log10())`  allowed in javaluator 
+may be used in the filter expression.
+
+|                 Comparison Operators ||                   Logical Operators |
+|-----|-------------------------------:|-----|-------------------------------:|
+| ==  |                       equal to | AND |    "and"; intersection of sets |
+| !=  |                   not equal to | OR  |            "or"; union of sets |
+| >   |                   greater than | NOT | "and not"; subtraction of sets |
+| >=  |       greater than or equal to |||
+| <   |                      less than |||
+| <=  |          less than or equal to |||
+[Filter expression field operators]
+
+s
+
+|                    Logical Operators |
+|-----|-------------------------------:|
+| AND |    "and"; intersection of sets |
+| OR  |            "or"; union of sets |
+| NOT | "and not"; subtraction of sets |
+
+
+Here is an example of a more complex filter expression:
+
+    $3 <= $1 * ($2 + 2.0 * $4) AND $4 > 0
+
+This means "select points where the values in column 3 are less than or 
+equal to the values of (column 2 plus 2 times column 4), all times column 1. 
+Out of these selected points, only pick those whose values in column 4 are 
+greater than 0".
+
+[![complex filter expression](./imgs/complex_filter_expression_small.png)](./imgs/complex_filter_expression.png)
+
+**Caveat:** Only numeric columns may be filtered in Iris 3.0. <!--String-valued 
+columns will be selectable via Filter Expressions in Iris 3.0.-->
+
+**WARNING:** Currently columns may only be specified by their column order. 
+If a user applies a mask to come data points, the new column will push the 
+columns over by 1, so that one must add 1 to their column specifiers in the 
+filter expression. The same applies for a user re-ordering the columns; if the 
+
+For example, if the column expression is
+
+    $2 > 1.5 * $3
+   
+and the user moves the third column to the place of the second column, `$2` 
+refers to the *current* 2nd column, which was previously column `3`. 
+
+(See more examples of using the Boolean filter in [Co-plotting Separate
 SEDs](#coplot))
-
-[![Iris screenshot](./imgs/boolean_filter_example_small.jpg)](./imgs/boolean_filter_example.png)
-
-Of course, in this very simple example the same selection could be
-accomplished by just sorting the table by column `c:` first, and then
-holding the Ctrl key and sorting by column `n:`. The desired rows would
-be easy to spot as a single group or contiguous rows, and could be
-selected with a simple mouse gesture.
 
 |   |
 |--:|
@@ -388,14 +464,14 @@ The "Extract" function in the Metadata window allows you to go one step
 further than simply masking unwanted data points; it allows you to
 extract a whole new SED consisting of only the selected data points.
 
-[![Iris screenshot](./imgs/metadata_new_selected.png)](./imgs/metadata_new_selected.png)
+[![Iris screenshot](./imgs/metadata_new_selected_small.png)](./imgs/metadata_new_selected.png)
 
 Making the desired row selections in the Metadata window and then
 clicking "Extract" will open a new SED in the SED Builder window named
 "FilterSED" - an ID which you can change - which will display in the SED
 Viewer.
 
-[![Iris screenshot](./imgs/extracted_sed_new_small.jpg)](./imgs/extracted_sed_new.png)
+[![Iris screenshot](./imgs/extracted_sed_new_small.png)](./imgs/extracted_sed_new.png)
 
 |   |
 |--:|
@@ -407,67 +483,76 @@ Viewer.
 
 One can simultaneously plot two or more separate SEDs using the Co-plot
 function in the SED Viewer. In this example, we will co-plot two out of
-the three separate SEDs imported from NED: M82, M87 and NGC7714. Click
-the "Display" button on the Viewer toolbar (upper-left corner) and
-select "Co-plot." A menu with the list of all SEDs available for
+the three separate SEDs imported from NED: M82, M87 and NGC7714.
+
+Click the "View" button on the Viewer toolbar (upper-left corner) and
+select "Coplot..." A menu with the list of all SEDs available for
 co-plotting will pop up.
 
-  ![Iris screenshot](./imgs/coplot_small_display.png)   
-  [![Iris screenshot](./imgs/coplot_menu_sedbuilder_small.jpg)](./imgs/coplot_menu_sedbuilder.png)
+  ![Iris screenshot](./imgs/coplot_small_display.png)  [![Iris screenshot](./imgs/coplot_menu_sedbuilder_small.png)](./imgs/coplot_menu_sedbuilder.png)
 
 To co-plot, hold-down the Control key (Command key on Mac systems) and
-click on the SED names you wish to view, and then click the "Co-plot"
-button on the menu (to select all SEDs, simply click on the first SED,
-hold-down the Shift key, click on the last SED, and hit "Co-plot").
-Here, we've selected M82 and NGC7714. The Viewer window updates with all
+click on the SED names you wish to view, and then click the "Plot Seds"
+button on the menu (to select all SEDs, click on the first SED,
+hold-down the Shift key, click on the last SED, and hit "Plot Seds").
+Here, we've selected M82 and NGC7714. 
+
+![Iris screenshot](./imgs/coplot_small_display2.png)
+
+The Visualizer updates with all
 SEDs selected for co-plotting. Each SED is plotted with a different
 color, and the color-coding and the names of the SEDs co-plotted are
-shown in the legend (which can be deleted with a mouse click). Note that
+shown in the legend <!--(which can be deleted with a mouse click)-->(which can 
+be hidden by unchecking "View --> Show Legend" in the menu bar). Note that
 the axis units may change after co-plotting; use the "Units" button in
 the upper-right corner of the SED Viewer if you wish to change the axes
-units in Co-plot mode.
+units in co-plot mode.
 
-[![Iris Screenshot](./imgs/coplot3_units_changed_small.jpg)](./imgs/coplot3_units_changed.png)
+[![Iris Screenshot](./imgs/coplot3_units_changed_small.png)](./imgs/coplot3_units_changed.png)
 
-In co-plot mode, we can still access the metadata of each photometric
-point by right-clicking on it, and the Metadata Browser (that can be
+In co-plot mode, you can still access the metadata of each photometric
+point by clicking on it, and the Metadata Browser (that can be
 accessed by clicking on the "Metadata" button in the SED Viewer window)
 can be used to explore the distribution of data and metadata for all
-photometric points. In this case, the metadata and data of both SEDs are
-listed in the same window since we are visualizing two different SEDs.
-Data belonging to different sources can be selected easily using a
-boolean filter based on one of the metadata, which is added to the
-original metadata of each photometric point when the Metadata Browser is
-opened in co-plot mode. The second column of the metadata in the "Point
-metadata" tab of the metadata browser, named "b:SED", contains the name
-of the SED for each point, and can be used to extract subsets of points
-belonging to one SED using a simple boolean filter.
+photometric points in the plotted SEDs. 
 
-For example, if our SEDs are named "m82" and "ngc7714", the photometric
-points belonging to m82 can be selected by entering the boolean filter:
-"b: == 'm82'" in the "Type boolean expression" field of the Metadata tab
-of the Metadata Browser, and clicking on "Select points". The selected
-points (belonging to the m82 SED) will be highlighted in the window.
+### <a name="coplot-example"></a>Metadata Browser Example with Co-plotted SEDs
 
-[![Iris Screenshot](./imgs/coplot4.jpg)](./imgs/coplot4.png)
+In this example, we use the same NED SEDs "M82" and "NGC7714" from above. 
 
-We can also create new SEDs with information from the co-plotted SEDs
-using the Metadata Browser. Let's say we're interested in points with
-published uncertainties and with flux values larger than 1.0 Jy (this
-will be easy as these are the units we imported M82 and NGC7714 with).
-Click on the "Data" tab and type 'e: &gt; 1.0 and f: !="" ' in the
-Boolean filter, where e: is the FluxAxis column, in Jy, and f: is
-StatError. We display the selected points by clicking "View Selected."
-The masked data is faded in the SED Viewer.
+In co-plot mode, the Metadata Browser orders the rows by SED first, then by 
+spectral value. This is true for both the Data and Point Metadata tabs. The same
+filtering, masking, and selection capabilities are available in co-plot mode.
 
-[![Iris Screenshot](./imgs/coplot5_small.jpg)](./imgs/coplot5.png)
+[![Iris Screenshot](./imgs/coplot4_small.png)](./imgs/coplot4.png)
 
-We can view the selected points-only by clicking "Extract" on the
-Metadata Browser; a new SED, called "FilterSed," is displayed in the
-Viewer, and is available for saving, appending and analyzing in the SED
+To restore the original row ordering of the co-plotted table, click on the 
+"Index" column in either tab. 
+
+Let's say we're interested in points with
+published uncertainties and with flux values larger than 1.0 Jy. We can mask 
+out the other points from the plot and the Fitting Tool. 
+Click on the "Data" tab and type `$2 > 1.0 AND $4 > 0` into the
+Filter Expression field, where `$2` is the Flux\_Value column, in Jy, and `$4` is
+Flux\_Error. We then click "Select Points" --> "Invert Selection" --> "Mask Points". 
+
+[![Iris Screenshot](./imgs/coplot5_small.png)](./imgs/coplot5.png)
+
+One can "Extract" the desired points to a new SED. If you masked the points in the example above, you can either 
+
+   * "Clear All" the masked points, type in the filter expression `$2 > 1.0 AND $4 > 0`, click "Select Points", then "Extract"
+
+or 
+
+   * sort the Masked column, click the first unmasked point, hold the Shift key, and select the last unmasked point, then click "Extract." An image of this method is shown below:
+   
+[![Iris Screenshot](./imgs/coplot5.5_small.png)](./imgs/coplot5.5.png)
+
+Either method will produce new SED called "FilterSed." This SED is displayed in the
+Viewer, and is available for saving, appending and analyzing from the SED
 Builder window. The final SED is displayed in the figure below.
 
-[![Iris Screenshot](./imgs/coplot6_small.jpg)](./imgs/coplot6.png)
+[![Iris Screenshot](./imgs/coplot6_small.png)](./imgs/coplot6.png)
 
 |   |
 |--:|
@@ -475,6 +560,12 @@ Builder window. The final SED is displayed in the figure below.
 
 ------------------------------------------------------------------------
 
+
+<!-- 
+THIS SECTION CAN GO BACK WHEN THE COLOR-BY-POINTS FUNCTIONALITY IS ADDED.
+-->
+
+<!--
 ## <a name="coloring"></a> Coloring Data Points based on Metadata
 
 The drop selector at the right bottom of the Point Metadata and Data
@@ -495,19 +586,19 @@ color space.
 The color space is defined
 [here](http://www.cl.cam.ac.uk/teaching/1112/ECAD+Arch/lab2/extensions.html)
 
-|   |
-|--:|
-|[[Back to top][top]]|
-
-------------------------------------------------------------------------
+-->
 
 ## <a name="save_plot"></a> Saving Plot Image to File
 
 The SED data currently displayed in Iris may be printed to a hardcopy
 image in either JPG (.jpg), PNG (.png), GIF (.gif) or BITMAP (.bmp)
-format, by selecting *File-&gt;Save plot to image file*, and making the
+format, by selecting "File --> Export plot to image file", and making the
 desired image format selection. The image will scale to the size and
 shape of the plot in the Iris Visualizer.
+
+[![Plotter screenshot](./imgs/export_to_file_small.png)](./imgs/export_to_file.png) 
+
+[![Plotter screenshot](./imgs/export_to_file_types.png)](./imgs/export_to_file_types.png) [![Plotter screenshot](./imgs/m82_fit_mir_template.jpg)](./imgs/m82_fit_mir_template.jpg)
 
 |   |
 |--:|
@@ -515,6 +606,14 @@ shape of the plot in the Iris Visualizer.
 
 ------------------------------------------------------------------------
 
+
+<!-- 
+THIS SECTION CAN GO BACK WHEN THE APERTURE CORRECTION FUNCTIONALITY IS ADDED.
+
+OR, THIS COULD BE THE SECTION FOR SCALING SEDS / SEGMENTS BY SOME VALUE.
+-->
+
+<!--
 ## <a name="aperture"></a> Simple Aperture Correction
 
 By right-clicking (Ctrl-click on MacOS) on a specific data point on the
@@ -529,8 +628,8 @@ only.
 This window has an extra tab named 'Aperture Correction' that enables
 one to apply a simple multiplicative flux correction to the data point.
 
-Entering either the desired flux -- or the ratio of the desired flux to
-the original flux -- and clicking the appropriate button will modify the
+Entering either the desired flux - or the ratio of the desired flux to
+the original flux - and clicking the appropriate button will modify the
 data point flux. Iris keeps the original flux so successive applications
 of this tool will not cause the original flux value to be lost. In that
 way, we can always assign a precise meaning to the ratio value.
@@ -546,13 +645,11 @@ point on the Iris display plot, holding the Shift key down while
 dragging. Note that this feature is always enabled, even when no
 Aperture Correction window is on screen.
 
-|   |
-|--:|
-|[[Back to top][top]]|
-
-------------------------------------------------------------------------
+-->
 
 ## <a name="broadcast"></a> Iris Interoperability with other Virtual Observatory Applications
+
+<!-- MAKE SURE THIS FUNCTIONALITY IS ADDED BEFORE 3.0 GOES OUT -->
 
 Iris is able to communicate with other SAMP-enabled applications, such
 as Topcat and Aladin. So long as the SAMP status in the lower left-hand
@@ -588,7 +685,7 @@ and harness all of the powerful data manipulation and data discovery
 features available in Topcat.
 
 [![Iris
-screenshot](./imgs/topcat_examplesmall.jpg)](./imgs/topcat_example.png)
+screenshot](./imgs/topcat_example_small.png)](./imgs/topcat_example.png)
 
 |   |
 |--:|
@@ -605,8 +702,10 @@ screenshot](./imgs/topcat_examplesmall.jpg)](./imgs/topcat_example.png)
 |  12 Jun 2012 |  updated for Iris 1.1			|
 |  27 Nov 2012 |  updated for Iris 1.2			|
 |  05 Aug 2013 |  Updated for Iris 2.0. Added co-plot capability, interoperability with SAMP-enabled applications, and saving plot images discussions. Updated screenshots and fixed table of contents. |
-|  02 Dec 2013 |  Updated for Iris 2.0.1 |
-|  07 May 2015 |  Updated for Iris 2.1 beta. |
+|  02 Dec 2013 |  Updated for Iris 2.0.1       |
+|  07 May 2015 |  Updated for Iris 2.1 beta.   |
+|  Jan 03 2017 |  Updated text for Iris 3.0.   |
+|  Feb 22 2017 |  Updated images for Iris 3.0. |
 
 ------------------------
 
@@ -616,6 +715,8 @@ screenshot](./imgs/topcat_examplesmall.jpg)](./imgs/topcat_example.png)
 
 <!-- external links -->
 [topcat]: http://www.star.bris.ac.uk/~mbt/topcat/#docs "TOPCAT"
+[stilts]:  http://www.star.bris.ac.uk/~mbt/stilts/ "STILTS"
+[stil]:   http://www.star.bris.ac.uk/~mbt/stil/ "STIL"
 
 <!-- threads -->
 [sedstacker]: 		../../threads/science/sedstacker/index.html "SED Stacker"

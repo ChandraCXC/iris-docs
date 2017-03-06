@@ -18,7 +18,7 @@ objects.
 This thread demonstrates how users may redshift, normalize, and
 statistically combine groups of SEDs with Iris' tool *SED Stacker*.
 
-**Last Update:** 07 May 2015 - First issue. Added in Iris 2.1 beta.
+**Last Update:** 22 Jan 2017 - Updated for Iris 3.0. Minor updates.
 
 
 ------------------------------------------------------------------------
@@ -138,7 +138,7 @@ normalization constants (default, 1.0), and the number of points in each
 SED.
 
 ![snapshot of SED Stacker
-Component](./imgs/added-seds-table_whole-frame.jpg)
+Component](./imgs/added-seds-table_whole-frame.png)
 
 **Figure 3.** The SED Stacker frame after populating a Stack with SEDs.
 
@@ -149,7 +149,7 @@ user then adds the redshift values for the segments by typing the
 redshift into the corresponding cell in the Redshift column.
 
 ![snapshot of SED Stacker Component](./imgs/treat-segments_add_small.jpg)
-![snapshot of SED Stacker Component](./imgs/treat-segments_added-redshifts_small.jpg)
+![snapshot of SED Stacker Component](./imgs/treat-segments_added-redshifts_small.png)
 
 **Figure 4.** *Top*: Adding SED segments as individual SEDs to a Stack.
 Notice that "Treat Segments as SEDs" is checked. *Bottom*: Assigning
@@ -167,7 +167,7 @@ Any number of Stacks can be added to SED Stacker. Stacks can be renamed
 by right-clicking on the Stack name in the Open Stacks, selecting
 "Rename..." and inputting the new, unique ID.
 
-![renaming a Stack](./imgs/rename-popup_small.jpg)   ![\[renaming a Stack\]](./imgs/rename-input_small.jpg)
+![renaming a Stack](./imgs/rename-popup_small.png)   ![\[renaming a Stack\]](./imgs/rename-input_small.jpg)
 
 **Figure 5.** Changing the name of a Stack.
 
@@ -182,8 +182,8 @@ be seen in the SED Builder and SED Viewer. There are also convenient
 check-boxes next to each operational button that let the user create a
 SED each time they redshift or normalize.
 
-![adding a SED-represntation of the Stack to the SED
-Builder](./imgs/create-sed_featureless_small.jpg)
+[![adding a SED-represntation of the Stack to the SED
+Builder](./imgs/create-sed_featureless_small.png)](./imgs/create-sed_featureless.png)
 
 **Figure 6.** A SED-represntation of the Stack is added to the SED
 Builder and Viewer for more analysis using the "Create SED" button in
@@ -194,7 +194,8 @@ Users can restore the SEDs back to their original values by clicking
 normalizations done to the Stack.
 
 Stacks can be removed from the session by clicking the "Delete" button
-in the bottom-right corner. Iris will ask for the user's confirmation
+in the bottom-right corner, or by right-clicking on the Stack under "Open
+Stacks" and selecting "Delete." Iris will ask for the user's confirmation
 before deleting a Stack.
 
 |   |
@@ -225,8 +226,8 @@ Integrate Tool:
 
 By default, this option is checked.
 
-![screenshot of SED Stacker
-component](./imgs/stack-redshifted_small.jpg)
+[![screenshot of SED Stacker
+component](./imgs/stack-redshifted_small.png)](./imgs/stack-redshifted.png)
 
 **Figure 8.** Shifting the Featureless AGN to z=0.0. We correct the flux
 and automatically create a SED-representation of the shifted Stack. The
@@ -284,7 +285,7 @@ item in the drop-down list. The integrals are calculated using the
 trapezoidal rule.
 
 ![screenshot of SED Stacker
-component](./imgs/sedstacker-frame_normalized_small.jpg)
+component](./imgs/sedstacker-frame_normalized_small.png)
 
 **Figure 10.** Featureless AGN normalized to the median integral of all
 the SEDs plotted in mJy vs microns. The normalization constants are the
@@ -301,8 +302,8 @@ box next to "At point:". The SEDs are interpolated via a
 nearest-neighbor method to calculate the normalization constant at point
 (X, Y).
 
-![screenshot of SED Stacker component](./imgs/sedstacker-frame_shifted-and-normed_small_cut.jpg)
-![screenshot of SED Stacker component](./imgs/stack_normalized-to-point_small.jpg)
+![screenshot of SED Stacker component](./imgs/sedstacker-frame_shifted-and-normed_small_cut.png)
+[![screenshot of SED Stacker component](./imgs/stack_normalized-to-point_small.png)](./imgs/stack_normalized-to-point.png)
 
 **Figure 11.** Featureless AGN normalized to the point (100 microns, 10
 mJy). The normalization constants are the values multiplied to the SEDs
@@ -349,7 +350,7 @@ normalization.
 On the right side of the SEDStacker GUI are the stacking options.
 
 ![screenshot of SED Stacker
-component](./imgs/stacking-options_default_small.jpg)
+component](./imgs/stacking-options_default_small.png)
 
 **Figure 12.** Stacking options.
 
@@ -395,8 +396,8 @@ Builder and SED Viewer. Unlike redshifting and normalizing, SEDs can be
 stacked any number of times with different sets of stacking parameters
 without affecting the SEDs.
 
-![screenshot of SED Stacker
-component](./imgs/featureless-agn-stacked_small.jpg)
+[![screenshot of SED Stacker
+component](./imgs/featureless-agn-stacked_small.png)](./imgs/featureless-agn-stacked.png)
 
 **Figure 13.** The averaged SED of the rest-frame, normalized (by
 integration) featureless AGN using logarithmic binning with bin sizes of
@@ -456,8 +457,8 @@ shifted SED. If you do not want to make this correction, you may add the
 SED into a Stack, un-select "Correct flux," select "Create SED," and
 click "Redshift."
 
-![screenshot of SED
-Stacker](./imgs/useful-tips_redshifting_small.jpg)
+[![screenshot of SED
+Stacker](./imgs/useful-tips_redshifting_small.png)](./imgs/useful-tips_redshifting.png)
 
 **Figure 14.** Shifting a SED to rest-frame without correcting for the
 flux.
@@ -491,8 +492,8 @@ and normalize. In the SED Viewer, you can open the Metadata Browser and
 use the Boolean filter to select the points with the same target name
 (column b:), and Extract the highlighted points to a new SED.
 
-![screenshot of SED Stacker](./imgs/normalize-cosmos-agn_useful-tips_small.jpg)
-![screenshot of SED Stacker](./imgs/normalize-cosmos-agn_useful-tips_metadata-browser_small.jpg)
+[![screenshot of SED Stacker](./imgs/normalize-cosmos-agn_useful-tips_small.png)](./imgs/normalize-cosmos-agn_useful-tips.png)
+![screenshot of SED Stacker](./imgs/normalize-cosmos-agn_useful-tips_metadata-browser_small.png)
 
 **Figure 15.** *Top*: Normalizing the rest-frame COSMOS AGN to the
 average flux of the SEDs at 2.9 microns. *Bottom*: Then we can extract
@@ -617,6 +618,8 @@ the individual SEDs out using the Metadata Broswer.
 | Date          | Change							   |
 |---------------|--------------------------------------|
 |  07 May 2015  | First issue. Added in Iris 2.1 beta. |
+|  01 Jan 2017  | Updated for Iris 3.0b2. GUI updates. |
+|  22 Feb 2017  | Updated for Iris 3.0. Minor updates. |
 
 ----------------------------------
 
